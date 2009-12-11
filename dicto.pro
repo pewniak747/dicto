@@ -3,7 +3,7 @@
 ######################################################################
 
 TEMPLATE = app
-TARGET = dicto
+TARGET = Debug/dicto
 RC_FILE = dicto.rc
 DEPENDPATH += .
 INCLUDEPATH += .

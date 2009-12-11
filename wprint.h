@@ -27,6 +27,8 @@ class WPrint : public QWidget {
 	QLabel *sizeLabel;
 	QComboBox *printBox;
 	QLabel *printLabel;
+	QPushButton *printFlashcardsButton;
+	QComboBox *flashcardSizeCombo;
 	QPushButton *submitButton;
 	QPushButton *cancelButton;
 	
