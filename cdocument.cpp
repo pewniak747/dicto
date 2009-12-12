@@ -1,10 +1,10 @@
 /*******************************************************************************/
-/** dicto v 1.1 CDocument class implementation file                           **/
+/** dicto v 1.3 CDocument class implementation file                           **/
 /** This file is published under GNU/GPL licence                              **/
 /** http://www.gnu.org/licenses/gpl-3.0.txt                                   **/
 /** author: Tomasz Pewiński "pewniak747"                                      **/
 /** contact: pewniak747@gmail.com                                             **/
-/** http://dicto.ugu.pl                                                       **/
+/** http://dicto.sourceforge.net                                              **/
 /*******************************************************************************/
 
 #include <QFile>
@@ -25,9 +25,9 @@ CDocument::CDocument() {
 void CDocument::saveToFile(bool saveas) {
     if(this->filename=="" || saveas) {
         filename=QFileDialog::getSaveFileName(wMain,
-                                              "Wybierz plik",
+                                              "Choose file",
                                               "./",
-                                              "pliki dicto (*.dic *.txt)");
+                                              "dicto files (*.dic *.txt)");
     }
 
     QFile file(filename);
@@ -37,7 +37,7 @@ void CDocument::saveToFile(bool saveas) {
      QTextStream out(&file);
 
      out << "################################################################################\n";
-     out << "# This file was created by dicto v. 1.0                                        #\n";
+     out << "# This file was created by dicto v. 1.3                                        #\n";
      out << "# This file is incompatibile with newer versions of dicto, as well as linGO    #\n";
      out << "# Applying changes to this file may cause several program errors               #\n";
      out << "# Proceed with caution                                                         #\n";
@@ -46,8 +46,20 @@ void CDocument::saveToFile(bool saveas) {
 
      out << "#dictionary:\n";
 
-     for (unsigned i=0; i<this->dictionary.size(); i++)
-        out << this->dictionary[i].word<< ";" <<this->dictionary[i].translation << "\n";
+     for (unsigned i=0; i<this->dictionary.size(); i++) {
+        out << this->dictionary[i].word<< ";" <<this->dictionary[i].translation;
+        if(dictionary[i].sp != spNone) {
+			int ss;
+			speechPart spart = dictionary[i].sp;
+			if(spart == spNoun) ss=1;
+			else if(spart == spVerb) ss=2;
+			else if(spart == spAdjective) ss=3;
+			else if(spart == spAdverb) ss=4;
+			else if(spart == spOther) ss=5;
+			out << ";" << ss;
+		}
+        out << "\n";
+	}
 
      out << "\n";
      out << "#languages:\n";
@@ -63,11 +75,13 @@ void CDocument::saveToFile(bool saveas) {
      filechanged=false;
 }
 
-void CDocument::readFromFile() {
-    QString newfilename=QFileDialog::getOpenFileName(wMain,
-                                                     "Wybierz plik",
+void CDocument::readFromFile(QString newfilename) {
+    if(newfilename.isEmpty()) {
+		newfilename=QFileDialog::getOpenFileName(wMain,
+                                                     "Choose file",
                                                      "./",
-                                                     "pliki dicto (*.dic *.txt)");
+                                                     "dicto files (*.dic *.txt *.)");
+	}
 
     if (!newfilename.isEmpty()) {
         QFile file(newfilename);
@@ -97,7 +111,21 @@ void CDocument::readFromFile() {
             else {
                  CEntry newEntry;
                  newEntry.word=line.section(";",0,0);
-                 newEntry.translation=line.section(";",1,1);\
+                 newEntry.translation=line.section(";",1,1);
+                 if(line.count(";") == 2) {
+					 speechPart sp;
+					 int spart = line.section(";", 2, 2).toInt();
+					 switch(spart) {
+						case 0 : sp = spNone; break;
+						case 1 : sp = spNoun; break;
+						case 2 : sp = spVerb; break;
+						case 3 : sp = spAdjective; break;
+						case 4 : sp = spAdverb; break;
+						case 5 : sp = spOther; break;
+						default : sp = spOther; break;
+					}
+					newEntry.sp = sp;
+				 }
                  newEntry.wordstatus=false;
                  this->dictionary.push_back(newEntry);
                   wMain->updateStatusbar();
@@ -129,9 +157,10 @@ void CDocument::sortDictionary() {
     for(unsigned i = 0; i < dictionary.size(); i++) {
         bool swapped=false;
         for(unsigned l = dictionary.size()-1; l>i; l--) {
-            if(ifSwap(dictionary[l].word, dictionary[l-1].word)) {
+            if(ifSwap(dictionary[l].translation, dictionary[l-1].translation)) {
                 std::swap(dictionary[l], dictionary[l-1]);
                 swapped=true;
+                filechanged=true;
             }
         }
         if(!swapped) break;

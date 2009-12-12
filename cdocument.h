@@ -1,10 +1,10 @@
 /*******************************************************************************/
-/** dicto v 1.1 CDocument class header file                                   **/
+/** dicto v 1.3 CDocument class header file                                   **/
 /** This file is published under GNU/GPL licence                              **/
 /** http://www.gnu.org/licenses/gpl-3.0.txt                                   **/
 /** author: Tomasz Pewiński "pewniak747"                                      **/
 /** contact: pewniak747@gmail.com                                             **/
-/** http://dicto.ugu.pl                                                       **/
+/** http://dicto.sourceforge.net                                              **/
 /*******************************************************************************/
 
 #ifndef CDOCUMENT_H
@@ -26,7 +26,7 @@ public:
     QString lang_foreign;
 
 public:
-    void readFromFile();
+    void readFromFile(QString newfilename);
     void saveToFile(bool saveas=false);
     void sortDictionary();
 

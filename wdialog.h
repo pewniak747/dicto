@@ -1,10 +1,10 @@
 /*******************************************************************************/
-/** dicto v 1.1 WDialog class header file                                     **/
+/** dicto v 1.3 WDialog class header file                                     **/
 /** This file is published under GNU/GPL licence                              **/
 /** http://www.gnu.org/licenses/gpl-3.0.txt                                   **/
 /** author: Tomasz Pewiński "pewniak747"                                      **/
 /** contact: pewniak747@gmail.com                                             **/
-/** http://dicto.ugu.pl                                                       **/
+/** http://dicto.sourceforge.net                                              **/
 /*******************************************************************************/
 
 #ifndef WDIALOG_H
@@ -29,8 +29,10 @@ class WDialog : public QWidget {
     private:
         QLabel *wordLabel;
         QLabel *translationLabel;
+        QLabel *spLabel;
         QLineEdit *wordEdit;
         QLineEdit *translationEdit;
+        QComboBox *spBox;
         QPushButton *submitButton;
         QPushButton *cancelButton;
 

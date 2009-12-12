@@ -1,10 +1,10 @@
 /*******************************************************************************/
-/** dicto v 1.1 WMain class header file                                       **/
+/** dicto v 1.3 WMain class header file                                       **/
 /** This file is published under GNU/GPL licence                              **/
 /** http://www.gnu.org/licenses/gpl-3.0.txt                                   **/
 /** author: Tomasz Pewiński "pewniak747"                                      **/
 /** contact: pewniak747@gmail.com                                             **/
-/** http://dicto.ugu.pl                                                       **/
+/** http://dicto.sourceforge.net                                              **/
 /*******************************************************************************/
 
 #ifndef WMAIN_H
@@ -12,11 +12,12 @@
 
 #include <QtGui>
 #include <QMainWindow>
+#include <vector>
 #include "cdocument.h"
 #include "centry.h"
 #include "wabout.h"
 
-#define VERSION "1.1"
+#define VERSION "1.3"
 #define ICON ":/dictologo.png"
 
 enum Mode {normalMode, disabledMode, enabledMode, testMode, examMode};
@@ -27,12 +28,13 @@ class WMain : public QMainWindow {
 public:
     WMain(QWidget *parent = 0);
     ~WMain();
-    void test(unsigned howmany, bool intoforeign, bool include);
-    void exam(unsigned howmany, bool intoforeign, bool include);
+    void test(unsigned howmany, bool intoforeign, bool include, bool ignoreSynonyms);
+    void exam(unsigned howmany, bool intoforeign, bool include, bool ignoreSynonyms);
     void centerWidgetOnScreen(QWidget*);
 
     CDocument *cDocument;
     Mode mode;
+    QPrinter *printer;
 
 private:
     QMenu *fileMenu;
@@ -43,6 +45,7 @@ private:
     QAction *editAction;
     QAction *deleteAction;
     QAction *sortAction;
+    //QAction *findAction;
     QAction *newAction;
     QAction *openAction;
     QAction *saveAction;
@@ -60,18 +63,22 @@ private:
     QLineEdit *answerEdit;
     QPushButton *submitWordButton;
     QPushButton *cancelTestButton;
+    QLabel *examStatusLabel;
     QTableWidget *tableWidget;
     QPushButton *submitExamButton;
     QPushButton *cancelExamButton;
     QProgressBar *progressBar;
-    QLabel *statusLabel;
-    QPrinter *printer;
+    //QLabel *statusLabel;
+
+    std::vector <int> currentList;
 
     bool intoforeign;
     bool include;
+    bool ignoreSynonyms;
     unsigned countdown;
     unsigned howmany;
     CEntry *currentEntry;
+    CEntry *previousEntry;
     std::vector <CEntry*> examTab;
     bool answered;
     unsigned hintsize;
@@ -100,6 +107,7 @@ private slots:
     void hint();
     void canceltest();
     void cancelexam();
+    void search();
 
 public slots:
     void updateList();
