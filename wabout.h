@@ -1,10 +1,10 @@
 /*****************************************************************************/
-/** dicto v 1.3 WAbout class declaration ile                                **/
+/** dicto v 0.1 WAbout class declaration ile                                **/
 /** This file is published under GNU/GPL licence                            **/
 /** http://www.gnu.org/licenses/gpl-3.0.txt                                 **/
 /** author: Tomasz Pewinski "pewniak747"                                    **/
 /** contact: pewniak747@gmail.com                                           **/
-/** http://dicto.sourceforge.net                                            **/
+/** http://dicto.ugu.pl                                                     **/
 /*****************************************************************************/
 
 #ifndef WABOUT_H
@@ -12,7 +12,8 @@
 
 #include <QtGui>
 
-class WAbout : public QWidget {
+class WAbout : public QWidget
+{
     Q_OBJECT
 
 	public:
