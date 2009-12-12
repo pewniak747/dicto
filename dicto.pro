@@ -3,11 +3,11 @@
 ######################################################################
 
 TEMPLATE = app
-TARGET = Debug/dicto
-RC_FILE = dicto.rc
+TARGET = dicto
+RC_FILE = resources/dicto.rc
 DEPENDPATH += .
 INCLUDEPATH += .
-TRANSLATIONS = dicto_pl.ts \
+TRANSLATIONS = translations/dicto_pl.ts \
 
 # Input
 HEADERS += cdocument.h centry.h wabout.h wdialog.h wmain.h wprepare.h wprops.h wprint.h
@@ -20,4 +20,4 @@ SOURCES += cdocument.cpp \
            wprepare.cpp \
            wprops.cpp \
            wprint.cpp
-RESOURCES += dicto.qrc
+RESOURCES += resources/dicto.qrc
