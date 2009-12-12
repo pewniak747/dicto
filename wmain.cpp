@@ -267,7 +267,7 @@ void WMain::editentry() {
 
 void WMain::deleteentry() {
     if(cDocument->dictionary.size()>0) {
-        int currentrow=listWidget->currentRow();
+        int currentrow = currentList[listWidget->currentRow()];
         for(unsigned i=currentrow; i<cDocument->dictionary.size()-1; i++)
             qSwap(cDocument->dictionary[i], cDocument->dictionary[i+1]);
         cDocument->dictionary.pop_back();

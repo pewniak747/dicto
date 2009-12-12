@@ -23,16 +23,31 @@ WPrint::WPrint(QWidget *parent) {
 		printBox->addItem(tr("learned only"));
 		printBox->addItem(tr("unlearned only"));
 	printLabel = new QLabel(tr("Print:"));
-	submitButton = new QPushButton(tr("Next"));
+	flashcardSizeCombo = new QComboBox;
+		flashcardSizeCombo->addItem(tr("4 per page"));
+		flashcardSizeCombo->addItem(tr("8 per page"));
+	printFlashcardsButton = new QPushButton(tr("Print flashcards..."));
+	submitButton = new QPushButton(tr("Print summary..."));
 	cancelButton = new QPushButton(tr("Cancel"));
+	
+	QVBoxLayout *flashcardLayout = new QVBoxLayout;
+		flashcardLayout->addWidget(flashcardSizeCombo);
+		flashcardLayout->addWidget(printFlashcardsButton);
+	
+	QGroupBox *flashcardBox = new QGroupBox;
+		flashcardBox->setTitle(tr("Flashcards"));
+		flashcardBox->setFlat(false);
+		flashcardBox->setLayout(flashcardLayout);
 	
 	QGridLayout *mainLayout = new QGridLayout;
 		mainLayout->addWidget(sizeLabel, 0, 0);
 		mainLayout->addWidget(sizeBox, 0, 1);
 		mainLayout->addWidget(printLabel, 1, 0);
 		mainLayout->addWidget(printBox, 1, 1);
-		mainLayout->addWidget(cancelButton, 2, 0);
-		mainLayout->addWidget(submitButton, 2, 1);
+		mainLayout->addWidget(flashcardBox, 2, 0, 1, 2);
+		mainLayout->addWidget(submitButton, 3, 0, 1, 2);
+		mainLayout->addWidget(cancelButton, 4, 0, 1, 2);
+
 	this->setLayout(mainLayout);
 	
 	connect(cancelButton, SIGNAL(clicked()), this, SLOT(cancel()));
