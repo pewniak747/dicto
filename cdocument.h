@@ -1,5 +1,5 @@
 /*******************************************************************************/
-/** dicto v 1.0 CDocument class header file                                   **/
+/** dicto v 1.1 CDocument class header file                                   **/
 /** This file is published under GNU/GPL licence                              **/
 /** http://www.gnu.org/licenses/gpl-3.0.txt                                   **/
 /** author: Tomasz Pewiński "pewniak747"                                      **/
@@ -13,8 +13,7 @@
 #include <vector>
 #include "centry.h"
 
-class CDocument
-{
+class CDocument {
 public:
     CDocument();
     unsigned passed();
@@ -26,9 +25,13 @@ public:
     QString lang_native;
     QString lang_foreign;
 
-public slots:
+public:
     void readFromFile();
     void saveToFile(bool saveas=false);
+    void sortDictionary();
+
+private:
+    bool ifSwap(QString word, QString word2);
 };
 
 #endif // CDOCUMENT_H

@@ -1,5 +1,5 @@
 /*******************************************************************************/
-/** dicto v 1.0 CEntry class header file                                      **/
+/** dicto v 1.1 CEntry class header file                                      **/
 /** This file is published under GNU/GPL licence                              **/
 /** http://www.gnu.org/licenses/gpl-3.0.txt                                   **/
 /** author: Tomasz Pewiński "pewniak747"                                      **/
@@ -12,8 +12,7 @@
 
 #include <QString>
 
-class CEntry
-{
+class CEntry {
 public:
     CEntry();
     bool check(QString give, bool intoforeign);

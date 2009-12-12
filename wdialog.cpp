@@ -1,5 +1,5 @@
 /*******************************************************************************/
-/** dicto v 1.0 WDialog class implementation file                             **/
+/** dicto v 1.1 WDialog class implementation file                             **/
 /** This file is published under GNU/GPL licence                              **/
 /** http://www.gnu.org/licenses/gpl-3.0.txt                                   **/
 /** author: Tomasz Pewiński "pewniak747"                                      **/
@@ -11,8 +11,7 @@
 #include "wmain.h"
 #include "centry.h"
 
-WDialog::WDialog(QWidget *parent, int current) : QWidget(parent)
-{
+WDialog::WDialog(QWidget *parent, int current) : QWidget(parent) {
     wordLabel=new QLabel(tr("Słowo:"), this);
     translationLabel=new QLabel(tr("Tłumaczenie:"), this);
     wordEdit=new QLineEdit(this);
@@ -40,7 +39,7 @@ WDialog::WDialog(QWidget *parent, int current) : QWidget(parent)
     connect(submitButton, SIGNAL(clicked()), this, SLOT(submitWord()));
     connect(cancelButton, SIGNAL(clicked()), this, SLOT(cancel()));
 
-    QShortcut *submitShortcut=new QShortcut(Qt::Key_Enter, this);
+    QShortcut *submitShortcut=new QShortcut(Qt::Key_Return, this);
     connect(submitShortcut, SIGNAL(activated()), this, SLOT(submitWord()));
 
     setWindowTitle(tr("Edycja słowa"));

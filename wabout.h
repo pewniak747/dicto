@@ -1,5 +1,5 @@
 /*****************************************************************************/
-/** dicto v 0.1 WAbout class declaration ile                                **/
+/** dicto v 1.1 WAbout class declaration ile                                **/
 /** This file is published under GNU/GPL licence                            **/
 /** http://www.gnu.org/licenses/gpl-3.0.txt                                 **/
 /** author: Tomasz Pewinski "pewniak747"                                    **/
@@ -12,8 +12,7 @@
 
 #include <QtGui>
 
-class WAbout : public QWidget
-{
+class WAbout : public QWidget {
     Q_OBJECT
 
 	public:

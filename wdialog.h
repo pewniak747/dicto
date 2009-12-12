@@ -1,5 +1,5 @@
 /*******************************************************************************/
-/** dicto v 1.0 WDialog class header file                                     **/
+/** dicto v 1.1 WDialog class header file                                     **/
 /** This file is published under GNU/GPL licence                              **/
 /** http://www.gnu.org/licenses/gpl-3.0.txt                                   **/
 /** author: Tomasz Pewiński "pewniak747"                                      **/
@@ -13,8 +13,7 @@
 #include <QtGui>
 #include "wmain.h"
 
-class WDialog : public QWidget
-{
+class WDialog : public QWidget {
     Q_OBJECT
 
     public:

@@ -1,5 +1,5 @@
 /*******************************************************************************/
-/** dicto v 1.0 WPrepare class implementation file                            **/
+/** dicto v 1.1 WPrepare class implementation file                            **/
 /** This file is published under GNU/GPL licence                              **/
 /** http://www.gnu.org/licenses/gpl-3.0.txt                                   **/
 /** author: Tomasz Pewiński "pewniak747"                                      **/
@@ -11,8 +11,7 @@
 #include "wmain.h"
 #include "cdocument.h"
 
-WPrepare::WPrepare(QWidget *parent, bool exam) : QWidget(parent)
-{
+WPrepare::WPrepare(QWidget *parent, bool exam) : QWidget(parent) {
     wMain->setMode(disabledMode);
     if(!exam) this->setWindowTitle(tr("Przygotuj test"));
     else this->setWindowTitle(tr("Przygotuj egzamin"));
@@ -31,8 +30,12 @@ WPrepare::WPrepare(QWidget *parent, bool exam) : QWidget(parent)
 
     //includeBox=new QCheckBox(this);
     intoforeignCombo=new QComboBox(this);
-        intoforeignCombo->addItem(tr("ojczysty->obcy"));
-        intoforeignCombo->addItem(tr("obcy->ojczysty"));
+        intoforeignCombo->addItem(tr("%1 - %2")
+                                            .arg(wMain->cDocument->lang_native==""?"ojczysty":wMain->cDocument->lang_native)
+                                            .arg(wMain->cDocument->lang_foreign==""?"obcy":wMain->cDocument->lang_foreign));
+        intoforeignCombo->addItem(tr("%1 - %2")
+                                            .arg(wMain->cDocument->lang_foreign==""?"obcy":wMain->cDocument->lang_foreign)
+                                            .arg(wMain->cDocument->lang_native==""?"ojczysty":wMain->cDocument->lang_native));
 
     startButton=new QPushButton(tr("Start!"), this);
     cancelButton=new QPushButton(tr("Anuluj"), this);
@@ -58,7 +61,7 @@ WPrepare::WPrepare(QWidget *parent, bool exam) : QWidget(parent)
 
     resize(400, 100);
 
-    QShortcut *submitShortcut=new QShortcut(Qt::Key_Enter, this);
+    QShortcut *submitShortcut=new QShortcut(Qt::Key_Return, this);
 
     if(!exam) {
         connect(startButton, SIGNAL(clicked()), this, SLOT(startTest()));
@@ -83,7 +86,7 @@ void WPrepare::cancel() {
 void WPrepare::startTest() {
     unsigned howmany=numberSlider->value();
     bool include=false;
-    bool intoforeign;
+    bool intoforeign=false;
     switch(intoforeignCombo->currentIndex()) {
         case 0 : intoforeign=true; break;
         case 1 : intoforeign=false; break;
@@ -97,7 +100,7 @@ void WPrepare::startTest() {
 void WPrepare::startExam() {
     unsigned howmany=numberSlider->value();
     bool include=false;
-    bool intoforeign;
+    bool intoforeign=false;
     switch(intoforeignCombo->currentIndex()) {
         case 0 : intoforeign=true; break;
         case 1 : intoforeign=false; break;

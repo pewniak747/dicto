@@ -1,5 +1,5 @@
 /*******************************************************************************/
-/** dicto v 1.0 WMain class header file                                       **/
+/** dicto v 1.1 WMain class header file                                       **/
 /** This file is published under GNU/GPL licence                              **/
 /** http://www.gnu.org/licenses/gpl-3.0.txt                                   **/
 /** author: Tomasz Pewiński "pewniak747"                                      **/
@@ -16,13 +16,12 @@
 #include "centry.h"
 #include "wabout.h"
 
-#define VERSION "0.1"
+#define VERSION "1.1"
 #define ICON ":/dictologo.png"
 
 enum Mode {normalMode, disabledMode, enabledMode, testMode, examMode};
 
-class WMain : public QMainWindow
-{
+class WMain : public QMainWindow {
     Q_OBJECT
 
 public:
@@ -43,10 +42,12 @@ private:
     QAction *addAction;
     QAction *editAction;
     QAction *deleteAction;
+    QAction *sortAction;
     QAction *newAction;
     QAction *openAction;
     QAction *saveAction;
     QAction *saveasAction;
+    QAction *printAction;
     QAction *quitAction;
     QAction *testAction;
     QAction *examAction;
@@ -64,6 +65,7 @@ private:
     QPushButton *cancelExamButton;
     QProgressBar *progressBar;
     QLabel *statusLabel;
+    QPrinter *printer;
 
     bool intoforeign;
     bool include;
@@ -84,8 +86,10 @@ private slots:
     void openfile();
     void savefile();
     void saveas();
+    void print();
     void addentry();
     void editentry();
+    void sortall();
     void deleteentry();
     void preparetest();
     void prepareexam();
@@ -94,6 +98,8 @@ private slots:
     void checkexam();
     void about();
     void hint();
+    void canceltest();
+    void cancelexam();
 
 public slots:
     void updateList();

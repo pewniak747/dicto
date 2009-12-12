@@ -1,5 +1,5 @@
 /*******************************************************************************/
-/** dicto v 1.0 CDocument class implementation file                           **/
+/** dicto v 1.1 CDocument class implementation file                           **/
 /** This file is published under GNU/GPL licence                              **/
 /** http://www.gnu.org/licenses/gpl-3.0.txt                                   **/
 /** author: Tomasz Pewiński "pewniak747"                                      **/
@@ -10,12 +10,12 @@
 #include <QFile>
 #include <QTextStream>
 #include <QFileDialog>
+#include <cstdlib>
 #include "cdocument.h"
 #include "centry.h"
 #include "wmain.h"
 
-CDocument::CDocument()
-{
+CDocument::CDocument() {
     filename="";
     filechanged=false;
     lang_native="";
@@ -91,7 +91,7 @@ void CDocument::readFromFile() {
                     continue;
             }
             else if(!line.contains(";")) {
-                 for(unsigned i=0; i<line.size(); i++)
+                 for(int i=0; i<line.size(); i++)
                     this->dictionary[i].wordstatus=line[i]=='0'?false:true;
             }
             else {
@@ -123,4 +123,26 @@ void CDocument::resetStats() {
         dictionary[i].wordstatus=false;
     this->filechanged=true;
     wMain->updateStatusbar();
+}
+
+void CDocument::sortDictionary() {
+    for(unsigned i = 0; i < dictionary.size(); i++) {
+        bool swapped=false;
+        for(unsigned l = dictionary.size()-1; l>i; l--) {
+            if(ifSwap(dictionary[l].word, dictionary[l-1].word)) {
+                std::swap(dictionary[l], dictionary[l-1]);
+                swapped=true;
+            }
+        }
+        if(!swapped) break;
+    }
+    wMain->updateList();
+}
+
+bool CDocument::ifSwap(QString word, QString word2) {
+    for(int i=0; i<word.size(); i++) {
+        if(word[i] < word2[i]) return true;
+        else if(word[i] > word2[i]) return false;
+    }
+    return true;
 }

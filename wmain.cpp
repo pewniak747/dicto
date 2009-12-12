@@ -1,5 +1,5 @@
 /*******************************************************************************/
-/** dicto v 1.0 WMain class implementation file                               **/
+/** dicto v 1.1 WMain class implementation file                               **/
 /** This file is published under GNU/GPL licence                              **/
 /** http://www.gnu.org/licenses/gpl-3.0.txt                                   **/
 /** author: Tomasz Pewiński "pewniak747"                                      **/
@@ -85,6 +85,8 @@ WMain::WMain(QWidget *parent) : QMainWindow(parent) {
 
    setMode(mode);
 
+       printer = new QPrinter;
+
 
     setWindowTitle(tr("dicto"));
     setWindowIcon(QIcon(ICON));
@@ -94,19 +96,18 @@ WMain::WMain(QWidget *parent) : QMainWindow(parent) {
     connect(searchBar, SIGNAL(textChanged(QString)), this, SLOT(updateList()));
     connect(listWidget, SIGNAL(doubleClicked(QModelIndex)), this, SLOT(editentry()));
     connect(submitWordButton, SIGNAL(clicked()), this, SLOT(check()));
-    connect(cancelTestButton, SIGNAL(clicked()), this, SLOT(setNormalMode()));
-    connect(cancelExamButton, SIGNAL(clicked()), this, SLOT(setNormalMode()));
+    connect(cancelTestButton, SIGNAL(clicked()), this, SLOT(canceltest()));
+    connect(cancelExamButton, SIGNAL(clicked()), this, SLOT(cancelexam()));
     connect(submitExamButton, SIGNAL(clicked()), this, SLOT(checkexam()));
 
-    QShortcut *submitShortcut=new QShortcut(Qt::Key_Enter, this);
+    QShortcut *submitShortcut=new QShortcut(Qt::Key_Return, this);
     connect(submitShortcut, SIGNAL(activated()), this, SLOT(check()));
 
     QShortcut *hintShortcut=new QShortcut(QKeySequence("Ctrl+H"), this);
     connect(hintShortcut, SIGNAL(activated()), this, SLOT(hint()));
 }
 
-WMain::~WMain() {
-}
+WMain::~WMain() {}
 
 void WMain::createMenus() {
     fileMenu=new QMenu(this);
@@ -130,6 +131,10 @@ void WMain::createMenus() {
     saveasAction->setShortcuts(QKeySequence::SaveAs);
     saveasAction->setStatusTip(tr("Zapisz słownik jako"));
 
+    printAction=new QAction(tr("&Drukuj"), this);
+    printAction->setShortcuts(QKeySequence::Print);
+    printAction->setStatusTip(tr("Drukuj słownik"));
+
     quitAction=new QAction(tr("&Wyjście"), this);
     quitAction->setShortcut(QKeySequence("Ctrl+Q"));
     quitAction->setStatusTip(tr("Wyjd z programu"));
@@ -145,6 +150,10 @@ void WMain::createMenus() {
     deleteAction->setShortcut(Qt::Key_Delete);
     deleteAction->setStatusTip(tr("Usuń bieżące słowo"));
 
+    sortAction=new QAction(tr("&Sortuj"), this);
+    sortAction->setShortcut(QKeySequence("Ctrl+A"));
+    sortAction->setStatusTip(tr("Sortuj słownik alfabetycznie"));
+
     testAction=new QAction(tr("&Test..."), this);
     testAction->setShortcut(QKeySequence("Ctrl+T"));
     testAction->setStatusTip(tr("Przygotuj test"));
@@ -154,7 +163,7 @@ void WMain::createMenus() {
     examAction->setStatusTip(tr("Przygotuj egzamin"));
 
     statsAction=new QAction(tr("&Statystyki..."), this);
-    statsAction->setShortcut(QKeySequence("Ctrl+P"));
+    statsAction->setShortcut(QKeySequence("Ctrl+W"));
     statsAction->setStatusTip(tr("Wyświetl statystyki"));
 
     aboutAction=new QAction(tr("&O dicto"), this);
@@ -165,17 +174,20 @@ void WMain::createMenus() {
     fileMenu->addAction(openAction);
     fileMenu->addAction(saveAction);
     fileMenu->addAction(saveasAction);
+    fileMenu->addAction(printAction);
     fileMenu->addSeparator();
     fileMenu->addAction(quitAction);
 
-    wordMenu = menuBar()->addMenu(tr("&Słowo"));
+    wordMenu = menuBar()->addMenu(tr("&Słowa"));
     wordMenu->addAction(addAction);
     wordMenu->addAction(editAction);
     wordMenu->addAction(deleteAction);
+    //wordMenu->addAction(sortAction);
 
     testMenu = menuBar()->addMenu(tr("&Test"));
     testMenu->addAction(testAction);
     testMenu->addAction(examAction);
+    testMenu->addSeparator();
     testMenu->addAction(statsAction);
 
     helpMenu = menuBar()->addMenu(tr("&Pomoc"));
@@ -185,11 +197,13 @@ void WMain::createMenus() {
     connect(openAction, SIGNAL(triggered()), this, SLOT(openfile()));
     connect(saveAction, SIGNAL(triggered()), this, SLOT(savefile()));
     connect(saveasAction, SIGNAL(triggered()), this, SLOT(saveas()));
+    connect(printAction, SIGNAL(triggered()), this, SLOT(print()));
     connect(quitAction, SIGNAL(triggered()), this, SLOT(close()));
 
     connect(addAction, SIGNAL(triggered()), this, SLOT(addentry()));
     connect(editAction, SIGNAL(triggered()), this, SLOT(editentry()));
     connect(deleteAction, SIGNAL(triggered()), this, SLOT(deleteentry()));
+    connect(sortAction, SIGNAL(triggered()), this, SLOT(sortall()));
 
     connect(testAction, SIGNAL(triggered()), this, SLOT(preparetest()));
     connect(examAction, SIGNAL(triggered()), this, SLOT(prepareexam()));
@@ -203,6 +217,7 @@ void WMain::createMenus() {
 }
 
 void WMain::updateList() {
+    //cDocument->sortDictionary();
     QString search=searchBar->text();
     listWidget->clear();
     for(unsigned i=0; i<cDocument->dictionary.size(); i++) {
@@ -237,6 +252,12 @@ void WMain::deleteentry() {
         cDocument->filechanged=true;
         updateList();
     }
+}
+
+void WMain::sortall() {
+    if(cDocument->dictionary.size() > 2)
+        cDocument->sortDictionary();
+    else return;
 }
 
 void WMain::newfile() {
@@ -304,6 +325,25 @@ void WMain::openfile() {
         cDocument->readFromFile();
 }
 
+void WMain::print() {
+    if(cDocument->dictionary.size() == 0) return;
+    QPrintDialog printDialog(printer, this);
+    if (printDialog.exec() == QDialog::Accepted) {
+         QPainter painter;
+         painter.begin(printer);
+
+
+
+        painter.drawText(0, 0, tr("Nazwa pliku: %1").arg(cDocument->filename));
+        painter.drawText(0, 12, tr("dicto - program do nauki słówek http://dicto.ugu.pl"));
+        for(int i=0; i<cDocument->dictionary.size(); i++) {
+            painter.drawText(0, 12*(i+2)+10, tr("%1").arg(cDocument->dictionary[i].word));
+            painter.drawText(250, 12*(i+2)+10, tr("%1").arg(cDocument->dictionary[i].translation));
+        }
+
+    }
+}
+
 void WMain::preparetest() {
     if(this->cDocument->dictionary.size()==0)
         QMessageBox::information(this, tr("Błąd"), tr("Słownik jest pusty!"));
@@ -341,6 +381,7 @@ void WMain::test(unsigned howmany, bool intoforeign, bool include) {
     hintsize=1;
 
     answerEdit->clear();
+    answerEdit->setFocus();
 
 
 }
@@ -358,7 +399,9 @@ void WMain::check() {
             }
         }
         else {
-            questionLabel->setText(tr("Źle (%1)").arg(intoforeign?currentEntry->translation:currentEntry->word));
+            questionLabel->setText(tr("Źle\n(%1 - %2)")
+                                                .arg(intoforeign?currentEntry->word:currentEntry->translation)
+                                                .arg(intoforeign?currentEntry->translation:currentEntry->word));
         }
         submitWordButton->setText(tr("Dalej"));
         answered=true;
@@ -392,8 +435,28 @@ void WMain::check() {
     hintsize=1;
 
     submitWordButton->setText(tr("OK"));
+    answerEdit->setFocus();
     updateStatusbar();
     }
+}
+
+void WMain::canceltest() {
+    QMessageBox messageBox(this);
+          messageBox.setText(tr("Czy na pewno chcesz zakończyć test?"));
+          QAbstractButton *yesButton = messageBox.addButton(QMessageBox::Yes);
+          yesButton->setText(tr("Tak"));
+          QAbstractButton *noButton = messageBox.addButton(QMessageBox::No);
+          noButton->setText(tr("Nie"));
+          messageBox.setIcon(QMessageBox::Question);
+          messageBox.exec();
+
+            if (messageBox.clickedButton() == yesButton) {
+                setNormalMode();
+                return;
+            }
+            if (messageBox.clickedButton() == noButton) {
+                return;
+            }
 }
 
 void WMain::hint() {
@@ -434,6 +497,7 @@ void WMain::exam(unsigned howmany, bool intoforeign, bool include) {
     tableWidget->setRowCount(howmany);
 
     unsigned random;
+    QTableWidgetItem* firstItem;
     for (unsigned i=0; i<howmany; i++) {
         do {
             random=rand()%cDocument->dictionary.size();
@@ -446,38 +510,58 @@ void WMain::exam(unsigned howmany, bool intoforeign, bool include) {
         tableWidget->setItem(i, 0, newItem);
         QTableWidgetItem *newItem2=new QTableWidgetItem("");
         tableWidget->setItem(i, 1, newItem2);
+        if(i == 0) firstItem=newItem2;
         examTab.push_back(&(cDocument->dictionary[random]));
     }
+
+    tableWidget->setCurrentItem(firstItem);
 
 }
 
 void WMain::checkexam()  {
     if(!answered) {
-        unsigned good=0;
-        for (unsigned u=0; u<examTab.size(); u++) {
 
-            if (examTab[u]->check(tableWidget->item(u, 1)->text(), intoforeign)) {
-                tableWidget->item(u, 1)->setText(tr("Dobrze!"));
-                good++;
-                examTab[u]->wordstatus=true;
-                cDocument->filechanged=true;
+        QMessageBox messageBox(this);
+          messageBox.setText(tr("Czy na pewno chcesz oddać egzamin?"));
+          QAbstractButton *yesButton = messageBox.addButton(QMessageBox::Yes);
+          yesButton->setText(tr("Tak"));
+          QAbstractButton *noButton = messageBox.addButton(QMessageBox::No);
+          noButton->setText(tr("Nie"));
+          messageBox.setIcon(QMessageBox::Question);
+          messageBox.exec();
+
+            if (messageBox.clickedButton() == yesButton) {
+                unsigned good=0;
+                for (unsigned u=0; u<examTab.size(); u++) {
+                    if (examTab[u]->check(tableWidget->item(u, 1)->text(), intoforeign)) {
+                        tableWidget->item(u, 1)->setText(tr("Dobrze!"));
+                        good++;
+                        examTab[u]->wordstatus=true;
+                        cDocument->filechanged=true;
+                    }
+                    else {
+                        tableWidget->item(u, 1)->setText(tr("Źle (%1)").arg(intoforeign?examTab[u]->translation:examTab[u]->word));
+                        examTab[u]->wordstatus=false;
+                    }
+                    tableWidget->item(u, 1)->setFlags(Qt::ItemIsEnabled);
+                }
+                answered=true;
+                QMessageBox::information(this, tr("Wyniki testu"), tr("Ilość słów: %1\nPoprawnych: %2 (%3%)\nOcena: %4")
+                                        .arg(howmany)
+                                        .arg(good)
+                                        .arg(good*100/howmany)
+                                        .arg(this->grade(good, howmany)));
+
+                cancelExamButton->setEnabled(false);
+                examTab.clear();
+                return;
             }
-            else {
-                tableWidget->item(u, 1)->setText(tr("Źle (%1)").arg(intoforeign?examTab[u]->translation:examTab[u]->word));
-                examTab[u]->wordstatus=false;
+            if (messageBox.clickedButton() == noButton) {
+                return;
             }
-            tableWidget->item(u, 1)->setFlags(Qt::ItemIsEnabled);
-        }
-        answered=true;
 
-        QMessageBox::information(this, tr("Wyniki testu"), tr("Ilość słów: %1\nPoprawnych: %2 (%3%)\nOcena: %4")
-                                .arg(howmany)
-                                .arg(good)
-                                .arg(good*100/howmany)
-                                .arg(this->grade(good, howmany)));
 
-        cancelExamButton->setEnabled(false);
-        examTab.clear();
+
     }
     else {
         if(cDocument->passed() == cDocument->dictionary.size()) {
@@ -486,6 +570,25 @@ void WMain::checkexam()  {
         setNormalMode();
     }
     cDocument->filechanged=true;
+}
+
+void WMain:: cancelexam() {
+    QMessageBox messageBox(this);
+          messageBox.setText(tr("Czy na pewno chcesz zakończyć egzamin?"));
+          QAbstractButton *yesButton = messageBox.addButton(QMessageBox::Yes);
+          yesButton->setText(tr("Tak"));
+          QAbstractButton *noButton = messageBox.addButton(QMessageBox::No);
+          noButton->setText(tr("Nie"));
+          messageBox.setIcon(QMessageBox::Question);
+          messageBox.exec();
+
+            if (messageBox.clickedButton() == yesButton) {
+                setNormalMode();
+                return;
+            }
+            if (messageBox.clickedButton() == noButton) {
+                return;
+            }
 }
 
 void WMain::setMode(Mode mode) {
@@ -506,9 +609,11 @@ void WMain::setMode(Mode mode) {
             openAction->setEnabled(true);
             saveAction->setEnabled(true);
             saveasAction->setEnabled(true);
+            printAction->setEnabled(true);
             addAction->setEnabled(true);
             editAction->setEnabled(true);
             deleteAction->setEnabled(true);
+            sortAction->setEnabled(true);
             testAction->setEnabled(true);
             examAction->setEnabled(true);
             statsAction->setEnabled(true);
@@ -547,9 +652,11 @@ void WMain::setMode(Mode mode) {
             openAction->setEnabled(false);
             saveAction->setEnabled(false);
             saveasAction->setEnabled(false);
+            printAction->setEnabled(false);
             addAction->setEnabled(false);
             editAction->setEnabled(false);
             deleteAction->setEnabled(false);
+            sortAction->setEnabled(false);
             testAction->setEnabled(false);
             examAction->setEnabled(false);
             statsAction->setEnabled(false);
@@ -575,9 +682,11 @@ void WMain::setMode(Mode mode) {
             openAction->setEnabled(false);
             saveAction->setEnabled(false);
             saveasAction->setEnabled(false);
+            printAction->setEnabled(false);
             addAction->setEnabled(false);
             editAction->setEnabled(false);
             deleteAction->setEnabled(false);
+            sortAction->setEnabled(false);
             testAction->setEnabled(false);
             examAction->setEnabled(false);
             statsAction->setEnabled(false);
@@ -648,8 +757,9 @@ QString WMain::grade(unsigned good, unsigned howmany) {
     if(percent < 0.5) return "1";
     if(percent < 0.6) return "2";
     if(percent < 0.7) return "3";
-    if(percent < 0.9) return "4";
+    if(percent < 0.85) return "4";
     if(percent <= 1) return "5";
+    else return "nieznana";
 }
 
 void WMain::closeEvent(QCloseEvent * e) {

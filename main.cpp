@@ -1,5 +1,5 @@
 /*******************************************************************************/
-/** dicto v 1.0 main file                                                     **/
+/** dicto v 1.1 main file                                                     **/
 /** This file is published under GNU/GPL licence                              **/
 /** http://www.gnu.org/licenses/gpl-3.0.txt                                   **/
 /** author: Tomasz Pewiński "pewniak747"                                      **/
@@ -15,8 +15,7 @@
 
     WMain *wMain;
 
-int main(int argc, char *argv[])
-{
+int main(int argc, char *argv[]) {
     application = new QApplication (argc, argv);
 
     QTextCodec::setCodecForCStrings(QTextCodec::codecForName("UTF-8"));
