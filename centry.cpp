@@ -7,7 +7,6 @@
 
 #include "centry.h"
 #include <vector>
-#include <iostream>
 
 CEntry::CEntry() {
 	wordstatus=false;

@@ -133,7 +133,32 @@ Close event sets enabled mode to WMain and closes window.
 
 h2. CDocument 
 
-h2. CEntry 
+h2. CEntry
+
+__Implementation: centry.cpp__
+__Headers: centry.h, vector__
+
+h3. Public members:
+
+* QString word - holds Centry's word
+* QString translation - holds CEntry's translation
+* bool wordstatus - holds whether word is learned or not
+* bool passed - holds whether word has been learned in current test
+* speechPart sp - this enum holds CEntry speech part
+h3. Public functions:
+
+* CEntry()
+* bool CEntry::check(QString give, bool intoforeign, bool ignoreSynonyms)
+
+h3. Member function documentation:
+
+h4. CEntry::Centry()
+
+CEntry constructor.
+
+h4. bool CEntry::check(QString give, bool intoforeign, bool ignoreSynonyms)
+
+This function takes user's input and other parameters and returns whether it match or not.
 
 h2. Author
 
