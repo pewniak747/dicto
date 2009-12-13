@@ -155,6 +155,7 @@ h4. Private slots:
 * void submitStats();
 * void closeEvent(QCloseEvent *e);
 
+
 h4. Member function documentation:
 
 h5. void WProps::WProps(QWidget *parent)
@@ -197,6 +198,7 @@ h4. Public functions:
 h4. Private functions:
 
 * void closeEvent(QCloseEvent *a)
+
 
 h4. Member function documentation:
 
