@@ -145,6 +145,7 @@ h3. Public members:
 * bool wordstatus - holds whether word is learned or not
 * bool passed - holds whether word has been learned in current test
 * speechPart sp - this enum holds CEntry speech part
+
 h3. Public functions:
 
 * CEntry()
