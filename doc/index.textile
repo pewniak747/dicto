@@ -2,13 +2,13 @@ h1. dicto 1.3 - documentation
 
 __by Tomasz 'pewniak747' Pewiński__
 
-"web":http://pewniak747.github.com/dicto
+"http://pewniak747.github.com/dicto":http://pewniak747.github.com/dicto
 
 h2. Overview
 
 Dicto is free, open-source software for learning vocabulary. It provides simple, intuitive user interface, useful testing modes and more handy functions. Current version is 1.3.
 
-h3. Features of dicto:
+h2. Features of dicto:
 
 * handling multiple files in *.dic or *txt formats 
 * words handling: adding, editing, deleting and dynamic searching 
@@ -24,7 +24,7 @@ See README for more details...
 h2. Table of contents
 
 * "README":../README.textile
-* "CHANGELOG":../changelog.textile
+* "CHANGELOG":../CHANGELOG.textile
 * All classes 
 ** WMain 
 ** WDialog 
@@ -36,24 +36,24 @@ h2. Table of contents
 * Author 
 * Acknowledgments 
 
-h2. All classes
+h1. All classes
 
-h3. WMain
+h2. WMain
 
 __Implementation: wmain.cpp__
 __Headers: wmain.h, wdialog.h, cdocument.h, wprepare.h, wabout.h, wprops.h, wprint.h__
 
-h3. WDialog 
+h2. WDialog 
 
-h3. WPrepare 
+h2. WPrepare 
 
-h3. WProps 
+h2. WProps 
 
 __Implementation: wprops.cpp__
 __Headers: wprops.h, wmain.h__
 __Inherits: QWidget__
 
-h4. Widgets:
+h3. Widgets:
 
 * QLabel fileLabel – holds filename
 * QLabel nativeLabel – holds nativeEdit label
@@ -65,11 +65,11 @@ h4. Widgets:
 * QPushButton resetButton – button to reset statistics
 * QPushButton okButton – button to confirm and quit
 
-h4. Public functions:
+h3. Public functions:
 
 * WProps(QWidget *parent)
 
-h4. Private slots:
+h3. Private slots:
 
 * void updateProps();
 * void resetStats();
@@ -77,63 +77,63 @@ h4. Private slots:
 * void closeEvent(QCloseEvent *e);
 
 
-h4. Member function documentation:
+h3. Member function documentation:
 
-h5. void WProps::WProps(QWidget *parent)
+h4. void WProps::WProps(QWidget *parent)
 
 This is WProps window constructor. 0 is passed as parent.
 
-h5. void WProps::updateProps()
+h4. void WProps::updateProps()
 
 Updates all WProps widgets with values from CDocument.
 
-h5. void Wprops::resetStats()
+h4. void Wprops::resetStats()
 
 Launches CDocument::resetStats() and WProps::updateProps()
 
-h5. void WProps:: submitStats()
+h4. void WProps:: submitStats()
 
 Saves new properties to CDocument and closes window.
 
-h5. void WProps::closeEvent(QCloseEvent *e)
+h4. void WProps::closeEvent(QCloseEvent *e)
 
 Sets WMain to enabled mode and closes window.
 
-h3. WAbout
+h2. WAbout
 
 __Implementation: wabout.cpp__
 __Headers: wabout.h, wmain.h__
 __Inherits: QWidget__
 
-h4. Widgets:
+h3. Widgets:
 
 * QLabel image – holds image displayed in window
 * QLabel infoLabel – holds information about dicto
 * QLabel urlLabel – holds url to http://pewniak747.github.com/dicto
 * QPushButton okButton – closing button
 
-h4. Public functions:
+h3. Public functions:
 
 * WAbout(QWidget *parent)
 
-h4. Private functions:
+h3. Private functions:
 
 * void closeEvent(QCloseEvent *a)
 
 
-h4. Member function documentation:
+h3. Member function documentation:
 
-h5. WAbout::WAbout(QWidget *parent)
+h4. WAbout::WAbout(QWidget *parent)
 
 This is the WAbout window constructor. 0 us passed as its parent.
 
-h5. void Wabout::closeEvent(QCloseEvent *a)
+h4. void Wabout::closeEvent(QCloseEvent *a)
 
 Close event sets enabled mode to WMain and closes window.
 
-h3. CDocument 
+h2. CDocument 
 
-h3. CEntry 
+h2. CEntry 
 
 h2. Author
 
