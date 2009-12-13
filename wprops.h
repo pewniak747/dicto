@@ -8,7 +8,9 @@
 #ifndef WPROPS_H
 #define WPROPS_H
 
-#include <QtGui>
+#include <QLabel>
+#include <QLineEdit>
+#include <QPushButton>
 
 class WProps : public QWidget 
 {
