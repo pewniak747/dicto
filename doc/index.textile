@@ -138,9 +138,9 @@ h2. CEntry
 h2. Author
 
 Tomasz Pewiński - student of second grade High School of Poznań. Interested in computer science, programming and webdesign, sport (tennis), books and music. 
-Follow me on twitter: http://twitter.com/pewniak747
-Follow me on github: http://github.com/pewniak747
-Email me: pewniak747@gmail.com
+"Follow me on twitter":http://twitter.com/pewniak747
+"Follow me on github":http://github.com/pewniak747
+"Email me":mailto:pewniak747@gmail.com
 
 h2. Acknowledgments
 
