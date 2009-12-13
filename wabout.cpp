@@ -1,45 +1,54 @@
-/*****************************************************************************/
-/** dicto v 1.3 WAbout class implementation ile                             **/
-/** This file is published under GNU/GPL licence                            **/
-/** http://www.gnu.org/licenses/gpl-3.0.txt                                 **/
-/** author: Tomasz Pewinski "pewniak747"                                    **/
-/** contact: pewniak747@gmail.com                                           **/
-/** http://dicto.sourceforge.net                                            **/
-/*****************************************************************************/
+// dicto v 1.3 WAbout class implementation file
+// This file is published under GNU/GPL licence
+// http://www.gnu.org/licenses/gpl-3.0.txt
+// author: Tomasz Pewiński "pewniak747"
+// contact: pewniak747@gmail.com
+// http://pewniak747.github.com/dicto
 
 #include "wabout.h"
 #include "wmain.h"
 
+// WAbout constructor
 WAbout::WAbout(QWidget *parent) : QWidget(parent) {
-
-    this->setWindowTitle(tr("About dicto"));
-    okButton = new QPushButton();
-    okButton->setText(tr("OK"));
-    infoLabel = new QLabel();
-    infoLabel->setText(tr("dicto - version %1\nProgram created by Tomasz Pewiński\nhttp://dicto.sourceforge.net").arg(VERSION));
-    infoLabel->setWordWrap(true);
-    QPixmap pixmap(":/pewniak747.jpg");
+	// set window properties
+	setWindowTitle(tr("dicto %1").arg(VERSION));
+	setFixedSize(200, 300);
+	setWindowIcon(QIcon(ICON));
+	wMain->centerWidgetOnScreen(this);
+	
+	// create widgets
+	image = new QLabel;
+		QPixmap pixmap(":/pewniak747.jpg");
 		pixmap.scaledToWidth(185);
 		pixmap.scaledToHeight(185);
-    image = new QLabel;
-    image->setPixmap(pixmap);
-    QVBoxLayout *lay = new QVBoxLayout;
-        lay->addWidget(image);
-        lay->addWidget(infoLabel);
-        lay->addWidget(okButton);
-    this->setLayout(lay);
-    connect(okButton, SIGNAL(clicked()), this, SLOT(close()));
-    this->setFixedSize(200, 300);
-    this->setWindowIcon(QIcon(ICON));
-    wMain->centerWidgetOnScreen(this);
-    this->show();
+		image->setPixmap(pixmap);
+	okButton = new QPushButton(tr("OK"), this);
+	infoLabel = new QLabel(tr("dicto - version %1\nCreated by Tomasz 'pewniak747' Pewiński").arg(VERSION), this);
+	urlLabel = new QLabel(tr("<a href='http://pewniak747.github.com/dicto'>Visit website</a>"), this);
+		
+		
+	// set default values
+	infoLabel->setWordWrap(true);
+	infoLabel->setAlignment(Qt::AlignHCenter);
+	urlLabel->setTextFormat(Qt::RichText);
+	urlLabel-> setOpenExternalLinks(true);
+	urlLabel->setAlignment(Qt::AlignHCenter);
+
+	// add layout
+	QVBoxLayout *mainLayout = new QVBoxLayout;
+		mainLayout->addWidget(image);
+		mainLayout->addWidget(infoLabel);
+		mainLayout->addWidget(urlLabel);
+		mainLayout->addWidget(okButton);
+	this->setLayout(mainLayout);
+	
+	//connect signals and slots
+	connect(okButton, SIGNAL(clicked()), this, SLOT(close()));
 }
 
+// closes window
 void WAbout::closeEvent(QCloseEvent * a) {
-    wMain->setMode(enabledMode);
-    a->accept();
+	wMain->setMode(enabledMode);
+	a->accept();
 }
 
-WAbout::~WAbout() {
-
-}
