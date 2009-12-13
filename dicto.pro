@@ -7,10 +7,18 @@ TARGET = dicto
 RC_FILE = resources/dicto.rc
 DEPENDPATH += .
 INCLUDEPATH += .
-TRANSLATIONS = translations/dicto_pl.ts \
+TRANSLATIONS = translations/dicto_pl.ts
+RESOURCES += resources/dicto.qrc
 
 # Input
-HEADERS += cdocument.h centry.h wabout.h wdialog.h wmain.h wprepare.h wprops.h wprint.h
+HEADERS += cdocument.h \
+					 centry.h \
+					 wabout.h \
+					 wdialog.h \
+					 wmain.h \
+					 wprepare.h \
+					 wprops.h \
+					 wprint.h
 SOURCES += cdocument.cpp \
            centry.cpp \
            main.cpp \
@@ -20,4 +28,4 @@ SOURCES += cdocument.cpp \
            wprepare.cpp \
            wprops.cpp \
            wprint.cpp
-RESOURCES += resources/dicto.qrc
+
