@@ -1,0 +1,224 @@
+h1. dicto 1.3 - documentation
+
+__by Tomasz 'pewniak747' Pewiński__
+
+"web":http://pewniak747.github.com/dicto
+
+h2. Overview
+
+Dicto is free, open-source software for learning vocabulary. It provides simple, intuitive user interface, useful testing modes and more handy functions. Current version is 1.3.
+
+h3. Features of dicto:
+
+* handling multiple files in *.dic or *txt formats 
+* words handling: adding, editing, deleting and dynamic searching 
+* dictionary sorting 
+* dictionary printing 
+* support for synonymes 
+* simple testing in both ways (native -> foreign, foreign -> native) 
+* real examining (includes real grades!) 
+* displaying learn statistics and dictionary statistics 
+
+See README for more details...
+
+h2. Table of contents
+
+* README 
+* Changelog 
+* All classes 
+** WMain 
+** WDialog 
+** WPrepare 
+** WProps 
+** WAbout 
+** CDocument 
+** CEntry 
+* Author 
+* Acknowledgements 
+
+h2. README
+
+Dicto is free, open-source software for learning vocabulary. It provides simple, intuitive user interface, useful testing modes and much more handy functions. Current version is 1.3.
+
+h3. Features of dicto:
+
+* handling multiple files in *.dic or *txt formats 
+* words handling: adding, editing, deleting and dynamic searching 
+* dictionary sorting 
+* dictionary printing 
+* support for synonymes 
+* simple testing in both ways (native -> foreign, foreign -> native) 
+* real examining (includes real grades!) 
+* displaying learn statistics and dictionary statistics 
+
+h3. Possible future features: 
+
+* printing flashcards 
+
+h3. *.dic format specification
+
+* dictionary entry is represented by word, translation and _(optional)_ speech part
+** syntax: @word;translation;1@
+** 1 - noun
+** 2 - verb
+** 3 - adjective
+** 4 - adverb
+** 5 - other
+* native and foreign language can be provided by:
+** @lang_native=polish@
+** @lang_foreign=english@
+* lines starting with '#' will be ignored
+
+h3. License
+
+Dicto was written in C++ using Qt framework. It is released under "GNU GPL":http://www.gnu.org/licenses/gpl-3.0.txt license. What does it mean? You can download, modify or spread the word without limits!
+
+h3. Community
+
+Dicto is all about users: I wrote it for you! Your opinions and advices are very important. Feel free to write in these places:
+* "pewniak747@gmail.com":mailto:pewniak747@gmail.com
+
+
+h2. Changelog
+
+_current version: 1.3_
+
+h3. - 1.3 released 24.10 2009
+
+* fixed randomizing words problem
+* full english localization
+* replaced label with spinbox in prepare window
+* added print option
+* added speech part entry
+* added ignore synonyms option
+* added commandline integration
+* added case insensitivity
+
+h3. - 1.2 released 27.09 2009
+
+* fixed editing searched word bug
+* switched encoding to UTF-8
+* added synonyme handling
+* added dictionary sorting option
+* added search shortcut - Ctrl+F
+* minor bug fixes
+
+h3. - 1.1 released 15.09 2009
+
+* added RETURN key as accept
+* added synonymes beta
+* added printing beta
+* minor bug fixes
+
+h3. - 1.0
+
+* first release
+
+
+h2. All classes
+
+h3. WMain
+
+__Implementation: wmain.cpp__
+__Headers: wmain.h, wdialog.h, cdocument.h, wprepare.h, wabout.h, wprops.h, wprint.h__
+
+h3. WDialog 
+
+h3. WPrepare 
+
+h3. WProps 
+
+__Implementation: wprops.cpp__
+__Headers: wprops.h, wmain.h__
+__Inherits: QWidget__
+
+h4. Widgets:
+
+* QLabel fileLabel – holds filename
+* QLabel nativeLabel – holds nativeEdit label
+* QLabel foreignLabel – holds foreignEdit label
+* QLabel wordsLabel – holds number of words
+* QLabel passedLabel – hold number and percentage of passed words
+* QLineEdit nativeEdit – field for native language
+* QLineEdit foreignEdit – field for foreign language
+* QPushButton resetButton – button to reset statistics
+* QPushButton okButton – button to confirm and quit
+
+h4. Public functions:
+
+* WProps(QWidget *parent)
+
+h4. Private slots:
+
+* void updateProps();
+* void resetStats();
+* void submitStats();
+* void closeEvent(QCloseEvent *e);
+
+h4. Member function documentation:
+
+h5. void WProps::WProps(QWidget *parent)
+
+This is WProps window constructor. 0 is passed as parent.
+
+h5. void WProps::updateProps()
+
+Updates all WProps widgets with values from CDocument.
+
+h5. void Wprops::resetStats()
+
+Launches CDocument::resetStats() and WProps::updateProps()
+
+h5. void WProps:: submitStats()
+
+Saves new properties to CDocument and closes window.
+
+h5. void WProps::closeEvent(QCloseEvent *e)
+
+Sets WMain to enabled mode and closes window.
+
+h3. WAbout
+
+__Implementation: wabout.cpp__
+__Headers: wabout.h, wmain.h__
+__Inherits: QWidget__
+
+h4. Widgets:
+
+* QLabel image – holds image displayed in window
+* QLabel infoLabel – holds information about dicto
+* QLabel urlLabel – holds url to http://pewniak747.github.com/dicto
+* QPushButton okButton – closing button
+
+h4. Public functions:
+
+* WAbout(QWidget *parent)
+
+h4. Private functions:
+
+* void closeEvent(QCloseEvent *a)
+
+h4. Member function documentation:
+
+h5. WAbout::WAbout(QWidget *parent)
+
+This is the WAbout window constructor. 0 us passed as its parent.
+
+h5. void Wabout::closeEvent(QCloseEvent *a)
+
+Close event sets enabled mode to WMain and closes window.
+
+h3. CDocument 
+
+h3. CEntry 
+
+h2. Author
+
+Tomasz Pewiński - student of second grade High School of Poznań. Interested in computer science, programming and webdesign, sport (tennis), books and music. 
+Follow me on twitter: http://twitter.com/pewniak747
+Follow me on github: http://github.com/pewniak747
+Email me: pewniak747@gmail.com
+
+h2. Acknowledgments
+
+Dicto would be nothing without its users. I'd like to thank everybody who advises and supports me during development.
