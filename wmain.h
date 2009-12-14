@@ -27,7 +27,6 @@ class WMain : public QMainWindow {
 
 public:
     WMain(QWidget *parent = 0);
-    ~WMain();
     void test(unsigned howmany, bool intoforeign, bool include, bool ignoreSynonyms);
     void exam(unsigned howmany, bool intoforeign, bool include, bool ignoreSynonyms);
     void centerWidgetOnScreen(QWidget*);
@@ -45,7 +44,6 @@ private:
     QAction *editAction;
     QAction *deleteAction;
     QAction *sortAction;
-    //QAction *findAction;
     QAction *newAction;
     QAction *openAction;
     QAction *saveAction;
@@ -68,7 +66,6 @@ private:
     QPushButton *submitExamButton;
     QPushButton *cancelExamButton;
     QProgressBar *progressBar;
-    //QLabel *statusLabel;
 
     std::vector <int> currentList;
 
@@ -86,6 +83,8 @@ private:
     void createMenus();
     void createStatusBar();
     QString grade(unsigned good, unsigned howmany);
+    QString processToNice(QString string, QString delimiter);
+    int pickWord(bool include);
     void closeEvent(QCloseEvent * e);
 
 private slots:
