@@ -289,7 +289,7 @@ void WMain::saveas() {
 // opens file
 void WMain::openfile() {
 	if(cDocument->filechanged) {
-		  QMessageBox messageBox(this);
+		  /*QMessageBox messageBox(this);
 		  messageBox.setText(tr("File has been changed. Save?"));
 		  QAbstractButton *yesButton = messageBox.addButton(QMessageBox::Yes);
 		  yesButton->setText(tr("Yes"));
@@ -307,7 +307,15 @@ void WMain::openfile() {
 				messageBox.close();
 				cDocument->readFromFile("");
 
-		  }
+		  }*/
+		int userAnswer = askUser(tr("File has been changed. Save?"));
+		if(userAnswer == 2) {
+			cDocument->saveToFile(false);
+			cDocument->readFromFile("");
+		}
+		else if(userAnswer == 1) return;
+		else cDocument->readFromFile("");
+		}
 	else
 		cDocument->readFromFile("");
 }
