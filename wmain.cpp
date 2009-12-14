@@ -367,7 +367,7 @@ void WMain::test(unsigned howmany, bool intoforeign, bool include, bool ignoreSy
 	this->previousEntry = NULL;
 	
 	// reset all words to unpassed
-	for(int i=0; i<cDocument->dictionary.size(); i++) cDocument->dictionary[i].passed = false;
+	for(unsigned i=0; i<cDocument->dictionary.size(); i++) cDocument->dictionary[i].passed = false;
 	
 	// pick new word
 	int newWord = pickWord(include);
@@ -520,10 +520,10 @@ void WMain::exam(unsigned howmany, bool intoforeign, bool include, bool ignoreSy
 	tableWidget->setRowCount(howmany);
 	
 	// resets all words to unpassed
-	for(int i=0; i<cDocument->dictionary.size(); i++) cDocument->dictionary[i].passed = false;
+	for(unsigned i=0; i<cDocument->dictionary.size(); i++) cDocument->dictionary[i].passed = false;
 
 	// create exam word table
-	QTableWidgetItem* firstItem;
+	QTableWidgetItem* firstItem = NULL;
 	for (unsigned i=0; i<howmany; i++) {
 		// pick new word
 		int newWord = pickWord(include);

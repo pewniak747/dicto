@@ -76,7 +76,7 @@ private:
 	bool answered;
 	unsigned countdown;
 	unsigned howmany;
-	unsigned hintsize;
+	int hintsize;
 
 	void createMenus();
 	void createStatusBar();
