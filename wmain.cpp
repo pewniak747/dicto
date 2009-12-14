@@ -230,8 +230,8 @@ void WMain::addentry() {
 
 // shows edit entry window
 void WMain::editentry() {
-	if(cDocument->dictionary.size()>0 && listWidget->currentRow()<=cDocument->dictionary.size()) {
-		WDialog *wDialog=new WDialog(0, currentList[listWidget->currentRow()]);
+	if(cDocument->dictionary.size()>0 && selectedItem()<=cDocument->dictionary.size()) {
+		WDialog *wDialog=new WDialog(0, currentList[selectedItem()]);
 		wDialog->show();
 		setMode(disabledMode);
 	}
@@ -241,7 +241,7 @@ void WMain::editentry() {
 // deletes entry
 void WMain::deleteentry() {
 	if(cDocument->dictionary.size()>0) {
-		int currentrow = currentList[listWidget->currentRow()];
+		int currentrow = currentList[selectedItem()];
 		for(unsigned i=currentrow; i<cDocument->dictionary.size()-1; i++)
 			qSwap(cDocument->dictionary[i], cDocument->dictionary[i+1]);
 		cDocument->dictionary.pop_back();
@@ -838,3 +838,7 @@ QString WMain::processToNice(QString string, QString delimiter) {
 	return string;
 }
 
+// returns index of selected item or -1
+int WMain::selectedItem() {
+	return listWidget->currentRow();
+}
