@@ -78,69 +78,69 @@ void CDocument::saveToFile(bool saveas) {
 
 // reads data from file
 void CDocument::readFromFile(QString newfilename) {
-	if(newfilename.isEmpty()) {
-		newfilename=QFileDialog::getOpenFileName(wMain,
-													 "Choose file",
-													 "./",
-													 tr("dicto files(*.dic);;text files(*.txt);;all files(*.*)"));
-	}
-
-	if (!newfilename.isEmpty()) {
-		if(!QFile::exists(newfilename)) {
-			QMessageBox::information(wMain, tr("Error"), tr("I can't open %1, so I created it").arg(newfilename));
-		}
-		QFile file(newfilename);
-		if (!file.open(QIODevice::WriteOnly | QIODevice::Text)) return;
-
-		this->dictionary.clear();
-		QTextStream in(&file);
-
-		while (!in.atEnd()) {
-			QString line = in.readLine();
-			if(line[0]=='#')
-				 continue;
-			if(line.contains("=")) {
-				QString option=line.section("=", 0, 0);
-				if(option == "lang_native")
-					this->lang_native=line.section("=", 1, 1);
-				else if(option == "lang_foreign")
-					this->lang_foreign=line.section("=", 1, 1);
-				else
-					continue;
-			}
-			else if(!line.contains(";")) {
-				 for(int i=0; i<line.size(); i++)
-					this->dictionary[i].wordstatus=line[i]=='0'?false:true;
-			}
-			else {
-				 CEntry newEntry;
-				 newEntry.word=line.section(";",0,0);
-				 newEntry.translation=line.section(";",1,1);
-				 if(line.count(";") == 2) {
-					 speechPart sp;
-					 int spart = line.section(";", 2, 2).toInt();
-					 switch(spart) {
-						case 0 : sp = spNone; break;
-						case 1 : sp = spNoun; break;
-						case 2 : sp = spVerb; break;
-						case 3 : sp = spAdjective; break;
-						case 4 : sp = spAdverb; break;
-						case 5 : sp = spOther; break;
-						default : sp = spOther; break;
-					}
-					newEntry.sp = sp;
-				 }
-				 newEntry.wordstatus=false;
-				 this->dictionary.push_back(newEntry);
-				  wMain->updateStatusbar();
-			}
-		 }
-		 this->filename=newfilename;
-		 this->filechanged=false;
-		 wMain->updateList();
-	 }
-	 wMain->updateStatusbar();
+    if(newfilename.isEmpty()) {
+newfilename=QFileDialog::getOpenFileName(wMain,
+                                                     tr("Choose file"),
+                                                     "./",
+                                                     tr("dicto files (*.dic);;text files (*.txt);;all files(*.*)"));
 }
+ 
+    if (!newfilename.isEmpty()) {
+        QFile file(newfilename);
+        if (!file.open(QIODevice::ReadOnly | QIODevice::Text))
+            return;
+ 
+        this->dictionary.clear();
+        QTextStream in(&file);
+ 
+        while (!in.atEnd()) {
+            QString line = in.readLine();
+            if(line[0]=='#')
+                 continue;
+            if(line.contains("=")) {
+                QString option=line.section("=", 0, 0);
+                if(option == "lang_native")
+                    this->lang_native=line.section("=", 1, 1);
+                else if(option == "lang_foreign")
+                    this->lang_foreign=line.section("=", 1, 1);
+                else
+                    continue;
+            }
+            else if(!line.contains(";")) {
+                 for(int i=0; i<line.size(); i++)
+                    this->dictionary[i].wordstatus=line[i]=='0'?false:true;
+            }
+            else {
+                 CEntry newEntry;
+                 newEntry.word=line.section(";",0,0);
+                 newEntry.translation=line.section(";",1,1);
+                 if(line.count(";") == 2) {
+speechPart sp;
+int spart = line.section(";", 2, 2).toInt();
+switch(spart) {
+case 0 : sp = spNone; break;
+case 1 : sp = spNoun; break;
+case 2 : sp = spVerb; break;
+case 3 : sp = spAdjective; break;
+case 4 : sp = spAdverb; break;
+case 5 : sp = spOther; break;
+default : sp = spOther; break;
+}
+newEntry.sp = sp;
+}
+                 newEntry.wordstatus=false;
+                 this->dictionary.push_back(newEntry);
+                  wMain->updateStatusbar();
+            }
+         }
+         this->filename=newfilename;
+         this->filechanged=false;
+         wMain->updateList();
+     }
+     wMain->updateStatusbar();
+}
+
+
 
 // returns number of learned words
 unsigned CDocument::passed() {
