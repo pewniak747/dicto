@@ -279,8 +279,7 @@ void WMain::newfile() {
 				return;
 			if (messageBox.clickedButton() == noButton)
 
-				cDocument->filename="";
-				cDocument->dictionary.clear();
+				cDocument = new CDocument;
 				updateList();
 				updateStatusbar();
 
@@ -796,7 +795,7 @@ int WMain::pickWord(bool include) {
 // window close event
 void WMain::closeEvent(QCloseEvent * e) {
 	if(cDocument->filechanged) {
-		 QMessageBox messageBox(this);
+		/* QMessageBox messageBox(this);
 		  messageBox.setText(tr("File has been changed. Save?"));
 		  QAbstractButton *yesButton = messageBox.addButton(QMessageBox::Yes);
 		  yesButton->setText(tr("Yes"));
@@ -821,9 +820,21 @@ void WMain::closeEvent(QCloseEvent * e) {
 				e->accept();
 				application->quit();
 				return;
-			}
-
-		   }
+			}*/
+		int userAnswer = askUser(tr("File has been changed. Save?"));
+		if (userAnswer == 2) {
+			cDocument->saveToFile(false);
+			application->quit();
+			e->accept();
+		}
+		else if(userAnswer == 1) e->ignore();
+		else if(userAnswer == 0) {
+			e->accept();
+			application->quit();
+		}
+		else e->ignore();
+		return;
+	}
 	else
 		application->quit();
 }
@@ -841,5 +852,23 @@ QString WMain::processToNice(QString string, QString delimiter) {
 // returns index of selected item or -1
 int WMain::selectedItem() {
 	return listWidget->currentRow();
+}
+
+// returns 0 if user asked no, 1 if cancel, 2 if yes
+int WMain::askUser(QString message) {
+	QMessageBox messageBox(wMain);
+	  messageBox.setText(message);
+	  QAbstractButton *yesButton = messageBox.addButton(QMessageBox::Yes);
+	  yesButton->setText(tr("Yes"));
+	  QAbstractButton *noButton = messageBox.addButton(QMessageBox::No);
+	  noButton->setText(tr("No"));
+	  QAbstractButton *cancelButton = messageBox.addButton(QMessageBox::Cancel);
+	  cancelButton->setText(tr("Cancel"));
+	  messageBox.setIcon(QMessageBox::Information);
+	  messageBox.exec();
+	if (messageBox.clickedButton() == yesButton) return 2;
+	else if (messageBox.clickedButton() == cancelButton) return 1;
+	else if (messageBox.clickedButton() == noButton) return 0;
+	else return 0;
 }
 

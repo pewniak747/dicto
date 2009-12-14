@@ -33,6 +33,7 @@ public:
 	void exam(unsigned howmany, bool intoforeign, bool include, bool ignoreSynonyms);
 	void centerWidgetOnScreen(QWidget*);
 	int selectedItem();
+	int askUser(QString message);
 
 private:
 	QMenu *fileMenu;
