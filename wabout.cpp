@@ -12,7 +12,7 @@
 WAbout::WAbout(QWidget *parent) : QWidget(parent) {
 	// set window properties
 	setWindowTitle(tr("dicto %1").arg(VERSION));
-	setFixedSize(200, 300);
+	setFixedSize(200, 330);
 	setWindowIcon(QIcon(ICON));
 	wMain->centerWidgetOnScreen(this);
 	
