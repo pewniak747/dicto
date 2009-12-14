@@ -8,7 +8,6 @@
 #include <QtGui>
 #include <QApplication>
 #include "wmain.h"
-#include <iostream>
 
 QApplication *application;
 WMain *wMain;
