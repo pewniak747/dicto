@@ -263,33 +263,17 @@ void WMain::sortall() {
 // creates new file
 void WMain::newfile() {
 	if(cDocument->filechanged) {
-		 QMessageBox messageBox(this);
-		  messageBox.setText(tr("File has been changed. Save?"));
-		  QAbstractButton *yesButton = messageBox.addButton(QMessageBox::Yes);
-		  yesButton->setText(tr("Yes"));
-		  QAbstractButton *noButton = messageBox.addButton(QMessageBox::No);
-		  noButton->setText(tr("No"));
-		  QAbstractButton *cancelButton = messageBox.addButton(QMessageBox::Cancel);
-		  cancelButton->setText(tr("Cancel"));
-		  messageBox.setIcon(QMessageBox::Warning);
-			 messageBox.exec();
-			if (messageBox.clickedButton() == yesButton)
-				cDocument->saveToFile(false);
-			if (messageBox.clickedButton() == cancelButton)
-				return;
-			if (messageBox.clickedButton() == noButton)
-
-				cDocument = new CDocument;
-				updateList();
-				updateStatusbar();
-
-		  }
-	cDocument->filename="";
-				cDocument->dictionary.clear();
-				cDocument->filechanged=false;
-				updateList();
-				updateStatusbar();
-
+		int userAnswer = askUser(tr("File has been changed. Save?"));
+		if(userAnswer == 2) cDocument->saveToFile(false);
+		else if(userAnswer == 1) return;
+	}
+	
+	/*cDocument->filename="";
+	cDocument->dictionary.clear();
+	cDocument->filechanged = false;*/
+	cDocument = new CDocument;
+	updateList();
+	updateStatusbar();
 }
 
 // invokes file save
