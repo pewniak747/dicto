@@ -86,7 +86,7 @@ void CDocument::readFromFile(QString newfilename) {
 	}
 
 	if (!newfilename.isEmpty()) {
-		if(QFile::exists(newfilename)) {
+		if(!QFile::exists(newfilename)) {
 			QMessageBox::information(wMain, tr("Error"), tr("I can't open %1, so I created it").arg(newfilename));
 		}
 		QFile file(newfilename);
