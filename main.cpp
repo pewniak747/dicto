@@ -27,15 +27,15 @@ int main(int argc, char *argv[]) {
 	if(locale == "pl_PL") application->installTranslator(&translator);
 	
 	// create main window
-	wMain=new WMain;
+	wMain = new WMain;
 	
 	//parse argv
 	if(argc > 1) {
 		QDir dir;
 		QString filename = argv[1];
-		if(fname[0] != '/' && (fname.size() > 1 && fname[1] != ':')) 
+		if(filename[0] != '/' && (filename.size() > 1 && filename[1] != ':')) 
 			filename.prepend(dir.absolutePath()+"/");
-		if(!fname.isEmpty()) wMain->cDocument->readFromFile(fname);
+		if(!filename.isEmpty()) wMain->cDocument->readFromFile(filename);
 	}
 	
 	//show main window
