@@ -289,25 +289,6 @@ void WMain::saveas() {
 // opens file
 void WMain::openfile() {
 	if(cDocument->filechanged) {
-		  /*QMessageBox messageBox(this);
-		  messageBox.setText(tr("File has been changed. Save?"));
-		  QAbstractButton *yesButton = messageBox.addButton(QMessageBox::Yes);
-		  yesButton->setText(tr("Yes"));
-		  QAbstractButton *noButton = messageBox.addButton(QMessageBox::No);
-		  noButton->setText(tr("No"));
-		  QAbstractButton *cancelButton = messageBox.addButton(QMessageBox::Cancel);
-		  cancelButton->setText(tr("Cancel"));
-		  messageBox.setIcon(QMessageBox::Warning);
-			 messageBox.exec();
-			if (messageBox.clickedButton() == yesButton)
-				cDocument->readFromFile("");
-			if (messageBox.clickedButton() == cancelButton)
-				return;
-			if (messageBox.clickedButton() == noButton)
-				messageBox.close();
-				cDocument->readFromFile("");
-
-		  }*/
 		int userAnswer = askUser(tr("File has been changed. Save?"));
 		if(userAnswer == 2) {
 			cDocument->saveToFile(false);
@@ -455,22 +436,13 @@ void WMain::check() {
 
 // cancels test
 void WMain::canceltest() {
-	QMessageBox messageBox(this);
-		  messageBox.setText(tr("Are you sure to cancel test?"));
-		  QAbstractButton *yesButton = messageBox.addButton(QMessageBox::Yes);
-		  yesButton->setText(tr("Yes"));
-		  QAbstractButton *noButton = messageBox.addButton(QMessageBox::No);
-		  noButton->setText(tr("No"));
-		  messageBox.setIcon(QMessageBox::Question);
-		  messageBox.exec();
-
-			if (messageBox.clickedButton() == yesButton) {
-				setNormalMode();
-				return;
-			}
-			if (messageBox.clickedButton() == noButton) {
-				return;
-			}
+	int userAnswer = askUser(tr("Are you sure to cancel test?"));
+	if(userAnswer == 2) {
+		setNormalMode();
+		return;
+	}
+	else if(userAnswer == 1) return;
+	else return;
 }
 
 // displays hint
@@ -537,42 +509,31 @@ void WMain::exam(unsigned howmany, bool intoforeign, bool include, bool ignoreSy
 // checks exam
 void WMain::checkexam()  {
 	if(!answered) {
-		QMessageBox messageBox(this);
-		  messageBox.setText(tr("Are you sure to submit exam?"));
-		  QAbstractButton *yesButton = messageBox.addButton(QMessageBox::Yes);
-		  yesButton->setText(tr("Yes"));
-		  QAbstractButton *noButton = messageBox.addButton(QMessageBox::No);
-		  noButton->setText(tr("No"));
-		  messageBox.setIcon(QMessageBox::Question);
-		  messageBox.exec();
-
-			if (messageBox.clickedButton() == yesButton) {
-				unsigned good=0;
-				for (unsigned u=0; u<examTab.size(); u++) {
-					if (examTab[u]->check(tableWidget->item(u, 1)->text(), intoforeign, ignoreSynonyms)) {
-						tableWidget->item(u, 1)->setText(tr("Good!"));
-						good++;
-						examTab[u]->wordstatus = true;
-						cDocument->filechanged = true;
-					}
-					else {
-						tableWidget->item(u, 1)->setText(tr("Wrong (%1)").arg(intoforeign?examTab[u]->translation:examTab[u]->word));
-					}
-					tableWidget->item(u, 1)->setFlags(Qt::ItemIsEnabled);
+		int userAnswer = askUser(tr("Are you sure to submit exam?"));
+		if(userAnswer != 2) return;
+	
+		unsigned good=0;
+			for (unsigned u=0; u<examTab.size(); u++) {
+				if (examTab[u]->check(tableWidget->item(u, 1)->text(), intoforeign, ignoreSynonyms)) {
+					tableWidget->item(u, 1)->setText(tr("Good!"));
+					good++;
+					examTab[u]->wordstatus = true;
+					cDocument->filechanged = true;
 				}
-				answered = true;
-				examStatusLabel->setText(tr("Exam status: ended\nMistakes: %1, Grade: %2 (%3%)")
-										.arg(howmany-good)
-										.arg(grade(good, howmany))
-										.arg(good*100/howmany));
-				cancelExamButton->setEnabled(false);
-				examTab.clear();
-				return;
+				else {
+					tableWidget->item(u, 1)->setText(tr("Wrong (%1)").arg(intoforeign?examTab[u]->translation:examTab[u]->word));
+				}
+				tableWidget->item(u, 1)->setFlags(Qt::ItemIsEnabled);
 			}
-			if (messageBox.clickedButton() == noButton) {
-				return;
-			}
-	}
+			answered = true;
+			examStatusLabel->setText(tr("Exam status: ended\nMistakes: %1, Grade: %2 (%3%)")
+									.arg(howmany-good)
+									.arg(grade(good, howmany))
+									.arg(good*100/howmany));
+			cancelExamButton->setEnabled(false);
+			examTab.clear();
+			return;
+		}
 	else {
 		if(cDocument->passed() == cDocument->dictionary.size()) {
 			QMessageBox::information(this, tr("Congratulations"), tr("All words learned\nReset statistics"));
@@ -584,19 +545,11 @@ void WMain::checkexam()  {
 
 // cancels exam
 void WMain:: cancelexam() {
-	QMessageBox messageBox(this);
-	  messageBox.setText(tr("Are you sure to cancel exam?"));
-	  QAbstractButton *yesButton = messageBox.addButton(QMessageBox::Yes);
-	  yesButton->setText(tr("Yes"));
-	  QAbstractButton *noButton = messageBox.addButton(QMessageBox::No);
-	  noButton->setText(tr("No"));
-	  messageBox.setIcon(QMessageBox::Question);
-	  messageBox.exec();
-	if (messageBox.clickedButton() == yesButton) {
-			setNormalMode();
-			return;
+	int userAnswer = askUser(tr("Are you sure to cancel exam?"));
+	if(userAnswer == 2) {
+		setNormalMode();
 	}
-	if (messageBox.clickedButton() == noButton) return;
+	return;
 }
 
 // sets main window mode
@@ -787,32 +740,6 @@ int WMain::pickWord(bool include) {
 // window close event
 void WMain::closeEvent(QCloseEvent * e) {
 	if(cDocument->filechanged) {
-		/* QMessageBox messageBox(this);
-		  messageBox.setText(tr("File has been changed. Save?"));
-		  QAbstractButton *yesButton = messageBox.addButton(QMessageBox::Yes);
-		  yesButton->setText(tr("Yes"));
-		  QAbstractButton *noButton = messageBox.addButton(QMessageBox::No);
-		  noButton->setText(tr("No"));
-		  QAbstractButton *cancelButton = messageBox.addButton(QMessageBox::Cancel);
-		  cancelButton->setText(tr("Cancel"));
-		  messageBox.setIcon(QMessageBox::Warning);
-		  messageBox.exec();
-
-			if (messageBox.clickedButton() == yesButton) {
-				cDocument->saveToFile(false);
-				application->quit();
-				e->accept();
-				return;
-			}
-			if (messageBox.clickedButton() == cancelButton) {
-				e->ignore();
-				return;
-			}
-			if (messageBox.clickedButton() == noButton) {
-				e->accept();
-				application->quit();
-				return;
-			}*/
 		int userAnswer = askUser(tr("File has been changed. Save?"));
 		if (userAnswer == 2) {
 			cDocument->saveToFile(false);
