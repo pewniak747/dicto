@@ -45,14 +45,14 @@ bool CEntry::check(QString give, bool intoforeign, bool ignoreSynonyms) {
 	questions.push_back(answer);
 	
 	//perform case-insensitive
-	for(int i=0; i<answers.size(); i++) answers[i] = answers[i].toLower();
-	for(int i=0; i<questions.size(); i++) questions[i] = questions[i].toLower();
+	for(unsigned i=0; i<answers.size(); i++) answers[i] = answers[i].toLower();
+	for(unsigned i=0; i<questions.size(); i++) questions[i] = questions[i].toLower();
 
 	// perform checking
-	int size = questions.size();
-	int asize = answers.size();
-	for(int i=0; i<answers.size(); i++) {
-		for(int l=0; l<questions.size(); l++) {
+	unsigned size = questions.size();
+	unsigned asize = answers.size();
+	for(unsigned i=0; i<answers.size(); i++) {
+		for(unsigned l=0; l<questions.size(); l++) {
 			if(answers[i] == questions[l]) {
 				for(unsigned u=l; u<questions.size()-1; u++)
             qSwap(questions[u], questions[u+1]);
@@ -61,7 +61,6 @@ bool CEntry::check(QString give, bool intoforeign, bool ignoreSynonyms) {
 			}
 		}
 	}
-	std::cout << "lol" << questions.size() << ":" << answers.size();
 	if(ignoreSynonyms && questions.empty() && size == asize) return true;
 	else if(!ignoreSynonyms && questions.size() < size) return true;
 	else return false;
