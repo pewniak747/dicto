@@ -462,6 +462,7 @@ void WMain::check() {
 	}
 }
 
+// cancels test
 void WMain::canceltest() {
 	QMessageBox messageBox(this);
 		  messageBox.setText(tr("Are you sure to cancel test?"));
@@ -481,15 +482,16 @@ void WMain::canceltest() {
 			}
 }
 
+// displays hint
 void WMain::hint() {
 	if(mode != testMode) return;
 	QString answer = intoforeign ? currentEntry->translation : currentEntry->word;
 	if(answer.length()<hintsize || answered) return;
-
 	answerEdit->setText(answer.mid(0, hintsize));
 	hintsize++;
 }
 
+// displays prepare exam window
 void WMain::prepareexam() {
 	if(this->cDocument->dictionary.size()==0)
 		statusBar()->showMessage(tr("Dictionary is empty"), 10000);
@@ -501,13 +503,12 @@ void WMain::prepareexam() {
 	}
 }
 
+// starts exam
 void WMain::exam(unsigned howmany, bool intoforeign, bool include, bool ignoreSynonyms) {
+	// set exam variables
 	setMode(examMode);
-	this->answered=false;
-
-	tableWidget->clear();
+	this->answered = false;
 	examTab.clear();
-
 	this->countdown=howmany;
 	this->howmany=howmany;
 	this->intoforeign=intoforeign;
@@ -515,34 +516,36 @@ void WMain::exam(unsigned howmany, bool intoforeign, bool include, bool ignoreSy
 	this->ignoreSynonyms=ignoreSynonyms;
 
 	updateStatusbar();
-
+	tableWidget->clear();
 	tableWidget->setRowCount(howmany);
 	
+	// resets all words to unpassed
 	for(int i=0; i<cDocument->dictionary.size(); i++) cDocument->dictionary[i].passed = false;
 
-	unsigned random;
+	// create exam word table
 	QTableWidgetItem* firstItem;
 	for (unsigned i=0; i<howmany; i++) {
-		
-		cDocument->dictionary[random].passed=true;
+		// pick new word
+		int newWord = pickWord(include);
+		cDocument->dictionary[newWord].passed = true;
 
-		QTableWidgetItem *newItem = new QTableWidgetItem(processToNice(intoforeign?cDocument->dictionary[random].word:cDocument->dictionary[random].translation, " | "));
+		QTableWidgetItem *newItem = new QTableWidgetItem(processToNice(intoforeign?cDocument->dictionary[newWord].word:cDocument->dictionary[newWord].translation, " | "));
 		newItem->setFlags(Qt::ItemIsEnabled );
 		tableWidget->setItem(i, 0, newItem);
 		QTableWidgetItem *newItem2=new QTableWidgetItem("");
 		tableWidget->setItem(i, 1, newItem2);
 		if(i == 0) firstItem=newItem2;
-		examTab.push_back(&(cDocument->dictionary[random]));
+		examTab.push_back(&(cDocument->dictionary[newWord]));
 	}
 
+	// end
 	examStatusLabel->setText(tr("Exam status: pending"));
 	tableWidget->setCurrentItem(firstItem);
-
 }
 
+// checks exam
 void WMain::checkexam()  {
 	if(!answered) {
-
 		QMessageBox messageBox(this);
 		  messageBox.setText(tr("Are you sure to submit exam?"));
 		  QAbstractButton *yesButton = messageBox.addButton(QMessageBox::Yes);
@@ -558,28 +561,19 @@ void WMain::checkexam()  {
 					if (examTab[u]->check(tableWidget->item(u, 1)->text(), intoforeign, ignoreSynonyms)) {
 						tableWidget->item(u, 1)->setText(tr("Good!"));
 						good++;
-						examTab[u]->wordstatus=true;
-						cDocument->filechanged=true;
+						examTab[u]->wordstatus = true;
+						cDocument->filechanged = true;
 					}
 					else {
 						tableWidget->item(u, 1)->setText(tr("Wrong (%1)").arg(intoforeign?examTab[u]->translation:examTab[u]->word));
 					}
 					tableWidget->item(u, 1)->setFlags(Qt::ItemIsEnabled);
 				}
-				answered=true;
-				/*
-				QMessageBox::information(this, tr("Wyniki testu"), tr("Ilość słów: %1\nPoprawnych: %2 (%3%)\nOcena: %4")
-										.arg(howmany)
-										.arg(good)
-										.arg(good*100/howmany)
-										.arg(this->grade(good, howmany)));
-				*/
-				//using examStatusLabel to show these
+				answered = true;
 				examStatusLabel->setText(tr("Exam status: ended\nMistakes: %1, Grade: %2 (%3%)")
 										.arg(howmany-good)
-										.arg(this->grade(good, howmany))
+										.arg(grade(good, howmany))
 										.arg(good*100/howmany));
-
 				cancelExamButton->setEnabled(false);
 				examTab.clear();
 				return;
@@ -587,9 +581,6 @@ void WMain::checkexam()  {
 			if (messageBox.clickedButton() == noButton) {
 				return;
 			}
-
-
-
 	}
 	else {
 		if(cDocument->passed() == cDocument->dictionary.size()) {
@@ -600,23 +591,21 @@ void WMain::checkexam()  {
 	cDocument->filechanged=true;
 }
 
+// cancels exam
 void WMain:: cancelexam() {
 	QMessageBox messageBox(this);
-		  messageBox.setText(tr("Are you sure to cancel exam?"));
-		  QAbstractButton *yesButton = messageBox.addButton(QMessageBox::Yes);
-		  yesButton->setText(tr("Yes"));
-		  QAbstractButton *noButton = messageBox.addButton(QMessageBox::No);
-		  noButton->setText(tr("No"));
-		  messageBox.setIcon(QMessageBox::Question);
-		  messageBox.exec();
-
-			if (messageBox.clickedButton() == yesButton) {
-				setNormalMode();
-				return;
-			}
-			if (messageBox.clickedButton() == noButton) {
-				return;
-			}
+	  messageBox.setText(tr("Are you sure to cancel exam?"));
+	  QAbstractButton *yesButton = messageBox.addButton(QMessageBox::Yes);
+	  yesButton->setText(tr("Yes"));
+	  QAbstractButton *noButton = messageBox.addButton(QMessageBox::No);
+	  noButton->setText(tr("No"));
+	  messageBox.setIcon(QMessageBox::Question);
+	  messageBox.exec();
+	if (messageBox.clickedButton() == yesButton) {
+			setNormalMode();
+			return;
+	}
+	if (messageBox.clickedButton() == noButton) return;
 }
 
 // sets main window mode
