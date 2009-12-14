@@ -12,6 +12,7 @@
 #include "centry.h"
 #include "wmain.h"
 
+// CDocument constructor
 CDocument::CDocument() {
 	filename="";
 	filechanged = false;
@@ -19,6 +20,7 @@ CDocument::CDocument() {
 	lang_foreign="";
 }
 
+// saves CDocument to file
 void CDocument::saveToFile(bool saveas) {
 	if(this->filename=="" || saveas) {
 		filename=QFileDialog::getSaveFileName(wMain,
@@ -74,6 +76,7 @@ void CDocument::saveToFile(bool saveas) {
 	 filechanged=false;
 }
 
+// reads data from file
 void CDocument::readFromFile(QString newfilename) {
 	if(newfilename.isEmpty()) {
 		newfilename=QFileDialog::getOpenFileName(wMain,
@@ -139,6 +142,7 @@ void CDocument::readFromFile(QString newfilename) {
 	 wMain->updateStatusbar();
 }
 
+// returns number of learned words
 unsigned CDocument::passed() {
 	unsigned passed=0;
 	for(unsigned i=0; i<dictionary.size(); i++)
@@ -146,6 +150,7 @@ unsigned CDocument::passed() {
 	return passed;
 }
 
+// resets dictionary's statistics
 void CDocument::resetStats() {
 	if(dictionary.size() == 0) return;
 	for(unsigned i=0; i<dictionary.size(); i++)
@@ -154,6 +159,7 @@ void CDocument::resetStats() {
 	wMain->updateStatusbar();
 }
 
+// sorts dictionary
 void CDocument::sortDictionary() {
 	for(unsigned i = 0; i < dictionary.size(); i++) {
 		bool swapped=false;
@@ -169,6 +175,7 @@ void CDocument::sortDictionary() {
 	wMain->updateList();
 }
 
+// returns true if words are not sorted alphabetically
 bool CDocument::ifSwap(QString word, QString word2) {
 	for(int i=0; i<word.size(); i++) {
 		if(word[i] < word2[i]) return true;
