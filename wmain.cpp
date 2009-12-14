@@ -230,7 +230,7 @@ void WMain::addentry() {
 
 // shows edit entry window
 void WMain::editentry() {
-	if(cDocument->dictionary.size()>0 && selectedItem()<=cDocument->dictionary.size()) {
+	if(cDocument->dictionary.size()>0 && selectedItem()<=int(cDocument->dictionary.size())) {
 		WDialog *wDialog=new WDialog(0, currentList[selectedItem()]);
 		wDialog->show();
 		setMode(disabledMode);
@@ -842,3 +842,4 @@ QString WMain::processToNice(QString string, QString delimiter) {
 int WMain::selectedItem() {
 	return listWidget->currentRow();
 }
+
