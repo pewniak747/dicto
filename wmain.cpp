@@ -213,11 +213,6 @@ void WMain::updateList() {
 		QString word = cDocument->dictionary[i].word;
 		QString translation = cDocument->dictionary[i].translation;
 		QString result=translation+" - "+word;
-	//	int j = 0;
-	//	while ((j = result.indexOf("/", j)) != -1) {
-	//	 result.replace(j, 1, " | ");
-	//	 ++j;
-	// }
 		if(search==""||word.contains(search)||translation.contains(search)) {
 			QListWidgetItem *newItem = new QListWidgetItem(processToNice(result, " | "), listWidget);
 			listWidget->addItem(newItem);
@@ -360,8 +355,8 @@ void WMain::preparetest() {
 
 // starts test
 void WMain::test(unsigned howmany, bool intoforeign, bool include, bool ignoreSynonyms) {
+	// prepare test variables
 	setMode(testMode);
-
 	this->countdown = howmany;
 	this->howmany = howmany;
 	this->intoforeign = intoforeign;
@@ -374,28 +369,17 @@ void WMain::test(unsigned howmany, bool intoforeign, bool include, bool ignoreSy
 	// reset all words to unpassed
 	for(int i=0; i<cDocument->dictionary.size(); i++) cDocument->dictionary[i].passed = false;
 	
-	/*
-	unsigned random;
-		do {
-			random=rand()%cDocument->dictionary.size();
-		} while(!((include || !cDocument->dictionary[random].wordstatus) && !cDocument->dictionary[random].passed));
-	*/
+	// pick new word
 	int newWord = pickWord(include);
 	if(newWord == -1) {
 		setMode(normalMode);
 		updateStatusbar();
 		return;
 	}
-	
 	currentEntry=&(cDocument->dictionary[newWord]);
-	QString question = intoforeign ? currentEntry->word : currentEntry->translation;
-
+	
 	// process question string
-	//	int j = 0;
-		//while ((j = question.indexOf("/", j)) != -1) {
-		 //question.replace(j, 1, "\n");
-		 //++j;
-	 ///}
+	QString question = intoforeign ? currentEntry->word : currentEntry->translation;
 	question = processToNice(question, "\n");
 	 
 	// append speech part
@@ -418,9 +402,9 @@ void WMain::test(unsigned howmany, bool intoforeign, bool include, bool ignoreSy
 	updateStatusbar();
 }
 
+// checks user input
 void WMain::check() {
-	if(mode!=testMode)
-		return;
+	if(mode!=testMode) return;
 
 	if(!answered) {
 		if(currentEntry->check(answerEdit->text(), intoforeign, ignoreSynonyms)) {
@@ -436,43 +420,28 @@ void WMain::check() {
 												.arg(intoforeign?currentEntry->word:currentEntry->translation)
 												.arg(intoforeign?currentEntry->translation:currentEntry->word));
 		}
-		
 		previousEntry = currentEntry;
 		submitWordButton->setText(tr("Next"));
-		answered=true;
-		cDocument->filechanged=true;
+		answered = true;
+		cDocument->filechanged = true;
 		updateStatusbar();
 	}
 	else {
-		if(this->cDocument->dictionary.size()==cDocument->passed()) {
-			QMessageBox::information(this, tr("Congratulations"), tr("All world learned!\nReset statistics"));
+		// pick new word
+		int newWord = pickWord(include);
+		if(newWord == -1) {
 			setMode(normalMode);
 			updateStatusbar();
 			return;
 		}
-		else if(countdown==0) {
-			QMessageBox::information(this, tr("End"), tr("End of test!"));
-			setMode(normalMode);
-			updateStatusbar();
-			return;
-		}
-		unsigned random;
-		do {
-			random=rand()%cDocument->dictionary.size();
-		} while(!((include || !cDocument->dictionary[random].wordstatus) && !cDocument->dictionary[random].passed && (cDocument->dictionary.size()-cDocument->passed() < 2 || &(cDocument->dictionary[random]) != previousEntry)));
-
-		currentEntry=&(cDocument->dictionary[random]);
-		answerEdit->clear();
-
-	QString question = intoforeign ? currentEntry->word : currentEntry->translation;
-	question = processToNice(question, "\n");
-	//	int j = 0;
-	//	while ((j = question.indexOf("/", j)) != -1) {
-	//	 question.replace(j, 1, "\n");
-	//	 ++j;
-	// }
-	 
-	 if(currentEntry->sp != spNone) {
+		currentEntry=&(cDocument->dictionary[newWord]);
+		
+		// process wuestion string
+		QString question = intoforeign ? currentEntry->word : currentEntry->translation;
+		question = processToNice(question, "\n");
+		
+		// append speech part
+		if(currentEntry->sp != spNone) {
 			speechPart spart = currentEntry->sp;
 			if(spart == spVerb) question.append("\n(verb)");
 			else if(spart == spNoun) question.append("\n(noun)");
@@ -481,15 +450,15 @@ void WMain::check() {
 			else if(spart == spOther) question.append("\n(other)");
 		}
 
-	if(intoforeign) questionLabel->setText(question);
-	else questionLabel->setText(question);
-
-	answered=false;
-	hintsize=1;
-
-	submitWordButton->setText(tr("OK"));
-	answerEdit->setFocus();
-	updateStatusbar();
+		// end
+		if(intoforeign) questionLabel->setText(question);
+		else questionLabel->setText(question);
+		answered = false;
+		hintsize=1;
+		submitWordButton->setText(tr("OK"));
+		answerEdit->clear();
+		answerEdit->setFocus();
+		updateStatusbar();
 	}
 }
 
@@ -523,8 +492,6 @@ void WMain::hint() {
 
 void WMain::prepareexam() {
 	if(this->cDocument->dictionary.size()==0)
-		//QMessageBox::information(this, tr("Błąd"), tr("Słownik jest pusty!"));
-		//using status tip instead of messagebox
 		statusBar()->showMessage(tr("Dictionary is empty"), 10000);
 	else if(this->cDocument->dictionary.size()==cDocument->passed())
 		QMessageBox::information(this, tr("Congratulations"), tr("All words learned!"));
@@ -652,6 +619,7 @@ void WMain:: cancelexam() {
 			}
 }
 
+// sets main window mode
 void WMain::setMode(Mode mode) {
 	switch(mode) {
 
@@ -762,6 +730,7 @@ void WMain::setMode(Mode mode) {
 	}
 }
 
+// updates statusbar
 void WMain::updateStatusbar() {
 	if(this->mode == normalMode) {
 		if(cDocument->dictionary.size()>0) {
@@ -779,23 +748,27 @@ void WMain::updateStatusbar() {
 	}
 }
 
+// show stats box
 void WMain::stats() {
 	WProps* wProps = new WProps(0);
 	wProps->show();
 	setMode(disabledMode);
 }
 
+// shows about box
 void WMain::about() {
 	setMode(disabledMode);
 	WAbout* aboutBox = new WAbout(0);
 	aboutBox->show();
 }
 
+// centers widget on screen
 void WMain::centerWidgetOnScreen (QWidget * widget) {
 	 QRect rect = QApplication::desktop()->availableGeometry();
 	 widget->move(rect.center() - widget->rect().center());
 }
 
+// calculates and returns qstring of grade
 QString WMain::grade(unsigned good, unsigned howmany) {
 	double percent = double(good) / double(howmany);
 
@@ -807,6 +780,7 @@ QString WMain::grade(unsigned good, unsigned howmany) {
 	else return tr("unknown");
 }
 
+// focuses on search bar
 void WMain::search() {
 	if(mode != normalMode) return;
 	searchBar->setFocus();
@@ -830,6 +804,7 @@ int WMain::pickWord(bool include) {
 	return random;
 }
 
+// window close event
 void WMain::closeEvent(QCloseEvent * e) {
 	if(cDocument->filechanged) {
 		 QMessageBox messageBox(this);
@@ -864,6 +839,7 @@ void WMain::closeEvent(QCloseEvent * e) {
 		application->quit();
 }
 
+// replaces every '/' in string with delimiter
 QString WMain::processToNice(QString string, QString delimiter) {
 	int j = 0;
 	while ((j = string.indexOf("/", j)) != -1) {
