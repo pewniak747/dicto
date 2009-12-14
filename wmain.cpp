@@ -408,7 +408,7 @@ void WMain::check() {
 		}
 		currentEntry=&(cDocument->dictionary[newWord]);
 		
-		// process wuestion string
+		// process question string
 		QString question = intoforeign ? currentEntry->word : currentEntry->translation;
 		question = processToNice(question, "\n");
 		
@@ -723,7 +723,7 @@ void WMain::search() {
 // returns number of random entry, -1 if no is available
 int WMain::pickWord(bool include) {
 	if(cDocument->dictionary.size() == cDocument->passed()) {
-		QMessageBox::information(this, tr("Congratulations"), tr("All world learned!\nReset statistics"));
+		QMessageBox::information(this, tr("Congratulations"), tr("All words learned!\nReset statistics"));
 			return -1;
 	}
 	else if(countdown==0) {
@@ -783,7 +783,7 @@ int WMain::askUser(QString message) {
 	  noButton->setText(tr("No"));
 	  QAbstractButton *cancelButton = messageBox.addButton(QMessageBox::Cancel);
 	  cancelButton->setText(tr("Cancel"));
-	  messageBox.setIcon(QMessageBox::Information);
+	  messageBox.setIcon(QMessageBox::Question);
 	  messageBox.exec();
 	if (messageBox.clickedButton() == yesButton) return 2;
 	else if (messageBox.clickedButton() == cancelButton) return 1;
