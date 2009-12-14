@@ -559,7 +559,7 @@ void WMain::exam(unsigned howmany, bool intoforeign, bool include, bool ignoreSy
 		
 		cDocument->dictionary[random].passed=true;
 
-		QTableWidgetItem *newItem = new QTableWidgetItem(intoforeign?cDocument->dictionary[random].word:cDocument->dictionary[random].translation);
+		QTableWidgetItem *newItem = new QTableWidgetItem(processToNice(intoforeign?cDocument->dictionary[random].word:cDocument->dictionary[random].translation, " | "));
 		newItem->setFlags(Qt::ItemIsEnabled );
 		tableWidget->setItem(i, 0, newItem);
 		QTableWidgetItem *newItem2=new QTableWidgetItem("");
