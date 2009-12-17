@@ -10,7 +10,7 @@
 
 #include <QString>
 
-enum speechPart {spNone, spVerb, spNoun, spAdjective, spAdverb, spOther};
+enum speechPart {spNone = 0, spVerb = 1, spNoun = 2, spAdjective = 3, spAdverb = 4, spOther = 5};
 
 class CEntry {
 	public:

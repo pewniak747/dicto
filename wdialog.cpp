@@ -1,17 +1,15 @@
-/*******************************************************************************/
-/** dicto v 1.3 WDialog class implementation file							 **/
-/** This file is published under GNU/GPL licence							  **/
-/** http://www.gnu.org/licenses/gpl-3.0.txt								   **/
-/** author: Tomasz Pewiński "pewniak747"									  **/
-/** contact: pewniak747@gmail.com											 **/
-/** http://dicto.sourceforge.net											  **/
-/*******************************************************************************/
+// dicto v 1.3 WDialog implementation file
+// This file is published under GNU/GPL licence
+// http://www.gnu.org/licenses/gpl-3.0.txt
+// author: Tomasz Pewiński "pewniak747"
+// contact: pewniak747@gmail.com
+// http://pewniak747.github.com/dicto
 
 #include "wdialog.h"
 #include "wmain.h"
 #include "centry.h"
 
-WDialog::WDialog(QWidget *parent, /*int current*/ CEntry *entry) : QWidget(parent) {
+WDialog::WDialog(QWidget *parent, CEntry *entry) : QWidget(parent) {
 	wordLabel=new QLabel(tr("Word:"), this);
 	translationLabel=new QLabel(tr("Translation:"), this);
 	wordEdit=new QLineEdit(this);
@@ -59,7 +57,6 @@ WDialog::WDialog(QWidget *parent, /*int current*/ CEntry *entry) : QWidget(paren
 	setWindowTitle(tr("Editing word"));
 	setWindowIcon(QIcon(ICON));
 
-	//this->currentrow=current;
 	this->entry = entry;
 
 	/*if(this->currentrow!=-1) {
@@ -78,6 +75,7 @@ WDialog::WDialog(QWidget *parent, /*int current*/ CEntry *entry) : QWidget(paren
 	if(entry) {
 			wordEdit->setText(entry->word);
 			translationEdit->setText(entry->translation);
+			spBox->setCurrentIndex((int)entry->sp);
 		}
 	
 	wMain->centerWidgetOnScreen(this);
@@ -87,16 +85,7 @@ WDialog::WDialog(QWidget *parent, /*int current*/ CEntry *entry) : QWidget(paren
 void WDialog::submitWord() {
 	QString word = wordEdit->text();
 	QString translation = translationEdit->text();
-	int spart = spBox->currentIndex();
-	speechPart sp;
-	switch(spart) {
-		case 0 : sp = spNone; break;
-		case 1 : sp = spNoun; break;
-		case 2 : sp = spVerb; break;
-		case 3 : sp = spAdjective; break;
-		case 4 : sp = spAdverb; break;
-		case 5 : sp = spOther; break;
-	}
+
 	if(word=="" || translation=="") {
 		QMessageBox::information(this, tr("Error"), tr("Please fill both fields"));
 		return;
@@ -110,13 +99,13 @@ void WDialog::submitWord() {
 		newEntry.word = word;
 		newEntry.translation = translation;
 		//newEntry.wordstatus = false;
-		newEntry.sp = sp;
+		newEntry.sp = (speechPart)spBox->currentIndex();
 		wMain->cDocument->dictionary.push_back(newEntry);
 	}
 	else {
 		entry->word = word;
 		entry->translation = translation;
-		entry->sp = sp;
+		entry->sp = (speechPart)spBox->currentIndex();
 	}
 	wMain->setMode(enabledMode);
 	wMain->cDocument->filechanged = true;
