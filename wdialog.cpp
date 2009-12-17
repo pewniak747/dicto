@@ -10,6 +10,16 @@
 #include "centry.h"
 
 WDialog::WDialog(QWidget *parent, CEntry *entry) : QWidget(parent) {
+	// set window properties
+	setWindowTitle(tr("Editing word"));
+	setWindowIcon(QIcon(ICON));
+	wMain->centerWidgetOnScreen(this);
+	resize(400, 0);
+	
+	// initialize variables
+	this->entry = entry;
+	
+	// create widgets
 	wordLabel=new QLabel(tr("Word:"), this);
 	translationLabel=new QLabel(tr("Translation:"), this);
 	wordEdit=new QLineEdit(this);
@@ -25,67 +35,49 @@ WDialog::WDialog(QWidget *parent, CEntry *entry) : QWidget(parent) {
 	submitButton=new QPushButton(tr("OK"), this);
 	cancelButton=new QPushButton(tr("Cancel"), this);
 
+	// add layout
 	QGridLayout *lay1=new QGridLayout;
-	lay1->addWidget(wordLabel, 0, 0);
-	lay1->addWidget(wordEdit, 0, 1);
-	lay1->addWidget(translationLabel, 1, 0);
-	lay1->addWidget(translationEdit, 1, 1);
-	lay1->addWidget(spLabel, 2, 0);
-	lay1->addWidget(spBox, 2, 1);
-
-	QHBoxLayout *lay2=new QHBoxLayout;
-	lay2->addWidget(submitButton);
-	lay2->addWidget(cancelButton);
-
+		lay1->addWidget(wordLabel, 0, 0);
+		lay1->addWidget(wordEdit, 0, 1);
+		lay1->addWidget(translationLabel, 1, 0);
+		lay1->addWidget(translationEdit, 1, 1);
+		lay1->addWidget(spLabel, 2, 0);
+		lay1->addWidget(spBox, 2, 1);
+		QHBoxLayout *lay2=new QHBoxLayout;
+			lay2->addWidget(submitButton);
+			lay2->addWidget(cancelButton);
 	QVBoxLayout *mainLayout=new QVBoxLayout;
-	mainLayout->addLayout(lay1);
-	mainLayout->addLayout(lay2);
-
+		mainLayout->addLayout(lay1);
+		mainLayout->addLayout(lay2);
 	setLayout(mainLayout);
 	
+	// set tabbing order
 	QWidget::setTabOrder(wordEdit, translationEdit);
 	QWidget::setTabOrder(translationEdit, spBox);
 	QWidget::setTabOrder(spBox, submitButton);
 	QWidget::setTabOrder(submitButton, cancelButton);
 
+	// connect signals and slots
 	connect(submitButton, SIGNAL(clicked()), this, SLOT(submitWord()));
 	connect(cancelButton, SIGNAL(clicked()), this, SLOT(cancel()));
 
+	// create shortcuts
 	QShortcut *submitShortcut=new QShortcut(Qt::Key_Return, this);
 	connect(submitShortcut, SIGNAL(activated()), this, SLOT(submitWord()));
-
-	setWindowTitle(tr("Editing word"));
-	setWindowIcon(QIcon(ICON));
-
-	this->entry = entry;
-
-	/*if(this->currentrow!=-1) {
-		wordEdit->setText(wMain->cDocument->dictionary[currentrow].word);
-		translationEdit->setText(wMain->cDocument->dictionary[currentrow].translation);
-		speechPart spart = wMain->cDocument->dictionary[currentrow].sp;
-		int ss;
-		if(spart == spNone) ss=0;
-		else if(spart == spNoun) ss=1;
-		else if(spart == spVerb) ss=2;
-		else if(spart == spAdjective) ss=3;
-		else if(spart == spAdverb) ss=4;
-		else if(spart == spOther) ss=5;
-		this->spBox->setCurrentIndex(ss);
-	}*/
-	if(entry) {
-			wordEdit->setText(entry->word);
-			translationEdit->setText(entry->translation);
-			spBox->setCurrentIndex((int)entry->sp);
-		}
 	
-	wMain->centerWidgetOnScreen(this);
-	this->resize(400, 0);
+	// set values
+	if(entry) {
+		wordEdit->setText(entry->word);
+		translationEdit->setText(entry->translation);
+		spBox->setCurrentIndex((int)entry->sp);
+	}
 }
 	
 void WDialog::submitWord() {
 	QString word = wordEdit->text();
 	QString translation = translationEdit->text();
-
+	
+	// some validation
 	if(word=="" || translation=="") {
 		QMessageBox::information(this, tr("Error"), tr("Please fill both fields"));
 		return;
@@ -94,11 +86,12 @@ void WDialog::submitWord() {
 		QMessageBox::information(this, tr("Error"), tr("Words may not contain neihter ';' nor '='!' characters"));
 		return;
 	}	
+	
+	// update entry
 	if(!entry) {
 		CEntry newEntry;
 		newEntry.word = word;
 		newEntry.translation = translation;
-		//newEntry.wordstatus = false;
 		newEntry.sp = (speechPart)spBox->currentIndex();
 		wMain->cDocument->dictionary.push_back(newEntry);
 	}
@@ -107,21 +100,16 @@ void WDialog::submitWord() {
 		entry->translation = translation;
 		entry->sp = (speechPart)spBox->currentIndex();
 	}
+	// end
 	wMain->setMode(enabledMode);
 	wMain->cDocument->filechanged = true;
 	wMain->updateList();
-	this->close();
+	close();
 }
-
-
 
 void WDialog::cancel() {
 	wMain->setMode(enabledMode);
-	this->close();
-}
-
-WDialog::~WDialog() {
-	//wMain->setMode(enabledMode);
+	close();
 }
 
 void WDialog::closeEvent(QCloseEvent * a) {

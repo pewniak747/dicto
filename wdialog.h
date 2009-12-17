@@ -15,10 +15,7 @@ class WDialog : public QWidget {
 	Q_OBJECT
 
 	public:
-		WDialog (QWidget *parent, /*int current = -1*/CEntry *entry);
-		~WDialog();
-
-		int currentrow;
+		WDialog (QWidget *parent, CEntry *entry);
 
 	public slots:
 		void submitWord();
