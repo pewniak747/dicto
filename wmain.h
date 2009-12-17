@@ -85,6 +85,7 @@ private:
 	QString grade(unsigned good, unsigned howmany);
 	QString processToNice(QString string, QString delimiter);
 	void closeEvent(QCloseEvent * e);
+	CEntry *currentRow();
 
 private slots:
 	void newfile();

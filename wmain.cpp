@@ -223,15 +223,15 @@ void WMain::updateList() {
 
 // shows add entry window
 void WMain::addentry() {
-	WDialog *wDialog=new WDialog(0, -1);
+	WDialog *wDialog=new WDialog(0, /*-1*/NULL);
 	wDialog->show();
 	setMode(disabledMode);
 }
 
 // shows edit entry window
 void WMain::editentry() {
-	if(cDocument->dictionary.size()>0 && selectedItem()<=int(cDocument->dictionary.size())) {
-		WDialog *wDialog=new WDialog(0, currentList[selectedItem()]);
+	if(cDocument->dictionary.size()>0 && currentRow()) {
+		WDialog *wDialog=new WDialog(0, /*currentList[selectedItem()]*/ currentRow());
 		wDialog->show();
 		setMode(disabledMode);
 	}
@@ -657,6 +657,7 @@ void WMain::setMode(Mode mode) {
 			examAction->setEnabled(false);
 			statsAction->setEnabled(false);
 			aboutAction->setEnabled(false);
+			
 
 			this->mode=examMode;
 			break;
@@ -771,6 +772,12 @@ QString WMain::processToNice(QString string, QString delimiter) {
 // returns index of selected item or -1
 int WMain::selectedItem() {
 	return listWidget->currentRow();
+}
+
+CEntry* WMain::currentRow() {
+	if(listWidget->currentRow() != -1)
+		return &(cDocument->dictionary[listWidget->currentRow()]);
+	else return NULL;
 }
 
 // returns 0 if user asked no, 1 if cancel, 2 if yes

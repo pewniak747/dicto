@@ -17,7 +17,7 @@ class WDialog : public QWidget {
     Q_OBJECT
 
     public:
-        WDialog (QWidget *parent, int current = -1);
+        WDialog (QWidget *parent, /*int current = -1*/CEntry *entry);
         ~WDialog();
 
         int currentrow;
@@ -35,6 +35,7 @@ class WDialog : public QWidget {
         QComboBox *spBox;
         QPushButton *submitButton;
         QPushButton *cancelButton;
+        CEntry *entry;
 
         void closeEvent(QCloseEvent * a);
 };
