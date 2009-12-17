@@ -209,50 +209,51 @@ void WMain::updateList() {
 	QString search = searchBar->text();
 	listWidget->clear();
 	currentList.clear();
-	for(unsigned i=0; i<cDocument->dictionary.size(); i++) {
+	for(int i=0; i<dictionarySize(); i++) {
 		QString word = cDocument->dictionary[i].word;
 		QString translation = cDocument->dictionary[i].translation;
 		QString result=translation+" - "+word;
 		if(search==""||word.contains(search)||translation.contains(search)) {
 			QListWidgetItem *newItem = new QListWidgetItem(processToNice(result, " | "), listWidget);
 			listWidget->addItem(newItem);
-			currentList.push_back(i);
+			currentList.push_back(&cDocument->dictionary[i]);
 		}
 	}
 }
 
 // shows add entry window
 void WMain::addentry() {
-	WDialog *wDialog=new WDialog(0, /*-1*/NULL);
+	WDialog *wDialog=new WDialog(0, NULL);
 	wDialog->show();
 	setMode(disabledMode);
 }
 
 // shows edit entry window
 void WMain::editentry() {
-	if(cDocument->dictionary.size()>0 && currentRow()) {
-		WDialog *wDialog=new WDialog(0, /*currentList[selectedItem()]*/ currentRow());
+	if(dictionarySize() > 0 && currentRow()) {
+		WDialog *wDialog=new WDialog(0, currentRow());
 		wDialog->show();
 		setMode(disabledMode);
 	}
-	else statusBar()->showMessage(tr("Dictionary is empty"), 10000);
+	else statusBar()->showMessage(tr("Entry not selected"), 10000);
 }
 
 // deletes entry
 void WMain::deleteentry() {
-	if(cDocument->dictionary.size()>0) {
-		int currentrow = currentList[selectedItem()];
-		for(unsigned i=currentrow; i<cDocument->dictionary.size()-1; i++)
-			qSwap(cDocument->dictionary[i], cDocument->dictionary[i+1]);
-		cDocument->dictionary.pop_back();
+	if(dictionarySize() > 0) {
+		cDocument->dictionary.erase(currentRow());
 		cDocument->filechanged=true;
 		updateList();
+	}
+	else {
+		statusBar()->showMessage(tr("Dictionary is empty"), 10000);
+		return;
 	}
 }
 
 // invokes dictionary sort
 void WMain::sortall() {
-	if(cDocument->dictionary.size() > 2)
+	if(dictionarySize() > 2)
 		cDocument->sortDictionary();
 	else {
 		statusBar()->showMessage(tr("Dictionary is empty"), 10000);
@@ -268,9 +269,7 @@ void WMain::newfile() {
 		else if(userAnswer == 1) return;
 	}
 	
-	/*cDocument->filename="";
-	cDocument->dictionary.clear();
-	cDocument->filechanged = false;*/
+	delete cDocument;
 	cDocument = new CDocument;
 	updateList();
 	updateStatusbar();
@@ -303,7 +302,7 @@ void WMain::openfile() {
 
 // shows print window
 void WMain::print() {
-	if(cDocument->dictionary.size() == 0) {
+	if(dictionarySize() == 0) {
 		statusBar()->showMessage(tr("Dictionary is empty"), 10000);
 		return;
 	}
@@ -314,9 +313,9 @@ void WMain::print() {
 
 // shows display test window
 void WMain::preparetest() {
-	if(this->cDocument->dictionary.size()==0)
+	if(dictionarySize() == 0)
 		statusBar()->showMessage(tr("Dictionary is empty"), 10000);
-	else if(this->cDocument->dictionary.size()==cDocument->passed())
+	else if(dictionarySize() == cDocument->passed())
 		QMessageBox::information(this, tr("Congratulations"), tr("All words learned!"));
 	else {
 		WPrepare *wPrepare=new WPrepare(0, false);
@@ -339,7 +338,7 @@ void WMain::test(unsigned howmany, bool intoforeign, bool include, bool ignoreSy
 	this->previousEntry = NULL;
 	
 	// reset all words to unpassed
-	for(unsigned i=0; i<cDocument->dictionary.size(); i++) cDocument->dictionary[i].passed = false;
+	for(unsigned i=0; i<dictionarySize(); i++) cDocument->dictionary[i].passed = false;
 	
 	// pick new word
 	int newWord = pickWord(include);
@@ -456,9 +455,9 @@ void WMain::hint() {
 
 // displays prepare exam window
 void WMain::prepareexam() {
-	if(this->cDocument->dictionary.size()==0)
+	if(dictionarySize() == 0)
 		statusBar()->showMessage(tr("Dictionary is empty"), 10000);
-	else if(this->cDocument->dictionary.size()==cDocument->passed())
+	else if(dictionarySize() == cDocument->passed())
 		QMessageBox::information(this, tr("Congratulations"), tr("All words learned!"));
 	else {
 		WPrepare *wPrepare=new WPrepare(0, true);
@@ -483,7 +482,7 @@ void WMain::exam(unsigned howmany, bool intoforeign, bool include, bool ignoreSy
 	tableWidget->setRowCount(howmany);
 	
 	// resets all words to unpassed
-	for(unsigned i=0; i<cDocument->dictionary.size(); i++) cDocument->dictionary[i].passed = false;
+	for(unsigned i=0; i<dictionarySize(); i++) cDocument->dictionary[i].passed = false;
 
 	// create exam word table
 	QTableWidgetItem* firstItem = NULL;
@@ -535,7 +534,7 @@ void WMain::checkexam()  {
 			return;
 		}
 	else {
-		if(cDocument->passed() == cDocument->dictionary.size()) {
+		if(cDocument->passed() == dictionarySize()) {
 			QMessageBox::information(this, tr("Congratulations"), tr("All words learned\nReset statistics"));
 		}
 		setNormalMode();
@@ -667,8 +666,8 @@ void WMain::setMode(Mode mode) {
 // updates statusbar
 void WMain::updateStatusbar() {
 	if(this->mode == normalMode) {
-		if(cDocument->dictionary.size()>0) {
-			progressBar->setMaximum(cDocument->dictionary.size());
+		if(dictionarySize() > 0) {
+			progressBar->setMaximum(dictionarySize());
 			progressBar->setValue(cDocument->passed());
 		}
 		else {
@@ -723,7 +722,7 @@ void WMain::search() {
 
 // returns number of random entry, -1 if no is available
 int WMain::pickWord(bool include) {
-	if(cDocument->dictionary.size() == cDocument->passed()) {
+	if(dictionarySize() == cDocument->passed()) {
 		QMessageBox::information(this, tr("Congratulations"), tr("All words learned!\nReset statistics"));
 			return -1;
 	}
@@ -733,7 +732,7 @@ int WMain::pickWord(bool include) {
 	}
 	unsigned random;
 	do {
-			random=rand()%cDocument->dictionary.size();
+			random=rand()%dictionarySize();
 		} while(!((include || !cDocument->dictionary[random].wordstatus) && !cDocument->dictionary[random].passed));
 	return random;
 }
@@ -776,7 +775,7 @@ int WMain::selectedItem() {
 
 CEntry* WMain::currentRow() {
 	if(listWidget->currentRow() != -1)
-		return &(cDocument->dictionary[listWidget->currentRow()]);
+		return currentList[listWidget->currentRow()];
 	else return NULL;
 }
 
@@ -798,3 +797,7 @@ int WMain::askUser(QString message) {
 	else return 0;
 }
 
+// returns dictionary size
+int WMain::dictionarySize() {
+	return cDocument->dictionary.size();
+}

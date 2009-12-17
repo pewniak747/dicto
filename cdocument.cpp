@@ -143,8 +143,8 @@ newEntry.sp = sp;
 
 
 // returns number of learned words
-unsigned CDocument::passed() {
-	unsigned passed=0;
+int CDocument::passed() {
+	int passed=0;
 	for(unsigned i=0; i<dictionary.size(); i++)
 		if(dictionary[i].wordstatus) passed++;
 	return passed;

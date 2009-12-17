@@ -8,21 +8,21 @@
 #ifndef CDOCUMENT_H
 #define CDOCUMENT_H
 
-#include <vector>
+#include <QVector>
 #include <QObject>
 #include "centry.h"
 	
 class CDocument : public QObject{
 	Q_OBJECT
 public:
-	std::vector <CEntry> dictionary;
+	QVector<CEntry> dictionary;
 	QString filename;
 	bool filechanged;
 	QString lang_native;
 	QString lang_foreign;
 
 	CDocument();
-	unsigned passed();
+	int passed();
 	void resetStats();
 	void readFromFile(QString newfilename);
 	void saveToFile(bool saveas=false);

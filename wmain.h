@@ -34,6 +34,7 @@ public:
 	void centerWidgetOnScreen(QWidget*);
 	int selectedItem();
 	int askUser(QString message);
+	int dictionarySize();
 
 private:
 	QMenu *fileMenu;
@@ -67,7 +68,7 @@ private:
 	QPushButton *cancelExamButton;
 	QProgressBar *progressBar;
 
-	std::vector <int> currentList;
+	std::vector <CEntry*> currentList;
 	std::vector <CEntry*> examTab;
 	CEntry *currentEntry;
 	CEntry *previousEntry;
