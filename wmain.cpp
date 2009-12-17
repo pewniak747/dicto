@@ -280,7 +280,7 @@ void WMain::savefile() {
 	cDocument->saveToFile(false);
 }
 
-// inokes file save as
+// invokes file save as
 void WMain::saveas() {
 	cDocument->saveToFile(true);
 }
@@ -324,126 +324,6 @@ void WMain::preparetest() {
 	hintsize=1;
 }
 
-// starts test
-void WMain::test(unsigned howmany, bool intoforeign, bool include, bool ignoreSynonyms) {
-	// prepare test variables
-	setMode(testMode);
-	this->countdown = howmany;
-	this->howmany = howmany;
-	this->intoforeign = intoforeign;
-	this->include = include;
-	this->ignoreSynonyms = ignoreSynonyms;
-	this->answered = false;
-	this->hintsize = 1;
-	this->previousEntry = NULL;
-	
-	// reset all words to unpassed
-	for(unsigned i=0; i<dictionarySize(); i++) cDocument->dictionary[i].passed = false;
-	
-	// pick new word
-	int newWord = pickWord(include);
-	if(newWord == -1) {
-		setMode(normalMode);
-		updateStatusbar();
-		return;
-	}
-	currentEntry=&(cDocument->dictionary[newWord]);
-	
-	// process question string
-	QString question = intoforeign ? currentEntry->word : currentEntry->translation;
-	question = processToNice(question, "\n");
-	 
-	// append speech part
-	if(currentEntry->sp != spNone) {
-		speechPart spart = currentEntry->sp;
-		if(spart == spVerb) question.append("\n(verb)");
-		else if(spart == spNoun) question.append("\n(noun)");
-		else if(spart == spAdjective) question.append("\n(adjective)");
-		else if(spart == spAdverb) question.append("\n(adverb)");
-		else if(spart == spOther) question.append("\n(other)");
-	}
-
-	// set questionLabel
-	if(intoforeign) questionLabel->setText(question);
-	else questionLabel->setText(question);
-
-	// end
-	answerEdit->clear();
-	answerEdit->setFocus();
-	updateStatusbar();
-}
-
-// checks user input
-void WMain::check() {
-	if(mode!=testMode) return;
-
-	if(!answered) {
-		if(currentEntry->check(answerEdit->text(), intoforeign, ignoreSynonyms)) {
-			questionLabel->setText(tr("Good!"));
-			if(hintsize < 2) {
-				currentEntry->wordstatus = true;
-				currentEntry->passed = true;
-				countdown--;
-			}
-		}
-		else {
-			questionLabel->setText(tr("Wrong\n(%1 - %2)")
-												.arg(intoforeign?currentEntry->word:currentEntry->translation)
-												.arg(intoforeign?currentEntry->translation:currentEntry->word));
-		}
-		previousEntry = currentEntry;
-		submitWordButton->setText(tr("Next"));
-		answered = true;
-		cDocument->filechanged = true;
-		updateStatusbar();
-	}
-	else {
-		// pick new word
-		int newWord = pickWord(include);
-		if(newWord == -1) {
-			setMode(normalMode);
-			updateStatusbar();
-			return;
-		}
-		currentEntry=&(cDocument->dictionary[newWord]);
-		
-		// process question string
-		QString question = intoforeign ? currentEntry->word : currentEntry->translation;
-		question = processToNice(question, "\n");
-		
-		// append speech part
-		if(currentEntry->sp != spNone) {
-			speechPart spart = currentEntry->sp;
-			if(spart == spVerb) question.append("\n(verb)");
-			else if(spart == spNoun) question.append("\n(noun)");
-			else if(spart == spAdjective) question.append("\n(adjective)");
-			else if(spart == spAdverb) question.append("\n(adverb)");
-			else if(spart == spOther) question.append("\n(other)");
-		}
-
-		// end
-		if(intoforeign) questionLabel->setText(question);
-		else questionLabel->setText(question);
-		answered = false;
-		hintsize=1;
-		submitWordButton->setText(tr("OK"));
-		answerEdit->clear();
-		answerEdit->setFocus();
-		updateStatusbar();
-	}
-}
-
-// cancels test
-void WMain::canceltest() {
-	int userAnswer = askUser(tr("Are you sure to cancel test?"));
-	if(userAnswer == 2) {
-		setNormalMode();
-		return;
-	}
-	else if(userAnswer == 1) return;
-	else return;
-}
-
 // displays hint
 void WMain::hint() {
 	if(mode != testMode) return;
@@ -463,92 +343,6 @@ void WMain::prepareexam() {
 		WPrepare *wPrepare=new WPrepare(0, true);
 		wPrepare->show();
 	}
-}
-
-// starts exam
-void WMain::exam(unsigned howmany, bool intoforeign, bool include, bool ignoreSynonyms) {
-	// set exam variables
-	setMode(examMode);
-	this->answered = false;
-	examTab.clear();
-	this->countdown=howmany;
-	this->howmany=howmany;
-	this->intoforeign=intoforeign;
-	this->include=include;
-	this->ignoreSynonyms=ignoreSynonyms;
-
-	updateStatusbar();
-	tableWidget->clear();
-	tableWidget->setRowCount(howmany);
-	
-	// resets all words to unpassed
-	for(unsigned i=0; i<dictionarySize(); i++) cDocument->dictionary[i].passed = false;
-
-	// create exam word table
-	QTableWidgetItem* firstItem = NULL;
-	for (unsigned i=0; i<howmany; i++) {
-		// pick new word
-		int newWord = pickWord(include);
-		cDocument->dictionary[newWord].passed = true;
-
-		QTableWidgetItem *newItem = new QTableWidgetItem(processToNice(intoforeign?cDocument->dictionary[newWord].word:cDocument->dictionary[newWord].translation, " | "));
-		newItem->setFlags(Qt::ItemIsEnabled );
-		tableWidget->setItem(i, 0, newItem);
-		QTableWidgetItem *newItem2=new QTableWidgetItem("");
-		tableWidget->setItem(i, 1, newItem2);
-		if(i == 0) firstItem=newItem2;
-		examTab.push_back(&(cDocument->dictionary[newWord]));
-	}
-
-	// end
-	examStatusLabel->setText(tr("Exam status: pending"));
-	tableWidget->setCurrentItem(firstItem);
-}
-
-// checks exam
-void WMain::checkexam()  {
-	if(!answered) {
-		int userAnswer = askUser(tr("Are you sure to submit exam?"));
-		if(userAnswer != 2) return;
-	
-		unsigned good=0;
-			for (unsigned u=0; u<examTab.size(); u++) {
-				if (examTab[u]->check(tableWidget->item(u, 1)->text(), intoforeign, ignoreSynonyms)) {
-					tableWidget->item(u, 1)->setText(tr("Good!"));
-					good++;
-					examTab[u]->wordstatus = true;
-					cDocument->filechanged = true;
-				}
-				else {
-					tableWidget->item(u, 1)->setText(tr("Wrong (%1)").arg(intoforeign?examTab[u]->translation:examTab[u]->word));
-				}
-				tableWidget->item(u, 1)->setFlags(Qt::ItemIsEnabled);
-			}
-			answered = true;
-			examStatusLabel->setText(tr("Exam status: ended\nMistakes: %1, Grade: %2 (%3%)")
-									.arg(howmany-good)
-									.arg(grade(good, howmany))
-									.arg(good*100/howmany));
-			cancelExamButton->setEnabled(false);
-			examTab.clear();
-			return;
-		}
-	else {
-		if(cDocument->passed() == dictionarySize()) {
-			QMessageBox::information(this, tr("Congratulations"), tr("All words learned\nReset statistics"));
-		}
-		setNormalMode();
-	}
-	cDocument->filechanged=true;
-}
-
-// cancels exam
-void WMain:: cancelexam() {
-	int userAnswer = askUser(tr("Are you sure to cancel exam?"));
-	if(userAnswer == 2) {
-		setNormalMode();
-	}
-	return;
 }
 
 // sets main window mode
@@ -695,46 +489,11 @@ void WMain::about() {
 	aboutBox->show();
 }
 
-// centers widget on screen
-void WMain::centerWidgetOnScreen (QWidget * widget) {
-	 QRect rect = QApplication::desktop()->availableGeometry();
-	 widget->move(rect.center() - widget->rect().center());
-}
-
-// calculates and returns qstring of grade
-QString WMain::grade(unsigned good, unsigned howmany) {
-	double percent = double(good) / double(howmany);
-
-	if(percent < 0.5) return tr("E");
-	if(percent < 0.6) return tr("D");
-	if(percent < 0.7) return tr("C");
-	if(percent < 0.85) return tr("B");
-	if(percent <= 1) return tr("A");
-	else return tr("unknown");
-}
-
 // focuses on search bar
 void WMain::search() {
 	if(mode != normalMode) return;
 	searchBar->setFocus();
 	searchBar->selectAll();
-}
-
-// returns number of random entry, -1 if no is available
-int WMain::pickWord(bool include) {
-	if(dictionarySize() == cDocument->passed()) {
-		QMessageBox::information(this, tr("Congratulations"), tr("All words learned!\nReset statistics"));
-			return -1;
-	}
-	else if(countdown==0) {
-		QMessageBox::information(this, tr("End"), tr("End of test!"));
-		return -1;
-	}
-	unsigned random;
-	do {
-			random=rand()%dictionarySize();
-		} while(!((include || !cDocument->dictionary[random].wordstatus) && !cDocument->dictionary[random].passed));
-	return random;
 }
 
 // window close event
@@ -758,46 +517,3 @@ void WMain::closeEvent(QCloseEvent * e) {
 		application->quit();
 }
 
-// replaces every '/' in string with delimiter
-QString WMain::processToNice(QString string, QString delimiter) {
-	int j = 0;
-	while ((j = string.indexOf("/", j)) != -1) {
-		string.replace(j, 1, delimiter);
-	 ++j;
-	}
-	return string;
-}
-
-// returns index of selected item or -1
-int WMain::selectedItem() {
-	return listWidget->currentRow();
-}
-
-CEntry* WMain::currentRow() {
-	if(listWidget->currentRow() != -1)
-		return currentList[listWidget->currentRow()];
-	else return NULL;
-}
-
-// returns 0 if user asked no, 1 if cancel, 2 if yes
-int WMain::askUser(QString message) {
-	QMessageBox messageBox(wMain);
-	  messageBox.setText(message);
-	  QAbstractButton *yesButton = messageBox.addButton(QMessageBox::Yes);
-	  yesButton->setText(tr("Yes"));
-	  QAbstractButton *noButton = messageBox.addButton(QMessageBox::No);
-	  noButton->setText(tr("No"));
-	  QAbstractButton *cancelButton = messageBox.addButton(QMessageBox::Cancel);
-	  cancelButton->setText(tr("Cancel"));
-	  messageBox.setIcon(QMessageBox::Question);
-	  messageBox.exec();
-	if (messageBox.clickedButton() == yesButton) return 2;
-	else if (messageBox.clickedButton() == cancelButton) return 1;
-	else if (messageBox.clickedButton() == noButton) return 0;
-	else return 0;
-}
-
-// returns dictionary size
-int WMain::dictionarySize() {
-	return cDocument->dictionary.size();
-}

@@ -25,6 +25,9 @@ SOURCES += cdocument.cpp \
            wabout.cpp \
            wdialog.cpp \
            wmain.cpp \
+           wmain_test.cpp \
+           wmain_exam.cpp \
+           wmain_utils.cpp \
            wprepare.cpp \
            wprops.cpp \
            wprint.cpp

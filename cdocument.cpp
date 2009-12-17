@@ -183,4 +183,3 @@ bool CDocument::ifSwap(QString word, QString word2) {
 	}
 	return true;
 }
-
