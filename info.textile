@@ -1,0 +1,22 @@
+---
+layout: main
+title: info
+---
+
+h1(color1). Dicto version 1.3 - information
+
+Functions of dicto:
+
+* handling of multiple files in *.dic or *txt formats
+* adding, editing, deleting and dynamic searching for words
+* dictionary sorting
+* dictionary printing
+* synonyme handling
+* testing in both ways (native -> foreign, foreign -> native)
+* examining through testing
+* real examining (includes real grades!)
+* displaying learn statistics
+
+This software was written in C++ using Qt framework.
+
+Dicto is released under GNU GPL license. Wtat does it mean? You can download, modify or spread the word!

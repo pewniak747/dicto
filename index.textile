@@ -1,0 +1,14 @@
+---
+layout: main
+title: Home page
+description: home page
+---
+h1(color1). Welcome to dicto
+
+Dicto is software for vocabulary learning. It allows convinient and effective learning, and doesn't annoy with unnesessary functions or effects.
+
+Dicto is released under "GNU GPL":http://www.gnu.org/licenses/gpl-3.0.txt license, so you can download, modify or spread the word without limits! If you're running GNU/Linux, there's dicto version for this platform too.
+
+"learn more!":/info.html
+
+"download latest version":/download.html
