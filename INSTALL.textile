@@ -1,0 +1,11 @@
+h1. Dicto installation options
+
+To compile latest version of dicto, grab the "Qt":http://qt.nokia.com/products development libraries from your repository, then run:
+
+@mkdir obj
+
+qmake
+
+make@
+
+Voila! dicto executable lives in obj/ directory.
