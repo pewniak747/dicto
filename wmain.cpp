@@ -47,6 +47,7 @@ WMain::WMain(QWidget *parent) : QMainWindow(parent) {
 	tableWidget->horizontalHeader()->hide();
 	tableWidget->verticalHeader()->hide();
 	tableWidget->setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
+	tableWidget->horizontalHeader()->setResizeMode(0, QHeaderView::Stretch);
 	tableWidget->horizontalHeader()->setStretchLastSection(true);
 	progressBar->setMinimum(0);
 	
