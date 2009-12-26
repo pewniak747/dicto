@@ -1,11 +1,9 @@
-/*******************************************************************************/
-/** dicto v 1.3 WPrint class header file                                      **/
-/** This file is published under GNU/GPL licence                              **/
-/** http://www.gnu.org/licenses/gpl-3.0.txt                                   **/
-/** author: Tomasz Pewiński "pewniak747"                                      **/
-/** contact: pewniak747@gmail.com                                             **/
-/** http://dicto.sourceforge.net                                              **/
-/*******************************************************************************/
+// dicto v 1.3 WPrint class header file
+// This file is published under GNU/GPL licence
+// http://www.gnu.org/licenses/gpl-3.0.txt
+// author: Tomasz Pewiński "pewniak747"
+// contact: pewniak747@gmail.com
+// http://pewniak747.github.com/dicto
 
 #ifndef WPRINT_H
 #define WPRINT_H
