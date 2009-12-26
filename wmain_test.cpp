@@ -47,8 +47,8 @@ void WMain::test(unsigned howmany, bool intoforeign, bool include, bool ignoreSy
 	}
 
 	// set questionLabel
-	if(intoforeign) questionLabel->setText(question);
-	else questionLabel->setText(question);
+	if(intoforeign) questionLabel->setText("<b>"+question+"</b>");
+	else questionLabel->setText("<b>"+question+"</b>");
 
 	// end
 	answerEdit->clear();
@@ -62,7 +62,7 @@ void WMain::check() {
 
 	if(!answered) {
 		if(currentEntry->check(answerEdit->text(), intoforeign, ignoreSynonyms)) {
-			questionLabel->setText(tr("Good!"));
+			questionLabel->setText(tr("<b>Good!</b>"));
 			if(hintsize < 2) {
 				currentEntry->wordstatus = true;
 				currentEntry->passed = true;
@@ -70,7 +70,7 @@ void WMain::check() {
 			}
 		}
 		else {
-			questionLabel->setText(tr("Wrong\n(%1 - %2)")
+			questionLabel->setText(tr("<b>Wrong</b> <br /> (%1 - %2)")
 												.arg(intoforeign?currentEntry->word:currentEntry->translation)
 												.arg(intoforeign?currentEntry->translation:currentEntry->word));
 		}
@@ -92,7 +92,7 @@ void WMain::check() {
 		
 		// process question string
 		QString question = intoforeign ? currentEntry->word : currentEntry->translation;
-		question = processToNice(question, "\n");
+		question = processToNice(question, "<br />");
 		
 		// append speech part
 		if(currentEntry->sp != spNone) {
@@ -105,8 +105,8 @@ void WMain::check() {
 		}
 
 		// end
-		if(intoforeign) questionLabel->setText(question);
-		else questionLabel->setText(question);
+		if(intoforeign) questionLabel->setText("<b>"+question+"</b>");
+		else questionLabel->setText("<b>"+question+"</b>");
 		answered = false;
 		hintsize=1;
 		submitWordButton->setText(tr("OK"));

@@ -41,6 +41,11 @@ WMain::WMain(QWidget *parent) : QMainWindow(parent) {
 	createMenus();
 
 	// initialize widgets
+	//QFont font;
+	//font.setPointSize(20);
+	//font.setBold(true);
+	//questionLabel->setFont(font);
+	questionLabel->setTextFormat(Qt::RichText);
 	questionLabel->setAlignment(Qt::AlignCenter);
 	questionLabel->setWordWrap(true);
 	tableWidget->setColumnCount(2);
