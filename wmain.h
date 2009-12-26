@@ -69,9 +69,9 @@ private:
 	QProgressBar *progressBar;
 
 	std::vector <CEntry*> currentList;
+	QQueue<CEntry*> testQueue;
 	std::vector <CEntry*> examTab;
 	CEntry *currentEntry;
-	CEntry *previousEntry;
 	bool intoforeign;
 	bool include;
 	bool ignoreSynonyms;
@@ -85,6 +85,7 @@ private:
 	int pickWord(bool include);
 	QString grade(unsigned good, unsigned howmany);
 	QString processToNice(QString string, QString delimiter);
+	void endTest(bool display, QString message = "");
 	void closeEvent(QCloseEvent * e);
 	CEntry *currentRow();
 

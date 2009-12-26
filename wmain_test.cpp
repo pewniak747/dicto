@@ -11,49 +11,33 @@
 void WMain::test(unsigned howmany, bool intoforeign, bool include, bool ignoreSynonyms) {
 	// prepare test variables
 	setMode(testMode);
-	this->countdown = howmany;
 	this->howmany = howmany;
 	this->intoforeign = intoforeign;
 	this->include = include;
 	this->ignoreSynonyms = ignoreSynonyms;
-	this->answered = false;
+	this->answered = true;
 	this->hintsize = 1;
-	this->previousEntry = NULL;
 	
 	// reset all words to unpassed
 	for(unsigned i=0; i<dictionarySize(); i++) cDocument->dictionary[i].passed = false;
 	
-	// pick new word
-	int newWord = pickWord(include);
-	if(newWord == -1) {
-		setMode(normalMode);
-		updateStatusbar();
-		return;
+	// prepare test queue
+	testQueue.clear();
+	int i;
+	for(i=0; i<howmany; i++) {
+		int newWord = pickWord(include);
+		if(newWord == -1) {
+			setMode(normalMode);
+			updateStatusbar();
+			break;
+		}
+		testQueue.enqueue(&cDocument->dictionary[newWord]);
+		cDocument->dictionary[newWord].passed = true;
 	}
-	currentEntry=&(cDocument->dictionary[newWord]);
-	
-	// process question string
-	QString question = intoforeign ? currentEntry->word : currentEntry->translation;
-	question = processToNice(question, "\n");
-	 
-	// append speech part
-	if(currentEntry->sp != spNone) {
-		speechPart spart = currentEntry->sp;
-		if(spart == spVerb) question.append("\n(verb)");
-		else if(spart == spNoun) question.append("\n(noun)");
-		else if(spart == spAdjective) question.append("\n(adjective)");
-		else if(spart == spAdverb) question.append("\n(adverb)");
-		else if(spart == spOther) question.append("\n(other)");
-	}
-
-	// set questionLabel
-	if(intoforeign) questionLabel->setText("<b>"+question+"</b>");
-	else questionLabel->setText("<b>"+question+"</b>");
-
-	// end
-	answerEdit->clear();
-	answerEdit->setFocus();
-	updateStatusbar();
+	this->howmany = i+1;
+	this->countdown = howmany;
+	if(testQueue.empty()) endTest(true, tr("No words match your criteria"));
+	check();
 }
 
 // checks user input
@@ -65,30 +49,24 @@ void WMain::check() {
 			questionLabel->setText(tr("<b>Good!</b>"));
 			if(hintsize < 2) {
 				currentEntry->wordstatus = true;
-				currentEntry->passed = true;
 				countdown--;
 			}
 		}
 		else {
 			questionLabel->setText(tr("<b>Wrong</b> <br /> (%1 - %2)")
-												.arg(intoforeign?currentEntry->word:currentEntry->translation)
-												.arg(intoforeign?currentEntry->translation:currentEntry->word));
+				.arg(intoforeign?currentEntry->word:currentEntry->translation)
+				.arg(intoforeign?currentEntry->translation:currentEntry->word));
+			testQueue.enqueue(testQueue.head());
 		}
-		previousEntry = currentEntry;
+		testQueue.dequeue();
 		submitWordButton->setText(tr("Next"));
 		answered = true;
 		cDocument->filechanged = true;
 		updateStatusbar();
 	}
 	else {
-		// pick new word
-		int newWord = pickWord(include);
-		if(newWord == -1) {
-			setMode(normalMode);
-			updateStatusbar();
-			return;
-		}
-		currentEntry=&(cDocument->dictionary[newWord]);
+		if(testQueue.empty()) endTest(true, tr("All words learned!"));
+		currentEntry = testQueue.head();
 		
 		// process question string
 		QString question = intoforeign ? currentEntry->word : currentEntry->translation;
@@ -116,13 +94,20 @@ void WMain::check() {
 	}
 }
 
+// displays message and ends test 
+void WMain::endTest(bool display, QString message) {
+	if(display) {
+		QMessageBox::information(this, tr("Test ended"), message);
+	}
+	setMode(normalMode);
+	updateStatusbar();
+	return;
+}
+
 // cancels test
 void WMain::canceltest() {
 	int userAnswer = askUser(tr("Are you sure to cancel test?"));
-	if(userAnswer == 2) {
-		setNormalMode();
-		return;
-	}
+	if(userAnswer == 2) endTest(false);
 	else if(userAnswer == 1) return;
 	else return;
 }
