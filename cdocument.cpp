@@ -20,6 +20,15 @@ CDocument::CDocument() {
 	lang_foreign="";
 }
 
+//adds entry to dictionary
+void CDocument::addEntry(QString word, QString translation, speechPart sp) {
+	CEntry newEntry;
+	newEntry.word = word;
+	newEntry.translation = translation;
+	newEntry.sp = sp;
+	dictionary.push_back(newEntry);
+}
+
 // saves CDocument to file
 void CDocument::saveToFile(bool saveas) {
 	if(this->filename=="" || saveas) {

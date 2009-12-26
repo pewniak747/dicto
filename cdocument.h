@@ -23,6 +23,7 @@ public:
 
 	CDocument();
 	int passed();
+	void addEntry(QString word, QString translation, speechPart sp);
 	void resetStats();
 	void readFromFile(QString newfilename);
 	void saveToFile(bool saveas=false);

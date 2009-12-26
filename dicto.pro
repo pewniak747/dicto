@@ -7,6 +7,9 @@ TARGET = dicto
 RC_FILE = resources/dicto.rc
 DEPENDPATH += .
 INCLUDEPATH += .
+OBJECTS_DIR = obj/
+MOC_DIR = obj/
+RCC_DIR = obj/
 TRANSLATIONS = translations/dicto_pl.ts
 RESOURCES += resources/dicto.qrc
 
