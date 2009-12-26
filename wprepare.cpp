@@ -64,6 +64,14 @@ WPrepare::WPrepare(QWidget *parent, bool exam) : QWidget(parent) {
 		buttonLayout->addWidget(cancelButton);
 	mainLayout->addLayout(buttonLayout);
 	setLayout(mainLayout);
+	
+	// set tabbing order
+	QWidget::setTabOrder(numberSlider, numberBox);
+	QWidget::setTabOrder(numberBox, intoforeignCombo);
+	QWidget::setTabOrder(intoforeignCombo, includeBox);
+	QWidget::setTabOrder(includeBox, ignoreBox);
+	QWidget::setTabOrder(ignoreBox, startButton);
+	QWidget::setTabOrder(startButton, cancelButton);
 
 	// create shortcuts
 	QShortcut *submitShortcut=new QShortcut(Qt::Key_Return, this);
