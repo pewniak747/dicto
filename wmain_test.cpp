@@ -73,14 +73,7 @@ void WMain::check() {
 		question = processToNice(question, "<br />");
 		
 		// append speech part
-		if(currentEntry->sp != spNone) {
-			speechPart spart = currentEntry->sp;
-			if(spart == spVerb) question.append("\n(verb)");
-			else if(spart == spNoun) question.append("\n(noun)");
-			else if(spart == spAdjective) question.append("\n(adjective)");
-			else if(spart == spAdverb) question.append("\n(adverb)");
-			else if(spart == spOther) question.append("\n(other)");
-		}
+		if(currentEntry->sp != spNone) question.append("<br />("+currentEntry->spToString()+")");
 
 		// end
 		if(intoforeign) questionLabel->setText("<b>"+question+"</b>");

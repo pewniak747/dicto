@@ -6,6 +6,7 @@
 // http://pewniak747.github.com/dicto
 
 #include "centry.h"
+#include <QObject>
 #include <vector>
 
 CEntry::CEntry() {
@@ -13,6 +14,17 @@ CEntry::CEntry() {
 	passed = false;
 	sp = spNone;
 }
+
+QString CEntry::spToString() {
+	speechPart spart = this->sp;
+	if(spart == spNone) return QObject::tr("None");
+	else if(spart == spVerb) return QObject::tr("Verb");
+	else if(spart == spNoun) return QObject::tr("Noun");
+	else if(spart == spAdjective) return QObject::tr("Adjective");
+	else if(spart == spAdverb) return QObject::tr("Adverb");
+	else if(spart == spOther) return QObject::tr("Other");
+	}
+
 
 bool CEntry::check(QString give, bool intoforeign, bool ignoreSynonyms) {
 	//split give into answers array

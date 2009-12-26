@@ -22,6 +22,7 @@ class CEntry {
 		
 		CEntry();
 		bool check(QString give, bool intoforeign, bool ignoreSynonyms);
+		QString spToString();
 };
 
 #endif // CENTRY_H
