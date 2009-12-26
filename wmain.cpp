@@ -42,6 +42,7 @@ WMain::WMain(QWidget *parent) : QMainWindow(parent) {
 
 	// initialize widgets
 	questionLabel->setAlignment(Qt::AlignCenter);
+	questionLabel->setWordWrap(true);
 	tableWidget->setColumnCount(2);
 	tableWidget->horizontalHeader()->hide();
 	tableWidget->verticalHeader()->hide();
