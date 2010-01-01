@@ -34,7 +34,7 @@ void WMain::test(unsigned howmany, bool intoforeign, bool include, bool ignoreSy
 		testQueue.enqueue(&cDocument->dictionary[newWord]);
 		cDocument->dictionary[newWord].passed = true;
 	}
-	this->howmany = i+1;
+	//this->howmany = i+1;
 	this->countdown = howmany;
 	if(testQueue.empty()) {
 		endTest(true, tr("No words match your criteria"));
