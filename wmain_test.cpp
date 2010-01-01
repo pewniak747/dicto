@@ -36,7 +36,10 @@ void WMain::test(unsigned howmany, bool intoforeign, bool include, bool ignoreSy
 	}
 	this->howmany = i+1;
 	this->countdown = howmany;
-	if(testQueue.empty()) endTest(true, tr("No words match your criteria"));
+	if(testQueue.empty()) {
+		endTest(true, tr("No words match your criteria"));
+		return;
+	}
 	check();
 }
 
@@ -65,7 +68,10 @@ void WMain::check() {
 		updateStatusbar();
 	}
 	else {
-		if(testQueue.empty()) endTest(true, tr("All words learned!"));
+		if(testQueue.empty()) {
+			endTest(true, tr("All words learned!"));
+			return;
+		}
 		currentEntry = testQueue.head();
 		
 		// process question string
