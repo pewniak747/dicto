@@ -403,6 +403,7 @@ void WMain::setMode(Mode mode) {
 			listWidget->hide();
 			questionLabel->show();
 			answerEdit->show();
+			answerEdit->clear();
 			submitWordButton->show();
 			cancelTestButton->show();
 			examStatusLabel->hide();

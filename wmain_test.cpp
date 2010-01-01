@@ -53,6 +53,7 @@ void WMain::check() {
 			if(hintsize < 2) {
 				currentEntry->wordstatus = true;
 				countdown--;
+				testQueue.dequeue();
 			}
 		}
 		else {
@@ -60,8 +61,8 @@ void WMain::check() {
 				.arg(intoforeign?currentEntry->word:currentEntry->translation)
 				.arg(intoforeign?currentEntry->translation:currentEntry->word));
 			testQueue.enqueue(testQueue.head());
+			testQueue.dequeue();
 		}
-		testQueue.dequeue();
 		submitWordButton->setText(tr("Next"));
 		answered = true;
 		cDocument->filechanged = true;
