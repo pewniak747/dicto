@@ -89,11 +89,14 @@ void WDialog::submitWord() {
 	
 	// update entry
 	if(!entry) {
+		/*
 		CEntry newEntry;
 		newEntry.word = word;
 		newEntry.translation = translation;
 		newEntry.sp = (speechPart)spBox->currentIndex();
 		wMain->cDocument->dictionary.push_back(newEntry);
+		*/
+		wMain->cDocument->addEntry(word, translation, (speechPart)spBox->currentIndex());
 	}
 	else {
 		entry->word = word;
