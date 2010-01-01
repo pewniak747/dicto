@@ -70,6 +70,7 @@ private:
 
 	std::vector <CEntry*> currentList;
 	QQueue<CEntry*> testQueue;
+	QVector<int> unpassed;
 	std::vector <CEntry*> examTab;
 	CEntry *currentEntry;
 	bool intoforeign;

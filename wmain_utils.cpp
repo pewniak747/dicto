@@ -17,11 +17,19 @@ int WMain::pickWord(bool include) {
 		QMessageBox::information(this, tr("End"), tr("End of test!"));
 		return -1;
 	}
+	/*
 	unsigned random;
 	do {
 			random=rand()%dictionarySize();
 		} while(!((include || !cDocument->dictionary[random].wordstatus) && !cDocument->dictionary[random].passed));
-	return random;
+	*/
+	unpassed.clear();
+	for(int i=0; i<dictionarySize(); i++) {
+		if(((include || !cDocument->dictionary[i].wordstatus) && !cDocument->dictionary[i].passed))
+			unpassed.push_back(i);
+	}
+	if(unpassed.empty()) return -1;
+	else return unpassed[rand()%unpassed.size()];
 }
 
 // centers widget on screen
