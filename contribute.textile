@@ -1,0 +1,7 @@
+---
+layout: main
+title: Contribute
+description: contribute
+---
+
+h1(color1). contribute to dicto project

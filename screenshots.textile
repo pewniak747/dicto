@@ -1,0 +1,20 @@
+---
+layout: main
+title: Screenshots
+description: screenshots
+---
+
+h1(color1). dicto screenshots
+
+Check out some dicto screenshots.
+
+<a href="images/screen1.jpg" rel="lightbox">!images/screen1.jpg!</a> 
+
+<a href="images/screen2.jpg" rel="lightbox">!images/screen2.jpg!</a> 
+
+<a href="images/screen3.jpg" rel="lightbox">!images/screen3.jpg!</a> 
+
+<a href="images/screen4.jpg" rel="lightbox">!images/screen4.jpg!</a> 
+ 
+<br />
+<br />

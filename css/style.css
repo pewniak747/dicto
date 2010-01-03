@@ -51,16 +51,17 @@ body {
 }
 
 #small_font {
-	font-size: 0.3em;
+	font-size: 0.4em;
 	letter-spacing: -2px;
 }
 
 #header #avatar {
 	width: 50px;
 	height: 50px;
-	margin-top: 10px;
+	margin-top: 40px;
 	background-image: url("/avatar.png");
 	float: right;
+	display: none;
 }
 
 #head {
@@ -69,6 +70,10 @@ body {
 
 #head a {
 	text-decoration: none;
+}
+
+#head .color1 {
+	font-size: 100px;
 }
 
 #nav {
@@ -131,6 +136,15 @@ body {
 	background-color: #4E94D8;
 }
 
+#nav #contribute {
+	color: #57811D;
+}
+
+#nav #contribute:hover {
+	color: #ffffff;
+	background-color: #57811D;
+}
+
 #nav #doc {
 	color: #B95DF3;
 }
@@ -138,6 +152,15 @@ body {
 #nav #doc:hover {
 	color: #ffffff;
 	background-color: #B95DF3;
+}
+
+#nav #help {
+	color: #FF4E00;
+}
+
+#nav #help:hover {
+	color: #ffffff;
+	background-color: #FF4E00;
 }
 
 #nav #me {
@@ -170,6 +193,14 @@ body {
 
 #content p {
 	margin: 7px 0 7px 0;
+}
+
+#content img {
+	height: 100px;
+	float: left;
+	display: block;
+	margin: 20px;
+	color: #1A1A1A;
 }
 
 #content pre {
@@ -225,8 +256,10 @@ body {
 	height: 10px;
 	border-top: 1px solid #4D4D4D;
 	margin: 0;
+	margin-bottom: 20px;
 	padding: 5px;
 	font-size: 12px;
+	clear: both;
 }
 
 #footer a {

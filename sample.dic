@@ -1,0 +1,121 @@
+################################################################################
+# This file was created by dicto v. 1.3									                    	#
+# This file is incompatibile with newer versions of dicto, as well as linGO	  #
+# Applying changes to this file may cause several program errors			     	    #
+# Proceed with caution																													#
+################################################################################
+
+#dictionary:
+antena;aerial
+urządzenie;appliance
+archeolog;archaeologist
+archeologia;archaeology
+dziedzina badawcza;area of reseach
+bateria/akumulator;battery
+być zepsutym;be out of order
+biolog;biologist
+biologia;biology
+zepsuć się;break down
+przewód;cable
+prowadzić eksperyment;carry out experiment
+prowadzić badania;carry out research/do research
+związek/połączenie;ceonnection
+ładować;charge
+ładowarka;charger
+wzór chemiczny;chemical formula
+chemik;chemist
+chemia;chemistry
+program komputerowy;computer programme
+informatyka;computer science
+przeprowadzić eksperyment;conduct experiment
+podjąć badania;conduct research/undertake research
+awaria;crash
+dane;data
+baza danych;database
+cyfrowy zegarek;digital/digital watch
+odkryć;discover
+odkrywca;discoverer
+odkrycie;discovery
+wykonać eksperyment;do experiment/perform an experiment
+ściągnać dane;download a data
+ściągnąć plik;download a file
+ekonomia;economics
+economist;ekonomista
+elektroniczny;electronic
+silnik;engine
+in¿ynier;engineer
+in¿ynieria;engineering
+eksperyment/eksperymentować;experiment
+przeprowadzić eksperyment na czymś;experiment on
+przeprowadzić eksperyment z czymś;experiment with
+plik;file
+dowiedzieć się/odkryć;find out
+dyskietka;floppy disk
+gad¿et;gadget
+genetyk;geneticist
+genetyka;genetics
+geolog;geologist
+geologia;geology
+dostać nagrodę;get a prize
+wyładować się;go dead
+twardy dysk;hard disk
+słuchawki;headphones/headset
+technologia informatyczna;information technology
+wynaleźć;invent
+wynalazca;inventor
+badać;investigate
+klawisz;key
+klawiatura;keyboard
+soczewka;lens
+lingwista;linguist
+lingwistyka;lingwistyka
+połączenie/powiązanie;lins
+dokonać odkrycia;make a discovery
+wydawać dziwny dźwięk;make a funny noise
+podręcznik/instrukcja obsługi;manual
+wzór matematyczny;mathematical formula
+matematyk;mathematician
+matematyka;mathematics/maths
+telefon komórkowy;mobile phone
+monitor;monitor
+motor;motor
+opatentować wynalazek;patent an invention
+komputer osobisty;personal computer
+fizyk;physicist
+fizyka;physics
+wtyczka/włączyć do kontaktu;plug
+politologia;political science
+drukarka;printer
+programista;programmer
+psycholog;psychologist
+psychologia;psychology
+badania naukowe;research
+instytut badawczy;research institute
+laboratorium;research laboratory
+badacz/naukowiec;researcher
+naukowy;scientific
+wzór fizyczny;scientific formula
+teoria naukowa;scientific theory
+naukowiec;scientist
+nauki społeczna;social sciences
+socjolog;sociologist
+socjologia;sociology
+kontakt;socket
+specjalizacja;specialization
+specjalizować się w;specialize in
+dane statystyczne;statistical data
+statystyka;statistics
+badanie czegoś;study/survery of sth
+surfować w sieci;surf the Internet
+technika/technologia;technology
+probówka;test tube
+magnetowid;video cassette recorder
+kabel;wire
+invention;wynalazek
+
+#languages:
+lang_native=polski
+lang_foreign=angielski
+
+#learned:
+0000001000000000000010000000000000000000000000000000000000000000000001010000000000000000000000010000000000

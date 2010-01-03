@@ -1,11 +1,21 @@
 ---
 layout: main
-title: info
+title: Info
+description: information
 ---
 
-h1(color1). Dicto version 1.3 - information
+h1(color1). about dicto
 
-Functions of dicto:
+h2. latest stable release is 1.3
+
+Dicto allows you to learn big amounts of vocabulary with ease in just two steps:
+
+# Obtain a dictoinary file from web or your friends (or create it yourself using dicto's friendly interface).
+# Use dicto's 2 testing modes to revise vocabulary. Testing modes include: 
+** normal test
+** exam
+
+All functions of dicto:
 
 * handling of multiple files in *.dic or *txt formats
 * adding, editing, deleting and dynamic searching for words
@@ -14,9 +24,21 @@ Functions of dicto:
 * synonyme handling
 * testing in both ways (native -> foreign, foreign -> native)
 * examining through testing
-* real examining (includes real grades!)
+* real examining (including real grades!)
 * displaying learn statistics
+* english and polish user interface
 
-This software was written in C++ using Qt framework.
+Coming soon:
 
-Dicto is released under GNU GPL license. Wtat does it mean? You can download, modify or spread the word!
+* flashcard printing
+* continious testing
+* multiple choice test
+* more translations!
+
+This software was written in C++ using "Qt":http://qt.nokia.com/products framework.
+
+Dicto is released under "GNU GPL":http://www.gnu.org/licenses/gpl-3.0.txt license. What does it mean? You can download, modify or spread the word without limits!
+
+So go on and "get it":download.html for free!
+
+If you're a developer, translator or just want to improve dicto check out "contribute":contribute.html page. We need your feedback!
