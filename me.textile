@@ -7,7 +7,7 @@ h1(color1). About me
 
 Student of second grade High School of Poznań. Interested in computer science, programming and webdesign, sport (tennis), books and music.
 
-h2(color1). Contact
+h2. Contact
 
 mail: "pewniak747@gmail.com":mailto:pewniak747@gmail.com
 jabber: "pewniak747@jabber.org":xmpp:pewniak747@jabber.org

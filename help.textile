@@ -1,6 +1,6 @@
 ---
 layout: main
-title: help
+title: Help
 description: help
 ---
 

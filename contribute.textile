@@ -5,3 +5,21 @@ description: contribute
 ---
 
 h1(color1). contribute to dicto project
+
+There are several methods you can contribute to dicto:
+
+h2. developers
+
+If you're a software developer using C++ or Qt you can improve dicto by adding some code of your own! Fork the "dicto repository":http://github.com/pewniak747/dicto on github.com.
+
+To get the latest source use:
+
+pre(terminal). git clone git://github.com/pewniak747/dicto.git
+
+h2. translators
+
+Think you can help translating dicto to german, french, spanish or *any* other language? Please "contact me":http://pewniak747.github.com/me.html ! Good software should be multilingual!
+
+h2. users
+
+You can contribute to dicto by using it! If you find a bug, deficiency, have some suggestions about new features or just want to say how dicto is great "contact me":http://pewniak747.github.com/me.html ~(but seriously, don't spam:))~
