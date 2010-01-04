@@ -40,6 +40,11 @@ WProps::WProps(QWidget *parent) : QWidget(parent) {
 			buttonLayout->addWidget(okButton);
 		mainLayout->addLayout(buttonLayout, 5, 0, 1, 2);
 	this->setLayout(mainLayout);
+	
+	// set tabbing order
+	QWidget::setTabOrder(nativeEdit, foreignEdit);
+	QWidget::setTabOrder(foreignEdit, resetButton);
+	QWidget::setTabOrder(resetButton, okButton);
 
 	// connect signals and slots
 	connect(okButton, SIGNAL(clicked()), this, SLOT(submitStats()));
