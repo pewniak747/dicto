@@ -33,7 +33,7 @@ void CDocument::addEntry(QString word, QString translation, speechPart sp) {
 void CDocument::saveToFile() {
 	QFile file(filename);
 	if (!file.open(QIODevice::WriteOnly | QIODevice::Text)) {
-		QMessageBox::information(wMain, tr("Error"), tr("Can't save to %1").arg(filename));
+		QMessageBox::information(wMain, QObject::tr("Error"), QObject::tr("Can't save to %1").arg(filename));
 		return;
 	}
 	 

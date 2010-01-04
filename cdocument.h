@@ -9,11 +9,9 @@
 #define CDOCUMENT_H
 
 #include <QVector>
-#include <QObject>
 #include "centry.h"
 	
-class CDocument : public QObject{
-	Q_OBJECT
+class CDocument{
 public:
 	QVector<CEntry> dictionary;
 	QString filename;
