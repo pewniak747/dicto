@@ -272,7 +272,7 @@ void WMain::sortall() {
 void WMain::newfile() {
 	if(cDocument->filechanged) {
 		int userAnswer = askUser(tr("File has been changed. Save?"));
-		if(userAnswer == 2) cDocument->saveToFile(false);
+		if(userAnswer == 2) saveFileAction();
 		else if(userAnswer == 1) return;
 	}
 	
@@ -284,12 +284,32 @@ void WMain::newfile() {
 
 // invokes file save
 void WMain::savefile() {
-	cDocument->saveToFile(false);
+	saveFileAction(false);
 }
 
 // invokes file save as
 void WMain::saveas() {
-	cDocument->saveToFile(true);
+	saveFileAction(true);
+}
+
+void WMain::saveFileAction(bool saveas) {
+		if(cDocument->filename=="" || saveas) {
+		cDocument->filename=QFileDialog::getSaveFileName(wMain,
+											  "Choose file",
+											  "./",
+											  tr("dicto file(*.dic);;text file(*.txt);;file(*.*)"));
+	}
+	cDocument->saveToFile();
+}
+
+void WMain::openFileAction() {
+		QString newfilename=QFileDialog::getOpenFileName(wMain,
+			tr("Choose file"),
+			"./",
+			tr("dicto files (*.dic);;text files (*.txt);;all files(*.*)"));
+ 
+	if(newfilename.isEmpty()) return;
+	else cDocument->readFromFile(newfilename);
 }
 
 // opens file
@@ -297,14 +317,14 @@ void WMain::openfile() {
 	if(cDocument->filechanged) {
 		int userAnswer = askUser(tr("File has been changed. Save?"));
 		if(userAnswer == 2) {
-			cDocument->saveToFile(false);
-			cDocument->readFromFile("");
+			saveFileAction();
+			openFileAction();
 		}
 		else if(userAnswer == 1) return;
-		else cDocument->readFromFile("");
+		else openFileAction();
 		}
 	else
-		cDocument->readFromFile("");
+		openFileAction();
 }
 
 // shows print window
@@ -509,7 +529,7 @@ void WMain::closeEvent(QCloseEvent * e) {
 	if(cDocument->filechanged) {
 		int userAnswer = askUser(tr("File has been changed. Save?"));
 		if (userAnswer == 2) {
-			cDocument->saveToFile(false);
+			saveFileAction();
 			application->quit();
 			e->accept();
 		}

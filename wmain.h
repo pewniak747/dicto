@@ -89,6 +89,8 @@ private:
 	void endTest(bool display, QString message = "");
 	void closeEvent(QCloseEvent * e);
 	CEntry *currentRow();
+	void saveFileAction(bool saveas = false);
+	void openFileAction();
 
 private slots:
 	void newfile();
