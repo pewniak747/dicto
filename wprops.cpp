@@ -35,8 +35,10 @@ WProps::WProps(QWidget *parent) : QWidget(parent) {
 		mainLayout->addWidget(foreignEdit, 2, 1);
 		mainLayout->addWidget(wordsLabel, 3, 0, 1, 2);
 		mainLayout->addWidget(passedLabel, 4, 0, 1, 2);
-		mainLayout->addWidget(resetButton, 5, 0);
-		mainLayout->addWidget(okButton, 5, 1);
+		QHBoxLayout *buttonLayout = new QHBoxLayout;
+			buttonLayout->addWidget(resetButton);
+			buttonLayout->addWidget(okButton);
+		mainLayout->addLayout(buttonLayout, 5, 0, 1, 2);
 	this->setLayout(mainLayout);
 
 	// connect signals and slots
