@@ -10,7 +10,8 @@ INCLUDEPATH += .
 OBJECTS_DIR = obj/
 MOC_DIR = obj/
 RCC_DIR = obj/
-TRANSLATIONS = translations/dicto_pl.ts
+TRANSLATIONS =  translations/dicto_pl.ts \
+								translations/dicto_ru.ts
 RESOURCES += resources/dicto.qrc
 
 # Input
