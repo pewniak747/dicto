@@ -11,8 +11,8 @@ With dicto you'll easily learn vocabulary, dates or any key-pair data for your e
 
 Dicto is released under "GNU GPL":http://www.gnu.org/licenses/gpl-3.0.txt license, so you can download, modify or spread the word without limits! If you're running GNU/Linux, there's dicto version for this platform too.
 
-"learn more!":/info.html
+"learn more!":info.html
 
-"download latest version":/download.html
+"download latest version":download.html
 
-"see if you can help":/contribute.html
+"see if you can help":contribute.html
