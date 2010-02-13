@@ -9,6 +9,7 @@
 #include "wdialog.h"
 #include "cdocument.h"
 #include "wprepare.h"
+#include "wsettings.h"
 #include "wabout.h"
 #include "wprops.h"
 #include "wprint.h"
@@ -203,6 +204,7 @@ void WMain::createMenus() {
 	connect(saveAction, SIGNAL(triggered()), this, SLOT(savefile()));
 	connect(saveasAction, SIGNAL(triggered()), this, SLOT(saveas()));
 	connect(printAction, SIGNAL(triggered()), this, SLOT(print()));
+	connect(settingsAction, SIGNAL(triggered()), this, SLOT(show_settings()));
 	connect(quitAction, SIGNAL(triggered()), this, SLOT(close()));
 
 	connect(addAction, SIGNAL(triggered()), this, SLOT(addentry()));
@@ -345,7 +347,9 @@ void WMain::print() {
 }
 
 void WMain::show_settings() {
-	
+	WSettings *wSettings = new WSettings(0);
+	wSettings->show();
+	this->setMode(disabledMode);
 }
 
 // shows display test window

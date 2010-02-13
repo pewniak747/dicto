@@ -22,7 +22,8 @@ HEADERS += cdocument.h \
 					 wmain.h \
 					 wprepare.h \
 					 wprops.h \
-					 wprint.h
+					 wprint.h \
+					 wsettings.h
 SOURCES += cdocument.cpp \
            centry.cpp \
            main.cpp \
@@ -34,5 +35,6 @@ SOURCES += cdocument.cpp \
            wmain_utils.cpp \
            wprepare.cpp \
            wprops.cpp \
-           wprint.cpp
+           wprint.cpp \
+           wsettings.cpp
 
