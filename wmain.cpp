@@ -132,6 +132,10 @@ void WMain::createMenus() {
 	printAction=new QAction(tr("&Print"), this);
 	printAction->setShortcuts(QKeySequence::Print);
 	printAction->setStatusTip(tr("Print dictionary"));
+	
+	settingsAction=new QAction(tr("&Settings"), this);
+	settingsAction->setShortcut(QKeySequence("Ctrl+B"));
+	settingsAction->setStatusTip(tr("Settings"));
 
 	quitAction=new QAction(tr("&Quit"), this);
 	quitAction->setShortcut(QKeySequence("Ctrl+Q"));
@@ -173,6 +177,8 @@ void WMain::createMenus() {
 	fileMenu->addAction(saveAction);
 	fileMenu->addAction(saveasAction);
 	fileMenu->addAction(printAction);
+	fileMenu->addSeparator();
+	fileMenu->addAction(settingsAction);
 	fileMenu->addSeparator();
 	fileMenu->addAction(quitAction);
 
@@ -336,6 +342,10 @@ void WMain::print() {
 	WPrint *wPrint = new WPrint(0);
 	wPrint->show();
 	this->setMode(disabledMode);
+}
+
+void WMain::show_settings() {
+	
 }
 
 // shows display test window

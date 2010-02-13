@@ -50,6 +50,7 @@ private:
 	QAction *saveAction;
 	QAction *saveasAction;
 	QAction *printAction;
+	QAction *settingsAction;
 	QAction *quitAction;
 	QAction *testAction;
 	QAction *examAction;
@@ -97,6 +98,7 @@ private slots:
 	void openfile();
 	void savefile();
 	void saveas();
+	void show_settings();
 	void print();
 	void addentry();
 	void editentry();
