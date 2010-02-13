@@ -9,8 +9,18 @@ WSettings::WSettings(QWidget *parent) {
 	
 	okButton = new QPushButton(tr("OK"), this);
 	cancelButton = new QPushButton(tr("Cancel"), this);
+	default_nativeLabel = new QLabel(tr("Default mother language"), this);
+	default_foreignLabel = new QLabel(tr("Default foreign language"), this);
+	default_nativeEdit = new QLineEdit;
+	default_foreignEdit = new QLineEdit;
 	
 	QVBoxLayout *mainLayout = new QVBoxLayout;
+		QGridLayout *settingsLayout = new QGridLayout;
+			settingsLayout->addWidget(default_nativeLabel, 0, 0);
+			settingsLayout->addWidget(default_nativeEdit, 0, 1);
+			settingsLayout->addWidget(default_foreignLabel, 1, 0);
+			settingsLayout->addWidget(default_foreignEdit, 1, 1);
+		mainLayout->addLayout(settingsLayout);
 		QHBoxLayout *buttonsLayout = new QHBoxLayout;
 			buttonsLayout->addWidget(okButton);
 			buttonsLayout->addWidget(cancelButton);

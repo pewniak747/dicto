@@ -3,6 +3,7 @@
 
 #include<QLabel>
 #include<QPushButton>
+#include<QLineEdit>
 
 class WSettings : public QWidget {
 	Q_OBJECT
@@ -13,6 +14,8 @@ class WSettings : public QWidget {
 	private:
 		QLabel *default_nativeLabel;
 		QLabel *default_foreignLabel;
+		QLineEdit *default_nativeEdit;
+		QLineEdit *default_foreignEdit;
 		QPushButton *okButton;
 		QPushButton *cancelButton;
 		
