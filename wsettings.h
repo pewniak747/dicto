@@ -19,6 +19,7 @@ class WSettings : public QWidget {
 		QPushButton *okButton;
 		QPushButton *cancelButton;
 		
+		void readSettings();
 		void closeEvent(QCloseEvent *e);
 		
 	private slots:

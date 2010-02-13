@@ -1,4 +1,5 @@
 #include<QtGui>
+#include<QSettings>
 #include "wsettings.h"
 #include "wmain.h"
 
@@ -27,11 +28,22 @@ WSettings::WSettings(QWidget *parent) {
 		mainLayout->addLayout(buttonsLayout);
 	setLayout(mainLayout);
 	
+	readSettings();
+	
 	connect(okButton, SIGNAL(clicked()), this, SLOT(acceptSettings()));
 	connect(cancelButton, SIGNAL(clicked()), this, SLOT(cancel()));
 }
 
+void WSettings::readSettings() {
+	QSettings settings("dicto.ini", QSettings::IniFormat);
+		default_nativeEdit->setText(settings.value("dictionaries/default_native").value<QString>());
+		default_foreignEdit->setText(settings.value("dictionaries/default_foreign").value<QString>());
+}
+
 void WSettings::acceptSettings() {
+	QSettings settings("dicto.ini", QSettings::IniFormat);
+		settings.setValue("dictionaries/default_native", default_nativeEdit->text());
+		settings.setValue("dictionaries/default_foreign", default_foreignEdit->text());
 	wMain->setMode(enabledMode);
 	this->close();
 }
