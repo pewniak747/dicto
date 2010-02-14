@@ -68,6 +68,7 @@ private:
 	QPushButton *submitExamButton;
 	QPushButton *cancelExamButton;
 	QProgressBar *progressBar;
+	QSystemTrayIcon *trayIcon;
 
 	std::vector <CEntry*> currentList;
 	QQueue<CEntry*> testQueue;
@@ -84,6 +85,7 @@ private:
 
 	void createMenus();
 	void createStatusBar();
+	void createTrayIcon();
 	int pickWord(bool include);
 	QString grade(unsigned good, unsigned howmany);
 	QString processToNice(QString string, QString delimiter);
@@ -114,6 +116,7 @@ private slots:
 	void canceltest();
 	void cancelexam();
 	void search();
+	void trayactivated(QSystemTrayIcon::ActivationReason reason);
 
 public slots:
 	void updateList();

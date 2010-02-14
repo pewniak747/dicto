@@ -40,6 +40,7 @@ WMain::WMain(QWidget *parent) : QMainWindow(parent) {
 	cancelExamButton = new QPushButton(tr("Cancel exam"), this);
 	progressBar = new QProgressBar;
 	createMenus();
+	createTrayIcon();
 
 	// initialize widgets
 	//QFont font;
@@ -103,6 +104,7 @@ WMain::WMain(QWidget *parent) : QMainWindow(parent) {
 	connect(cancelTestButton, SIGNAL(clicked()), this, SLOT(canceltest()));
 	connect(cancelExamButton, SIGNAL(clicked()), this, SLOT(cancelexam()));
 	connect(submitExamButton, SIGNAL(clicked()), this, SLOT(checkexam()));
+	connect(trayIcon, SIGNAL(activated(QSystemTrayIcon::ActivationReason)), this, SLOT(trayactivated(QSystemTrayIcon::ActivationReason)));
 	
 	statusBar()->showMessage(tr("Dicto version %1").arg(VERSION));
 }
@@ -217,6 +219,12 @@ void WMain::createMenus() {
 	connect(statsAction, SIGNAL(triggered()), this, SLOT(stats()));
 
 	connect(aboutAction, SIGNAL(triggered()), this, SLOT(about()));
+}
+
+void WMain::createTrayIcon() {
+	trayIcon = new QSystemTrayIcon(this);
+	trayIcon->setIcon(QIcon(ICON));
+	trayIcon->show();
 }
 
 // updates word list
@@ -496,6 +504,17 @@ void WMain::setMode(Mode mode) {
 
 			this->mode=examMode;
 			break;
+	}
+}
+
+void WMain::trayactivated(QSystemTrayIcon::ActivationReason reason) {
+	//QMessageBox::information(this, "Info", "Tray activated");
+	if(mode == disabledMode) return;
+	if(this->isHidden()) {
+		show();
+	}
+	else {
+		hide();
 	}
 }
 
