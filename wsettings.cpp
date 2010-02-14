@@ -6,7 +6,7 @@
 WSettings::WSettings(QWidget *parent) {
 	setWindowTitle(tr("Dicto settings"));
 	wMain->centerWidgetOnScreen(this);
-	resize(300, 200);
+	resize(300, 100);
 	
 	okButton = new QPushButton(tr("OK"), this);
 	cancelButton = new QPushButton(tr("Cancel"), this);

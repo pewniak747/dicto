@@ -16,8 +16,9 @@
 CDocument::CDocument() {
 	filename="";
 	filechanged = false;
-	lang_native="";
-	lang_foreign="";
+	QSettings settings("dicto.ini", QSettings::IniFormat);
+	lang_native=settings.value("dictionaries/default_native").value<QString>();
+	lang_foreign=settings.value("dictionaries/default_foreign").value<QString>();
 }
 
 //adds entry to dictionary
