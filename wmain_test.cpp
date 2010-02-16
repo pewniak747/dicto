@@ -59,7 +59,7 @@ void WMain::check() {
 			questionLabel->setText(tr("<b>Wrong</b> <br /> (%1 - %2)")
 				.arg(intoforeign?currentEntry->word:currentEntry->translation)
 				.arg(intoforeign?currentEntry->translation:currentEntry->word));
-			testQueue.enqueue(testQueue.head());
+			testQueue.enqueue(currentEntry);
 			testQueue.dequeue();
 		}
 		submitWordButton->setText(tr("Next"));
@@ -76,7 +76,7 @@ void WMain::check() {
 		
 		// process question string
 		QString question = intoforeign ? currentEntry->word : currentEntry->translation;
-		question = processToNice(question, "<br />");
+		question = processToNice(question, " | ");
 		
 		// append speech part
 		if(currentEntry->sp != spNone) question.append("<br />("+currentEntry->spToString()+")");
