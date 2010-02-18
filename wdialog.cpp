@@ -65,6 +65,9 @@ WDialog::WDialog(QWidget *parent, CEntry *entry) : QWidget(parent) {
 	QShortcut *submitShortcut=new QShortcut(Qt::Key_Return, this);
 	connect(submitShortcut, SIGNAL(activated()), this, SLOT(submitWord()));
 	
+	QShortcut *quitShortcut=new QShortcut(Qt::Key_Escape, this);
+	connect(quitShortcut, SIGNAL(activated()), this, SLOT(cancel()));
+	
 	// set values
 	if(entry) {
 		wordEdit->setText(entry->word);
