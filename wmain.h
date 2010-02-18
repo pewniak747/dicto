@@ -96,13 +96,13 @@ private:
 	void closeEvent(QCloseEvent * e);
 	CEntry *currentRow();
 	void saveFileAction(bool saveas = false);
-	void openFileAction();
+	void openFileAction(QString filename);
 	void updateRecentFileActions();
 	void setCurrentFile(QString newfilename);
 
 private slots:
 	void newfile();
-	void openfile();
+	void openfile(QString filename ="");
 	void savefile();
 	void saveas();
 	void show_settings();
@@ -122,6 +122,7 @@ private slots:
 	void cancelexam();
 	void search();
 	void trayactivated(QSystemTrayIcon::ActivationReason reason);
+	void openRecentFile();
 
 public slots:
 	void updateList();

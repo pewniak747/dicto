@@ -126,3 +126,8 @@ void WMain::setCurrentFile(QString newfilename) {
 		updateRecentFileActions();
 }
 
+void WMain::openRecentFile() {
+	QAction *action = qobject_cast<QAction *>(sender());
+	if (action) openfile(action->data().toString());
+}
+

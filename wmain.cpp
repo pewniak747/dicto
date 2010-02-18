@@ -197,8 +197,7 @@ void WMain::createMenus() {
 		recentFilesActions[i] = new QAction(this);
 		recentFilesActions[i]->setVisible(false);
 		fileMenu->addAction(recentFilesActions[i]);
-			//connect(recentFileActs[i], SIGNAL(triggered()),
-			//		this, SLOT(openRecentFile()));
+		connect(recentFilesActions[i], SIGNAL(triggered()),this, SLOT(openRecentFile()));
 	}
 	updateRecentFileActions();
 
@@ -342,31 +341,32 @@ void WMain::saveFileAction(bool saveas) {
 	setCurrentFile(cDocument->filename);
 }
 
-void WMain::openFileAction() {
-		QString newfilename=QFileDialog::getOpenFileName(wMain,
+void WMain::openFileAction(QString filename) {
+	if(filename.isEmpty()) {
+		filename=QFileDialog::getOpenFileName(wMain,
 			tr("Choose file"),
 			"./",
 			tr("dicto files (*.dic);;text files (*.txt);;all files(*.*)"));
- 
-	if(newfilename.isEmpty()) return;
-	else cDocument->readFromFile(newfilename);
+	}
+	if(filename.isEmpty()) return;
+	else cDocument->readFromFile(filename);
 	
-	setCurrentFile(newfilename);
+	setCurrentFile(filename);
 }
 
 // opens file
-void WMain::openfile() {
+void WMain::openfile(QString filename) {
 	if(cDocument->filechanged) {
 		int userAnswer = askUser(tr("File has been changed. Save?"));
 		if(userAnswer == 2) {
 			saveFileAction();
-			openFileAction();
+			openFileAction(filename);
 		}
 		else if(userAnswer == 1) return;
-		else openFileAction();
+		else openFileAction(filename);
 		}
 	else
-		openFileAction();
+		openFileAction(filename);
 }
 
 // shows print window
