@@ -69,6 +69,7 @@ WMain::WMain(QWidget *parent) : QMainWindow(parent) {
 	printer = new QPrinter;
 	mode = normalMode;
 	parent = 0;
+	maxRecentFiles = 5;
 	
 	// add layout
 	QVBoxLayout *mainLayout=new QVBoxLayout(mainWidget);
@@ -115,7 +116,7 @@ WMain::WMain(QWidget *parent) : QMainWindow(parent) {
 	
 	statusBar()->showMessage(tr("Dicto version %1").arg(VERSION));
 	
-	maxRecentFiles=5;
+
 }
 
 // creates all menus
@@ -191,12 +192,15 @@ void WMain::createMenus() {
 	fileMenu->addAction(printAction);
 	fileMenu->addSeparator();
 	
-			for (int i = 0; i < maxRecentFiles; ++i) {
-			recentFilesActions[i] = new QAction(this);
-			recentFilesActions[i]->setVisible(false);
+
+	for (int i = 0; i < 5; ++i) {
+		recentFilesActions[i] = new QAction(this);
+		recentFilesActions[i]->setVisible(false);
+		fileMenu->addAction(recentFilesActions[i]);
 			//connect(recentFileActs[i], SIGNAL(triggered()),
 			//		this, SLOT(openRecentFile()));
-		}
+	}
+	updateRecentFileActions();
 
 	
 	fileMenu->addSeparator();
