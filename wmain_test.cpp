@@ -48,7 +48,8 @@ void WMain::check() {
 
 	if(!answered) {
 		if(currentEntry->check(answerEdit->text(), intoforeign, ignoreSynonyms)) {
-			questionLabel->setText(tr("<b>Good!</b>"));
+			questionLabel->setText(tr("Good!"));
+			answerLabel->clear();
 			if(hintsize < 2) {
 				currentEntry->wordstatus = true;
 				countdown--;
@@ -56,9 +57,10 @@ void WMain::check() {
 			}
 		}
 		else {
-			questionLabel->setText(tr("<b>Wrong</b> <br /> (%1 - %2)")
-				.arg(intoforeign?currentEntry->word:currentEntry->translation)
-				.arg(intoforeign?currentEntry->translation:currentEntry->word));
+			questionLabel->setText(tr("Wrong"));
+			answerLabel->setText(tr("%1 - %2")
+				.arg(processToNice(intoforeign?currentEntry->word:currentEntry->translation, "\n"))
+				.arg(processToNice(intoforeign?currentEntry->translation:currentEntry->word, "\n")));
 			testQueue.enqueue(currentEntry);
 			testQueue.dequeue();
 		}
@@ -76,14 +78,14 @@ void WMain::check() {
 		
 		// process question string
 		QString question = intoforeign ? currentEntry->word : currentEntry->translation;
-		question = processToNice(question, " | ");
+		question = processToNice(question, "\n");
 		
 		// append speech part
-		if(currentEntry->sp != spNone) question.append("<br />("+currentEntry->spToString()+")");
+		if(currentEntry->sp != spNone) question.append("("+currentEntry->spToString()+")");
 
 		// end
-		if(intoforeign) questionLabel->setText("<b>"+question+"</b>");
-		else questionLabel->setText("<b>"+question+"</b>");
+		questionLabel->setText(question);
+		answerLabel->clear();
 		answered = false;
 		hintsize=1;
 		submitWordButton->setText(tr("OK"));

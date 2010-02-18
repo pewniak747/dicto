@@ -31,6 +31,7 @@ WMain::WMain(QWidget *parent) : QMainWindow(parent) {
 	searchBar = new QLineEdit;
 	listWidget = new QListWidget;
 	questionLabel = new QLabel(tr("Test!"), this);
+	answerLabel = new QLabel(tr("Answer"), this);
 	answerEdit = new QLineEdit;
 	submitWordButton = new QPushButton(tr("OK"), this);
 	cancelTestButton = new QPushButton(tr("End test"), this);
@@ -47,9 +48,14 @@ WMain::WMain(QWidget *parent) : QMainWindow(parent) {
 	//font.setPointSize(20);
 	//font.setBold(true);
 	//questionLabel->setFont(font);
-	questionLabel->setTextFormat(Qt::RichText);
-	questionLabel->setAlignment(Qt::AlignCenter);
+	//questionLabel->setTextFormat(Qt::RichText);
+	questionLabel->setAlignment(Qt::AlignHCenter | Qt::AlignBottom);
 	questionLabel->setWordWrap(true);
+	QFont questionFont;
+	questionFont.setBold(true);
+	questionLabel->setFont(questionFont);
+	answerLabel->setAlignment(Qt::AlignHCenter | Qt::AlignTop);
+	answerLabel->setWordWrap(true);
 	tableWidget->setColumnCount(2);
 	tableWidget->horizontalHeader()->hide();
 	tableWidget->verticalHeader()->hide();
@@ -72,6 +78,7 @@ WMain::WMain(QWidget *parent) : QMainWindow(parent) {
 		mainLayout->addLayout(normalLayout);
 		QVBoxLayout *testLayout=new QVBoxLayout();
 			testLayout->addWidget(questionLabel);
+			testLayout->addWidget(answerLabel);
 			testLayout->addWidget(answerEdit);
 			testLayout->addWidget(submitWordButton);
 			testLayout->addWidget(cancelTestButton);
@@ -402,6 +409,7 @@ void WMain::setMode(Mode mode) {
 			searchBar->show();
 			listWidget->show();
 			questionLabel->hide();
+			answerLabel->hide();
 			answerEdit->hide();
 			submitWordButton->hide();
 			cancelTestButton->hide();
@@ -444,6 +452,7 @@ void WMain::setMode(Mode mode) {
 			searchBar->hide();
 			listWidget->hide();
 			questionLabel->show();
+			answerLabel->show();
 			answerEdit->show();
 			answerEdit->clear();
 			submitWordButton->show();
@@ -475,6 +484,7 @@ void WMain::setMode(Mode mode) {
 			searchBar->hide();
 			listWidget->hide();
 			questionLabel->hide();
+			answerLabel->hide();
 			answerEdit->hide();
 			submitWordButton->hide();
 			cancelTestButton->hide();

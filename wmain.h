@@ -60,6 +60,7 @@ private:
 	QListWidget *listWidget;
 	QLineEdit *searchBar;
 	QLabel *questionLabel;
+	QLabel *answerLabel;
 	QLineEdit *answerEdit;
 	QPushButton *submitWordButton;
 	QPushButton *cancelTestButton;
