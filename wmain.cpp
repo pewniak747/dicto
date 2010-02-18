@@ -384,9 +384,12 @@ void WMain::preparetest() {
 void WMain::hint() {
 	if(mode != testMode) return;
 	QString answer = intoforeign ? currentEntry->translation : currentEntry->word;
-	if(answer.length()<hintsize || answered) return;
-	answerEdit->setText(answer.mid(0, hintsize));
-	hintsize++;
+	if(answered) return;
+	if(answer.length()<hintsize) answerEdit->setText(answer);
+	else {
+		answerEdit->setText(answer.mid(0, hintsize));
+		hintsize++;
+	}
 }
 
 // displays prepare exam window
