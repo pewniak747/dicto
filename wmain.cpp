@@ -114,6 +114,8 @@ WMain::WMain(QWidget *parent) : QMainWindow(parent) {
 	connect(trayIcon, SIGNAL(activated(QSystemTrayIcon::ActivationReason)), this, SLOT(trayactivated(QSystemTrayIcon::ActivationReason)));
 	
 	statusBar()->showMessage(tr("Dicto version %1").arg(VERSION));
+	
+	maxRecentFiles=5;
 }
 
 // creates all menus
@@ -187,6 +189,16 @@ void WMain::createMenus() {
 	fileMenu->addAction(saveAction);
 	fileMenu->addAction(saveasAction);
 	fileMenu->addAction(printAction);
+	fileMenu->addSeparator();
+	
+			for (int i = 0; i < maxRecentFiles; ++i) {
+			recentFilesActions[i] = new QAction(this);
+			recentFilesActions[i]->setVisible(false);
+			//connect(recentFileActs[i], SIGNAL(triggered()),
+			//		this, SLOT(openRecentFile()));
+		}
+
+	
 	fileMenu->addSeparator();
 	fileMenu->addAction(settingsAction);
 	fileMenu->addSeparator();
@@ -323,6 +335,7 @@ void WMain::saveFileAction(bool saveas) {
 											  tr("dicto file(*.dic);;text file(*.txt);;file(*.*)"));
 	}
 	cDocument->saveToFile();
+	setCurrentFile(cDocument->filename);
 }
 
 void WMain::openFileAction() {
@@ -333,6 +346,8 @@ void WMain::openFileAction() {
  
 	if(newfilename.isEmpty()) return;
 	else cDocument->readFromFile(newfilename);
+	
+	setCurrentFile(newfilename);
 }
 
 // opens file

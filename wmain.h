@@ -56,6 +56,8 @@ private:
 	QAction *examAction;
 	QAction *statsAction;
 	QAction *aboutAction;
+	int maxRecentFiles;
+	QAction *recentFilesActions[10];
 	QWidget *mainWidget;
 	QListWidget *listWidget;
 	QLineEdit *searchBar;
@@ -95,6 +97,8 @@ private:
 	CEntry *currentRow();
 	void saveFileAction(bool saveas = false);
 	void openFileAction();
+	void updateRecentFileActions();
+	void setCurrentFile(QString newfilename);
 
 private slots:
 	void newfile();

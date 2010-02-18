@@ -94,3 +94,28 @@ int WMain::dictionarySize() {
 	return cDocument->dictionary.size();
 }
 
+void WMain::updateRecentFileActions() {
+	QSettings settings("dicto.ini", QSettings::IniFormat);
+	QStringList files = settings.value("recentFileList").toStringList();
+	int numRecentFiles = qMin(files.size(), maxRecentFiles);
+	for (int i = 0; i < numRecentFiles; ++i) {
+		QString text = tr("&%1 %2").arg(i + 1).arg(files[i]);
+		recentFilesActions[i]->setText(text);
+		recentFilesActions[i]->setData(files[i]);
+		recentFilesActions[i]->setVisible(true);
+	}
+	for (int j = numRecentFiles; j < maxRecentFiles; ++j)
+		recentFilesActions[j]->setVisible(false);
+}
+
+void WMain::setCurrentFile(QString newfilename) {
+	QSettings settings("dicto.ini", QSettings::IniFormat);
+	QStringList files = settings.value("recentFileList").toStringList();
+		files.removeAll(newfilename);
+		files.prepend(newfilename);
+		while (files.size() > maxRecentFiles)
+			files.removeLast();
+
+		settings.setValue("recentFileList", files);
+}
+
