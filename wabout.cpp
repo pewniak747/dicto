@@ -15,6 +15,7 @@ WAbout::WAbout(QWidget *parent) : QWidget(parent) {
 	setFixedSize(200, 330);
 	setWindowIcon(QIcon(ICON));
 	wMain->centerWidgetOnScreen(this);
+	setAttribute(Qt::WA_DeleteOnClose);
 	
 	// create widgets
 	image = new QLabel;

@@ -53,6 +53,7 @@ WPrint::WPrint(QWidget *parent) {
 	connect(printFlashcardsButton, SIGNAL(clicked()), this, SLOT(printFlashcards()));
 	
 	wMain->centerWidgetOnScreen(this);
+	setAttribute(Qt::WA_DeleteOnClose);
 }
 
 void WPrint::print() {

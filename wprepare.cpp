@@ -17,6 +17,7 @@ WPrepare::WPrepare(QWidget *parent, bool exam) : QWidget(parent) {
 	setWindowIcon(QIcon(ICON));
 	resize(400, 100);
 	wMain->centerWidgetOnScreen(this);
+	setAttribute(Qt::WA_DeleteOnClose);
 	
 	// create widgets
 	numberLabel=new QLabel(tr("Words:"), this);

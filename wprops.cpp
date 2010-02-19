@@ -14,6 +14,7 @@ WProps::WProps(QWidget *parent) : QWidget(parent) {
 	setWindowTitle(tr("File properties"));
 	setWindowIcon(QIcon(ICON));
 	wMain->centerWidgetOnScreen(this);
+	setAttribute(Qt::WA_DeleteOnClose);
 
 	// create all widgets
   fileLabel = new QLabel(this);

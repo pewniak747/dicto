@@ -21,6 +21,7 @@ WMain::WMain(QWidget *parent) : QMainWindow(parent) {
 	setWindowTitle(tr("dicto"));
 	setWindowIcon(QIcon(ICON));
 	centerWidgetOnScreen(this);
+	setAttribute(Qt::WA_DeleteOnClose);
 	
 	// set random seed
 	srand(time(0));

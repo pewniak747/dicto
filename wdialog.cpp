@@ -15,6 +15,7 @@ WDialog::WDialog(QWidget *parent, CEntry *entry) : QWidget(parent) {
 	setWindowIcon(QIcon(ICON));
 	wMain->centerWidgetOnScreen(this);
 	resize(400, 0);
+	setAttribute(Qt::WA_DeleteOnClose);
 	
 	// initialize variables
 	this->entry = entry;
