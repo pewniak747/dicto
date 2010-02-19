@@ -35,44 +35,44 @@
 <context>
     <name>QObject</name>
     <message>
-        <location filename="../cdocument.cpp" line="36"/>
+        <location filename="../cdocument.cpp" line="37"/>
         <source>Error</source>
-        <translation type="unfinished">Błąd</translation>
+        <translation>Błąd</translation>
     </message>
     <message>
-        <location filename="../cdocument.cpp" line="36"/>
+        <location filename="../cdocument.cpp" line="37"/>
         <source>Can&apos;t save to %1</source>
-        <translation type="unfinished">Nie można zapisać do %1</translation>
+        <translation>Nie można zapisać do %1</translation>
     </message>
     <message>
         <location filename="../centry.cpp" line="20"/>
         <source>None</source>
-        <translation type="unfinished"></translation>
+        <translation>Brak</translation>
     </message>
     <message>
         <location filename="../centry.cpp" line="21"/>
         <source>Verb</source>
-        <translation type="unfinished"></translation>
+        <translation>Czasownik</translation>
     </message>
     <message>
         <location filename="../centry.cpp" line="22"/>
         <source>Noun</source>
-        <translation type="unfinished"></translation>
+        <translation>Rzeczownik</translation>
     </message>
     <message>
         <location filename="../centry.cpp" line="23"/>
         <source>Adjective</source>
-        <translation type="unfinished"></translation>
+        <translation>Przymiotnik</translation>
     </message>
     <message>
         <location filename="../centry.cpp" line="24"/>
         <source>Adverb</source>
-        <translation type="unfinished"></translation>
+        <translation>Przysłówek</translation>
     </message>
     <message>
         <location filename="../centry.cpp" line="25"/>
         <source>Other</source>
-        <translation type="unfinished"></translation>
+        <translation>Inny</translation>
     </message>
 </context>
 <context>
@@ -178,18 +178,18 @@ http://dicto.sourceforge.net</translation>
         <translation>Edycja słowa</translation>
     </message>
     <message>
-        <location filename="../wdialog.cpp" line="82"/>
-        <location filename="../wdialog.cpp" line="86"/>
+        <location filename="../wdialog.cpp" line="85"/>
+        <location filename="../wdialog.cpp" line="89"/>
         <source>Error</source>
         <translation>Błąd</translation>
     </message>
     <message>
-        <location filename="../wdialog.cpp" line="82"/>
+        <location filename="../wdialog.cpp" line="85"/>
         <source>Please fill both fields</source>
         <translation>Wypełnij oba pola</translation>
     </message>
     <message>
-        <location filename="../wdialog.cpp" line="86"/>
+        <location filename="../wdialog.cpp" line="89"/>
         <source>Words may not contain neihter &apos;;&apos; nor &apos;=&apos;!&apos; characters</source>
         <translation>Słowa nie mogą zawierać znaków &apos;;&apos; i &apos;=&apos;</translation>
     </message>
@@ -197,18 +197,18 @@ http://dicto.sourceforge.net</translation>
 <context>
     <name>WMain</name>
     <message>
-        <location filename="../wmain.cpp" line="32"/>
+        <location filename="../wmain.cpp" line="33"/>
         <source>Test!</source>
         <translation>Test!</translation>
     </message>
     <message>
-        <location filename="../wmain.cpp" line="34"/>
-        <location filename="../wmain_test.cpp" line="89"/>
+        <location filename="../wmain.cpp" line="36"/>
+        <location filename="../wmain_test.cpp" line="91"/>
         <source>OK</source>
         <translation>OK</translation>
     </message>
     <message>
-        <location filename="../wmain.cpp" line="35"/>
+        <location filename="../wmain.cpp" line="37"/>
         <source>End test</source>
         <translation>Zakończ test</translation>
     </message>
@@ -217,218 +217,233 @@ http://dicto.sourceforge.net</translation>
         <translation type="obsolete">examstatuslabel</translation>
     </message>
     <message>
-        <location filename="../wmain.cpp" line="38"/>
+        <location filename="../wmain.cpp" line="40"/>
         <source>Submit exam</source>
         <translation>Oddaj egzamin</translation>
     </message>
     <message>
-        <location filename="../wmain.cpp" line="39"/>
+        <location filename="../wmain.cpp" line="41"/>
         <source>Cancel exam</source>
         <translation>Anuluj egzamin</translation>
     </message>
     <message>
-        <location filename="../wmain.cpp" line="20"/>
+        <location filename="../wmain.cpp" line="21"/>
         <source>dicto</source>
         <translation>dicto</translation>
     </message>
     <message>
-        <location filename="../wmain.cpp" line="116"/>
+        <location filename="../wmain.cpp" line="34"/>
+        <source>Answer</source>
+        <translation>Odpowiedź</translation>
+    </message>
+    <message>
+        <location filename="../wmain.cpp" line="129"/>
         <source>&amp;New</source>
         <translation>&amp;Nowy</translation>
     </message>
     <message>
-        <location filename="../wmain.cpp" line="118"/>
+        <location filename="../wmain.cpp" line="131"/>
         <source>Create new dictionary</source>
         <translation>Stwórz nowy słownik</translation>
     </message>
     <message>
-        <location filename="../wmain.cpp" line="120"/>
+        <location filename="../wmain.cpp" line="133"/>
         <source>&amp;Open...</source>
         <translation>&amp;Otwórz...</translation>
     </message>
     <message>
-        <location filename="../wmain.cpp" line="122"/>
+        <location filename="../wmain.cpp" line="135"/>
         <source>Open dictionary</source>
         <translation>Otwórz słownik</translation>
     </message>
     <message>
-        <location filename="../wmain.cpp" line="124"/>
+        <location filename="../wmain.cpp" line="137"/>
         <source>&amp;Save</source>
         <translation>&amp;Zapisz</translation>
     </message>
     <message>
-        <location filename="../wmain.cpp" line="126"/>
+        <location filename="../wmain.cpp" line="139"/>
         <source>Save dictionary</source>
         <translation>Zapisz słownik</translation>
     </message>
     <message>
-        <location filename="../wmain.cpp" line="128"/>
+        <location filename="../wmain.cpp" line="141"/>
         <source>&amp;Save as...</source>
         <translation>&amp;Zapisz jako...</translation>
     </message>
     <message>
-        <location filename="../wmain.cpp" line="130"/>
+        <location filename="../wmain.cpp" line="143"/>
         <source>Save dictionary as</source>
         <translation>Zapisz słownik jako</translation>
     </message>
     <message>
-        <location filename="../wmain.cpp" line="132"/>
+        <location filename="../wmain.cpp" line="145"/>
         <source>&amp;Print</source>
         <translation>&amp;Drukuj</translation>
     </message>
     <message>
-        <location filename="../wmain.cpp" line="134"/>
+        <location filename="../wmain.cpp" line="147"/>
         <source>Print dictionary</source>
         <translation>Drukuj słownik</translation>
     </message>
     <message>
-        <location filename="../wmain.cpp" line="136"/>
+        <location filename="../wmain.cpp" line="149"/>
+        <source>&amp;Settings</source>
+        <translation>&amp;Ustawienia</translation>
+    </message>
+    <message>
+        <location filename="../wmain.cpp" line="151"/>
+        <source>Settings</source>
+        <translation>Ustawienia</translation>
+    </message>
+    <message>
+        <location filename="../wmain.cpp" line="153"/>
         <source>&amp;Quit</source>
         <translation>&amp;Wyjście</translation>
     </message>
     <message>
-        <location filename="../wmain.cpp" line="138"/>
+        <location filename="../wmain.cpp" line="155"/>
         <source>Quit dicto</source>
         <translation>Opuść dicto</translation>
     </message>
     <message>
-        <location filename="../wmain.cpp" line="140"/>
+        <location filename="../wmain.cpp" line="157"/>
         <source>&amp;Add...</source>
         <translation>&amp;Dodaj...</translation>
     </message>
     <message>
-        <location filename="../wmain.cpp" line="142"/>
+        <location filename="../wmain.cpp" line="159"/>
         <source>Add new word</source>
         <translation>Dodaj nowe słowo</translation>
     </message>
     <message>
-        <location filename="../wmain.cpp" line="144"/>
+        <location filename="../wmain.cpp" line="161"/>
         <source>&amp;Edit...</source>
         <translation>&amp;Edytuj...</translation>
     </message>
     <message>
-        <location filename="../wmain.cpp" line="145"/>
+        <location filename="../wmain.cpp" line="162"/>
         <source>Edit current word</source>
         <translation>Edytuj bieżące słowo</translation>
     </message>
     <message>
-        <location filename="../wmain.cpp" line="147"/>
+        <location filename="../wmain.cpp" line="164"/>
         <source>&amp;Delete</source>
         <translation>&amp;Usuń</translation>
     </message>
     <message>
-        <location filename="../wmain.cpp" line="149"/>
+        <location filename="../wmain.cpp" line="166"/>
         <source>Delete current word</source>
         <translation>Usuń bieżące słowo</translation>
     </message>
     <message>
-        <location filename="../wmain.cpp" line="151"/>
+        <location filename="../wmain.cpp" line="168"/>
         <source>&amp;Sort</source>
         <translation>&amp;Sortuj</translation>
     </message>
     <message>
-        <location filename="../wmain.cpp" line="153"/>
+        <location filename="../wmain.cpp" line="170"/>
         <source>Sort dictionary</source>
         <translation>Posortuj słownik</translation>
     </message>
     <message>
-        <location filename="../wmain.cpp" line="155"/>
+        <location filename="../wmain.cpp" line="172"/>
         <source>&amp;Test...</source>
         <translation>&amp;Test...</translation>
     </message>
     <message>
-        <location filename="../wmain.cpp" line="157"/>
+        <location filename="../wmain.cpp" line="174"/>
         <source>Prepare test</source>
         <translation>Przygotuj test</translation>
     </message>
     <message>
-        <location filename="../wmain.cpp" line="159"/>
+        <location filename="../wmain.cpp" line="176"/>
         <source>&amp;Exam...</source>
         <translation>&amp;Egzamin...</translation>
     </message>
     <message>
-        <location filename="../wmain.cpp" line="161"/>
+        <location filename="../wmain.cpp" line="178"/>
         <source>Prepare exam</source>
         <translation>Przygotuj egzamin</translation>
     </message>
     <message>
-        <location filename="../wmain.cpp" line="163"/>
+        <location filename="../wmain.cpp" line="180"/>
         <source>&amp;Statistics...</source>
         <translation>&amp;Statystyki...</translation>
     </message>
     <message>
-        <location filename="../wmain.cpp" line="165"/>
+        <location filename="../wmain.cpp" line="182"/>
         <source>Show statistics</source>
         <translation>Pokaż statystyki</translation>
     </message>
     <message>
-        <location filename="../wmain.cpp" line="167"/>
+        <location filename="../wmain.cpp" line="184"/>
         <source>&amp;About</source>
         <translation>&amp;O dicto</translation>
     </message>
     <message>
-        <location filename="../wmain.cpp" line="168"/>
+        <location filename="../wmain.cpp" line="185"/>
         <source>About dicto</source>
         <translation>O dicto</translation>
     </message>
     <message>
-        <location filename="../wmain.cpp" line="170"/>
+        <location filename="../wmain.cpp" line="187"/>
         <source>&amp;File</source>
         <translation>&amp;Plik</translation>
     </message>
     <message>
-        <location filename="../wmain.cpp" line="179"/>
+        <location filename="../wmain.cpp" line="210"/>
         <source>&amp;Words</source>
         <translation>&amp;Słowa</translation>
     </message>
     <message>
-        <location filename="../wmain.cpp" line="186"/>
+        <location filename="../wmain.cpp" line="217"/>
         <source>&amp;Test</source>
         <translation>&amp;Test</translation>
     </message>
     <message>
-        <location filename="../wmain.cpp" line="192"/>
+        <location filename="../wmain.cpp" line="223"/>
         <source>&amp;Help</source>
         <translation>&amp;Pomoc</translation>
     </message>
     <message>
-        <location filename="../wmain.cpp" line="300"/>
+        <location filename="../wmain.cpp" line="338"/>
         <source>dicto file(*.dic);;text file(*.txt);;file(*.*)</source>
-        <translation type="unfinished">plik dicto(*.dic);;plik txt(*.txt);;wszystkie pliki(*.*)</translation>
+        <translation>plik dicto(*.dic);;plik txt(*.txt);;wszystkie pliki(*.*)</translation>
     </message>
     <message>
-        <location filename="../wmain.cpp" line="307"/>
+        <location filename="../wmain.cpp" line="347"/>
         <source>Choose file</source>
-        <translation type="unfinished">Wybierz plik</translation>
+        <translation>Wybierz plik</translation>
     </message>
     <message>
-        <location filename="../wmain.cpp" line="309"/>
+        <location filename="../wmain.cpp" line="349"/>
         <source>dicto files (*.dic);;text files (*.txt);;all files(*.*)</source>
-        <translation type="unfinished">pliki dicto(*.dic);;pliki tekstowe(*.txt);;wszystkie pliki(*.*)</translation>
+        <translation>pliki dicto(*.dic);;pliki tekstowe(*.txt);;wszystkie pliki(*.*)</translation>
     </message>
     <message>
-        <location filename="../wmain.cpp" line="106"/>
+        <location filename="../wmain.cpp" line="117"/>
         <source>Dicto version %1</source>
         <translation>Dicto wersja %1</translation>
     </message>
     <message>
-        <location filename="../wmain.cpp" line="245"/>
+        <location filename="../wmain.cpp" line="283"/>
         <source>Entry not selected</source>
-        <translation type="unfinished"></translation>
+        <translation>Brak zaznaczenia</translation>
     </message>
     <message>
-        <location filename="../wmain.cpp" line="256"/>
-        <location filename="../wmain.cpp" line="266"/>
-        <location filename="../wmain.cpp" line="333"/>
-        <location filename="../wmain.cpp" line="344"/>
-        <location filename="../wmain.cpp" line="366"/>
+        <location filename="../wmain.cpp" line="294"/>
+        <location filename="../wmain.cpp" line="304"/>
+        <location filename="../wmain.cpp" line="375"/>
+        <location filename="../wmain.cpp" line="392"/>
+        <location filename="../wmain.cpp" line="417"/>
         <source>Dictionary is empty</source>
         <translation>Słownik jest pusty</translation>
     </message>
     <message>
-        <location filename="../wmain.cpp" line="274"/>
-        <location filename="../wmain.cpp" line="318"/>
-        <location filename="../wmain.cpp" line="530"/>
+        <location filename="../wmain.cpp" line="312"/>
+        <location filename="../wmain.cpp" line="360"/>
+        <location filename="../wmain.cpp" line="595"/>
         <source>File has been changed. Save?</source>
         <translation>Plik został zmieniony. Zapisać?</translation>
     </message>
@@ -455,22 +470,23 @@ Zresetuj statystyki</translation>
         <translation>Anuluj</translation>
     </message>
     <message>
-        <location filename="../wmain.cpp" line="346"/>
-        <location filename="../wmain.cpp" line="368"/>
+        <location filename="../wmain.cpp" line="394"/>
+        <location filename="../wmain.cpp" line="419"/>
         <location filename="../wmain_exam.cpp" line="80"/>
         <location filename="../wmain_utils.cpp" line="13"/>
         <source>Congratulations</source>
         <translation>Gratulacje</translation>
     </message>
     <message>
-        <location filename="../wmain.cpp" line="346"/>
-        <location filename="../wmain.cpp" line="368"/>
-        <location filename="../wmain_test.cpp" line="72"/>
+        <location filename="../wmain.cpp" line="394"/>
+        <location filename="../wmain.cpp" line="419"/>
+        <location filename="../wmain_test.cpp" line="74"/>
         <source>All words learned!</source>
         <translation>Wszystkie słowka nauczone!</translation>
     </message>
     <message>
         <location filename="../wmain_exam.cpp" line="59"/>
+        <location filename="../wmain_test.cpp" line="51"/>
         <source>Good!</source>
         <translation>Dobrze!</translation>
     </message>
@@ -483,27 +499,27 @@ Zresetuj statystyki</translation>
     <message>
         <location filename="../wmain_test.cpp" line="39"/>
         <source>No words match your criteria</source>
-        <translation type="unfinished"></translation>
+        <translation>Brak dopasowań</translation>
     </message>
     <message>
-        <location filename="../wmain_test.cpp" line="51"/>
-        <source>&lt;b&gt;Good!&lt;/b&gt;</source>
-        <translation type="unfinished"></translation>
+        <location filename="../wmain_test.cpp" line="60"/>
+        <source>Wrong</source>
+        <translation>Źle</translation>
     </message>
     <message>
-        <location filename="../wmain_test.cpp" line="59"/>
-        <source>&lt;b&gt;Wrong&lt;/b&gt; &lt;br /&gt; (%1 - %2)</source>
-        <translation type="unfinished"></translation>
+        <location filename="../wmain_test.cpp" line="61"/>
+        <source>%1 - %2</source>
+        <translation>%1 - %2</translation>
     </message>
     <message>
-        <location filename="../wmain_test.cpp" line="65"/>
+        <location filename="../wmain_test.cpp" line="67"/>
         <source>Next</source>
         <translation>Dalej</translation>
     </message>
     <message>
-        <location filename="../wmain_test.cpp" line="99"/>
+        <location filename="../wmain_test.cpp" line="101"/>
         <source>Test ended</source>
-        <translation type="unfinished"></translation>
+        <translation>Test zakończony</translation>
     </message>
     <message>
         <source>All world learned!
@@ -522,7 +538,7 @@ Zresetuj statystyki</translation>
         <translation>Koniec testu!</translation>
     </message>
     <message>
-        <location filename="../wmain_test.cpp" line="108"/>
+        <location filename="../wmain_test.cpp" line="110"/>
         <source>Are you sure to cancel test?</source>
         <translation>Zakończyć test?</translation>
     </message>
@@ -589,6 +605,11 @@ Zresetuj statystyki</translation>
         <location filename="../wmain_utils.cpp" line="50"/>
         <source>unknown</source>
         <translation>nieznana</translation>
+    </message>
+    <message>
+        <location filename="../wmain_utils.cpp" line="105"/>
+        <source>&amp;%1 %2</source>
+        <translation>&amp;%1 %2</translation>
     </message>
 </context>
 <context>
@@ -807,6 +828,34 @@ Zresetuj statystyki</translation>
     <message>
         <source>%1 (%2%)</source>
         <translation type="obsolete">%1 (%2%)</translation>
+    </message>
+</context>
+<context>
+    <name>WSettings</name>
+    <message>
+        <location filename="../wsettings.cpp" line="7"/>
+        <source>Dicto settings</source>
+        <translation>Ustawienia dicto</translation>
+    </message>
+    <message>
+        <location filename="../wsettings.cpp" line="11"/>
+        <source>OK</source>
+        <translation>OK</translation>
+    </message>
+    <message>
+        <location filename="../wsettings.cpp" line="12"/>
+        <source>Cancel</source>
+        <translation>Anuluj</translation>
+    </message>
+    <message>
+        <location filename="../wsettings.cpp" line="13"/>
+        <source>Default mother language</source>
+        <translation>Domyślny język ojczysty</translation>
+    </message>
+    <message>
+        <location filename="../wsettings.cpp" line="14"/>
+        <source>Default foreign language</source>
+        <translation>Domyśłny język obcy</translation>
     </message>
 </context>
 </TS>
