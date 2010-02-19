@@ -30,7 +30,6 @@ WPrint::WPrint(QWidget *parent) {
 	
 	QVBoxLayout *flashcardLayout = new QVBoxLayout;
 		flashcardLayout->addWidget(flashcardSizeCombo);
-		flashcardLayout->addWidget(printFlashcardsButton);
 	
 	QGroupBox *flashcardBox = new QGroupBox;
 		flashcardBox->setTitle(tr("Flashcards"));
@@ -43,8 +42,9 @@ WPrint::WPrint(QWidget *parent) {
 		mainLayout->addWidget(printLabel, 1, 0);
 		mainLayout->addWidget(printBox, 1, 1);
 		mainLayout->addWidget(flashcardBox, 2, 0, 1, 2);
-		mainLayout->addWidget(submitButton, 3, 0, 1, 2);
-		mainLayout->addWidget(cancelButton, 4, 0, 1, 2);
+		mainLayout->addWidget(printFlashcardsButton, 3, 0, 1, 2);
+		mainLayout->addWidget(submitButton, 4, 0, 1, 2);
+		mainLayout->addWidget(cancelButton, 5, 0, 1, 2);
 
 	this->setLayout(mainLayout);
 	
@@ -57,40 +57,38 @@ WPrint::WPrint(QWidget *parent) {
 void WPrint::print() {
 	this->printmode = printBox->currentIndex();
 	this->fontsize = sizeBox->value();
-	//QMessageBox::information(wMain, tr(""), tr("%1 %2").arg(fontsize).arg(printmode));
 		
 	QPrintDialog printDialog(wMain->printer, this);
 	this->hide();
-    if (printDialog.exec() == QDialog::Accepted) {
+	if (printDialog.exec() == QDialog::Accepted) {
 		QFont *printFont = new QFont;
 		printFont->setPixelSize(fontsize);
-		
-        wMain->printer->setPageMargins(30, 30, 30, 30, QPrinter::Point);
-        QPainter painter;
-        painter.begin(wMain->printer);
-        
-        int where = 0;
-
-        painter.drawText(0, where, tr("Filename: %1").arg(wMain->cDocument->filename));
-        where+=20;
-        painter.drawText(0, where, tr("dicto - vocabulary learning software http://dicto.sourceforge.net"));
-        where+=fontsize+fontsize/3+20;
-        painter.setFont(*printFont);
-        for(int i=0; i<wMain->cDocument->dictionary.size(); i++) {
+		wMain->printer->setPageMargins(30, 30, 30, 30, QPrinter::Point);
+		QPainter painter;
+		painter.begin(wMain->printer);
+		int where = 0;
+		painter.drawText(0, where, tr("Filename: %1").arg(wMain->cDocument->filename));
+		where+=20;
+		painter.drawText(0, where, tr("dicto - vocabulary learning software http://pewniak747.github.com/dicto"));
+		painter.drawLine(0, where+20, wMain->printer->pageRect().width(), where+20);
+		where+=fontsize+fontsize/3+20;
+		painter.setFont(*printFont);
+		for(int i=0; i<wMain->cDocument->dictionary.size(); i++) {
 			if(printmode == 0 || (printmode == 1 && wMain->cDocument->dictionary[i].wordstatus) || (printmode == 2 && !wMain->cDocument->dictionary[i].wordstatus)) {
-				painter.drawText(0, where, tr("%1").arg(wMain->cDocument->dictionary[i].word));
-				painter.drawText(250, where, tr("%1").arg(wMain->cDocument->dictionary[i].translation));
+				QRect wordRect(0, where, wMain->printer->pageRect().width()/2, where+fontsize);
+				painter.drawText(wordRect, Qt::TextWordWrap | Qt::TextWrapAnywhere, wMain->cDocument->dictionary[i].word);
+				QRect transRect(wMain->printer->pageRect().width()/2, where, wMain->printer->pageRect().width(), where+fontsize);
+				painter.drawText(transRect, Qt::TextWordWrap | Qt::TextWrapAnywhere, wMain->cDocument->dictionary[i].translation);
 				where+=fontsize+fontsize/3;
 			}
-            
-            if(where > 900) {
-                wMain->printer->newPage();
-                where = 0;
-            }
-        }
-        painter.end();
-    }
-    this->close();
+			if(where > wMain->printer->pageRect().height()) {
+					wMain->printer->newPage();
+					where = 0;
+			}
+		}
+		painter.end();
+	}
+	this->close();
 }
 
 void WPrint::cancel() {
@@ -99,7 +97,7 @@ void WPrint::cancel() {
 }
 
 void WPrint::closeEvent(QCloseEvent * e) {
-    wMain->setMode(enabledMode);
-    e->accept();
+		wMain->setMode(enabledMode);
+		e->accept();
 }
 

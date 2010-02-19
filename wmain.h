@@ -35,6 +35,7 @@ public:
 	int selectedItem();
 	int askUser(QString message);
 	int dictionarySize();
+	QString processToNice(QString string, QString delimiter);
 
 private:
 	QMenu *fileMenu;
@@ -91,7 +92,6 @@ private:
 	void createTrayIcon();
 	int pickWord(bool include);
 	QString grade(unsigned good, unsigned howmany);
-	QString processToNice(QString string, QString delimiter);
 	void endTest(bool display, QString message = "");
 	void closeEvent(QCloseEvent * e);
 	CEntry *currentRow();
