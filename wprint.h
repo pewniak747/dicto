@@ -35,8 +35,9 @@ class WPrint : public QWidget {
 	
 	private slots:
 	void print();
+	void printFlashcards();
 	void cancel();
-    void closeEvent(QCloseEvent * e);
+  void closeEvent(QCloseEvent * e);
 };
 
 #endif //WPRINT_H

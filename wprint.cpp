@@ -50,6 +50,7 @@ WPrint::WPrint(QWidget *parent) {
 	
 	connect(cancelButton, SIGNAL(clicked()), this, SLOT(cancel()));
 	connect(submitButton, SIGNAL(clicked()), this, SLOT(print()));
+	connect(printFlashcardsButton, SIGNAL(clicked()), this, SLOT(printFlashcards()));
 	
 	wMain->centerWidgetOnScreen(this);
 }
@@ -89,6 +90,11 @@ void WPrint::print() {
 		painter.end();
 	}
 	this->close();
+}
+
+void WPrint::printFlashcards() {
+	QMessageBox::information(this, "lol", "lol");
+	QMessageBox::information(this, "lol2", "lol2");
 }
 
 void WPrint::cancel() {
