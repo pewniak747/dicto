@@ -55,6 +55,10 @@ void WMain::check() {
 				countdown--;
 				testQueue.dequeue();
 			}
+			else {
+				testQueue.enqueue(currentEntry);
+				testQueue.dequeue();
+			}
 		}
 		else {
 			questionLabel->setText(tr("Wrong"));
