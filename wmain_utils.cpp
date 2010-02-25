@@ -112,6 +112,7 @@ void WMain::updateRecentFileActions() {
 }
 
 void WMain::setCurrentFile(QString newfilename) {
+	if(newfilename.isEmpty()) return;
 	QSettings settings("dicto.ini", QSettings::IniFormat);
 	QStringList files;
 	if(settings.contains("recentFileList")) {
