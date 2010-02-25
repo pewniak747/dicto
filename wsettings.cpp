@@ -56,5 +56,6 @@ void WSettings::cancel() {
 }
 
 void WSettings::closeEvent(QCloseEvent *e) {
-	
+	wMain->setMode(enabledMode);
+	e->accept();
 }
