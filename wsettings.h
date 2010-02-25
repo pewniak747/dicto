@@ -4,6 +4,8 @@
 #include<QLabel>
 #include<QPushButton>
 #include<QLineEdit>
+#include<QComboBox>
+#include<QSpinBox>
 
 class WSettings : public QWidget {
 	Q_OBJECT
@@ -14,8 +16,12 @@ class WSettings : public QWidget {
 	private:
 		QLabel *default_nativeLabel;
 		QLabel *default_foreignLabel;
+		QLabel *maxRecentFilesLabel;
+		QLabel *interfaceLangLabel;
 		QLineEdit *default_nativeEdit;
 		QLineEdit *default_foreignEdit;
+		QSpinBox *maxRecentFilesBox;
+		QComboBox *interfaceLangCombo;
 		QPushButton *okButton;
 		QPushButton *cancelButton;
 		

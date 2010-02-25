@@ -14,8 +14,18 @@ WSettings::WSettings(QWidget *parent) {
 	cancelButton = new QPushButton(tr("Cancel"), this);
 	default_nativeLabel = new QLabel(tr("Default mother language"), this);
 	default_foreignLabel = new QLabel(tr("Default foreign language"), this);
+	maxRecentFilesLabel = new QLabel(tr("Maximum recent files"), this);
+	interfaceLangLabel = new QLabel(tr("Interface language"), this);
 	default_nativeEdit = new QLineEdit;
 	default_foreignEdit = new QLineEdit;
+	maxRecentFilesBox = new QSpinBox(this);
+	maxRecentFilesBox->setRange(1, 10);
+	interfaceLangCombo = new QComboBox(this);
+	interfaceLangCombo->addItem(tr("English"));
+	interfaceLangCombo->addItem(tr("Polish"));
+	interfaceLangCombo->addItem(tr("Russian"));
+	
+	
 	
 	QVBoxLayout *mainLayout = new QVBoxLayout;
 		QGridLayout *settingsLayout = new QGridLayout;
@@ -23,6 +33,10 @@ WSettings::WSettings(QWidget *parent) {
 			settingsLayout->addWidget(default_nativeEdit, 0, 1);
 			settingsLayout->addWidget(default_foreignLabel, 1, 0);
 			settingsLayout->addWidget(default_foreignEdit, 1, 1);
+			settingsLayout->addWidget(maxRecentFilesLabel, 2, 0);
+			settingsLayout->addWidget(maxRecentFilesBox, 2, 1);
+			settingsLayout->addWidget(interfaceLangLabel, 3, 0);
+			settingsLayout->addWidget(interfaceLangCombo, 3, 1);
 		mainLayout->addLayout(settingsLayout);
 		QHBoxLayout *buttonsLayout = new QHBoxLayout;
 			buttonsLayout->addWidget(okButton);
