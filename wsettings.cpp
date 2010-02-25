@@ -8,6 +8,7 @@ WSettings::WSettings(QWidget *parent) {
 	wMain->centerWidgetOnScreen(this);
 	resize(300, 100);
 	setAttribute(Qt::WA_DeleteOnClose);
+	setWindowIcon(QIcon(ICON));
 	
 	okButton = new QPushButton(tr("OK"), this);
 	cancelButton = new QPushButton(tr("Cancel"), this);
