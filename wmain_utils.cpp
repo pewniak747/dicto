@@ -132,3 +132,21 @@ void WMain::openRecentFile() {
 	if (action) openfile(action->data().toString());
 }
 
+void WMain::setActions(bool status) {
+	newAction->setEnabled(status);
+	openAction->setEnabled(status);
+	saveAction->setEnabled(status);
+	saveasAction->setEnabled(status);
+	printAction->setEnabled(status);
+	settingsAction->setEnabled(status);
+	for(int i=0; i<10; i++) recentFilesActions[i]->setEnabled(status);
+	addAction->setEnabled(status);
+	editAction->setEnabled(status);
+	deleteAction->setEnabled(status);
+	sortAction->setEnabled(status);
+	testAction->setEnabled(status);
+	examAction->setEnabled(status);
+	statsAction->setEnabled(status);
+	aboutAction->setEnabled(status);
+}
+

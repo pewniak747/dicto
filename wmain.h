@@ -99,6 +99,7 @@ private:
 	void openFileAction(QString filename);
 	void updateRecentFileActions();
 	void setCurrentFile(QString newfilename);
+	void setActions(bool status);
 
 private slots:
 	void newfile();

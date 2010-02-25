@@ -194,7 +194,7 @@ void WMain::createMenus() {
 	fileMenu->addSeparator();
 	
 
-	for (int i = 0; i < 5; ++i) {
+	for (int i = 0; i < 10; ++i) {
 		recentFilesActions[i] = new QAction(this);
 		recentFilesActions[i]->setVisible(false);
 		fileMenu->addAction(recentFilesActions[i]);
@@ -443,19 +443,7 @@ void WMain::setMode(Mode mode) {
 
 			progressBar->show();
 
-			newAction->setEnabled(true);
-			openAction->setEnabled(true);
-			saveAction->setEnabled(true);
-			saveasAction->setEnabled(true);
-			printAction->setEnabled(true);
-			addAction->setEnabled(true);
-			editAction->setEnabled(true);
-			deleteAction->setEnabled(true);
-			sortAction->setEnabled(true);
-			testAction->setEnabled(true);
-			examAction->setEnabled(true);
-			statsAction->setEnabled(true);
-			aboutAction->setEnabled(true);
+			setActions(true);
 
 			this->mode=normalMode;
 			updateStatusbar();
@@ -487,19 +475,7 @@ void WMain::setMode(Mode mode) {
 
 			progressBar->show();
 
-			newAction->setEnabled(false);
-			openAction->setEnabled(false);
-			saveAction->setEnabled(false);
-			saveasAction->setEnabled(false);
-			printAction->setEnabled(false);
-			addAction->setEnabled(false);
-			editAction->setEnabled(false);
-			deleteAction->setEnabled(false);
-			sortAction->setEnabled(false);
-			testAction->setEnabled(false);
-			examAction->setEnabled(false);
-			statsAction->setEnabled(false);
-			aboutAction->setEnabled(false);
+			setActions(false);
 
 			this->mode=testMode;
 			break;
@@ -520,20 +496,7 @@ void WMain::setMode(Mode mode) {
 
 			progressBar->hide();
 
-			newAction->setEnabled(false);
-			openAction->setEnabled(false);
-			saveAction->setEnabled(false);
-			saveasAction->setEnabled(false);
-			printAction->setEnabled(false);
-			addAction->setEnabled(false);
-			editAction->setEnabled(false);
-			deleteAction->setEnabled(false);
-			sortAction->setEnabled(false);
-			testAction->setEnabled(false);
-			examAction->setEnabled(false);
-			statsAction->setEnabled(false);
-			aboutAction->setEnabled(false);
-			
+			setActions(false);			
 
 			this->mode=examMode;
 			break;
