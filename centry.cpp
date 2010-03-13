@@ -26,7 +26,7 @@ QString CEntry::spToString() {
 	}
 
 
-bool CEntry::check(QString give, bool intoforeign, bool ignoreSynonyms) {
+bool CEntry::check(QString give, bool intoforeign, bool ignoreSynonyms, bool caseSensitive) {
 	//split give into answers array
 	std::vector <QString> answers;
 	QString answer="";
@@ -57,8 +57,10 @@ bool CEntry::check(QString give, bool intoforeign, bool ignoreSynonyms) {
 	questions.push_back(answer);
 	
 	//perform case-insensitive
-	for(unsigned i=0; i<answers.size(); i++) answers[i] = answers[i].toLower();
-	for(unsigned i=0; i<questions.size(); i++) questions[i] = questions[i].toLower();
+	if(!caseSensitive) {
+		for(unsigned i=0; i<answers.size(); i++) answers[i] = answers[i].toLower();
+		for(unsigned i=0; i<questions.size(); i++) questions[i] = questions[i].toLower();
+	}
 
 	// perform checking
 	unsigned size = questions.size();

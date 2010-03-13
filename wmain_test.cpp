@@ -18,6 +18,7 @@ void WMain::test(unsigned howmany, bool intoforeign, bool include, bool ignoreSy
 	this->ignoreSynonyms = ignoreSynonyms;
 	this->answered = true;
 	this->hintsize = 1;
+	this->caseSensitive = QSettings("dicto.ini", QSettings::IniFormat).value("testing/case_sensitive").value<bool>();
 	
 	// reset all words to unpassed
 	for(unsigned i=0; i<dictionarySize(); i++) cDocument->dictionary[i].passed = false;
@@ -47,7 +48,7 @@ void WMain::check() {
 	if(mode!=testMode) return;
 
 	if(!answered) {
-		if(currentEntry->check(answerEdit->text(), intoforeign, ignoreSynonyms)) {
+		if(currentEntry->check(answerEdit->text(), intoforeign, ignoreSynonyms, caseSensitive)) {
 			questionLabel->setText(tr("Good!"));
 			answerLabel->clear();
 			if(hintsize < 2) {

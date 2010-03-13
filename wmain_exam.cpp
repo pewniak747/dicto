@@ -18,6 +18,7 @@ void WMain::exam(unsigned howmany, bool intoforeign, bool include, bool ignoreSy
 	this->intoforeign=intoforeign;
 	this->include=include;
 	this->ignoreSynonyms=ignoreSynonyms;
+	this->caseSensitive = QSettings("dicto.ini", QSettings::IniFormat).value("testing/case_sensitive").value<bool>();
 
 	updateStatusbar();
 	tableWidget->clear();
@@ -55,7 +56,7 @@ void WMain::checkexam()  {
 	
 		unsigned good=0;
 			for (unsigned u=0; u<examTab.size(); u++) {
-				if (examTab[u]->check(tableWidget->item(u, 1)->text(), intoforeign, ignoreSynonyms)) {
+				if (examTab[u]->check(tableWidget->item(u, 1)->text(), intoforeign, ignoreSynonyms, caseSensitive)) {
 					tableWidget->item(u, 1)->setText(tr("Good!"));
 					good++;
 					examTab[u]->wordstatus = true;

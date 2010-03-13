@@ -84,6 +84,7 @@ private:
 	bool intoforeign;
 	bool include;
 	bool ignoreSynonyms;
+	bool caseSensitive;
 	bool answered;
 	unsigned countdown;
 	unsigned howmany;

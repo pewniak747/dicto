@@ -21,7 +21,7 @@ class CEntry {
 		speechPart sp;
 		
 		CEntry();
-		bool check(QString give, bool intoforeign, bool ignoreSynonyms);
+		bool check(QString give, bool intoforeign, bool ignoreSynonyms, bool caseSensitive);
 		QString spToString();
 };
 
