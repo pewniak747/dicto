@@ -334,9 +334,10 @@ void WMain::saveas() {
 void WMain::saveFileAction(bool saveas) {
 		if(cDocument->filename=="" || saveas) {
 		cDocument->filename=QFileDialog::getSaveFileName(wMain,
-											  "Choose file",
-											  "./",
-											  tr("dicto file(*.dic);;text file(*.txt);;file(*.*)"));
+											  tr("Choose file"), "./");
+	}
+	if(!cDocument->filename.endsWith(".dic") && !cDocument->filename.endsWith(".txt")) {
+		cDocument->filename.append(".dic");
 	}
 	cDocument->saveToFile();
 	setCurrentFile(cDocument->filename);
@@ -347,7 +348,7 @@ void WMain::openFileAction(QString filename) {
 		filename=QFileDialog::getOpenFileName(wMain,
 			tr("Choose file"),
 			"./",
-			tr("dicto files (*.dic);;text files (*.txt);;all files(*.*)"));
+			tr("dicto files")+" (*.dic);;"+tr("text files")+" (*.txt);;"+tr("all files(*.*)"));
 	}
 	if(filename.isEmpty()) return;
 	else cDocument->readFromFile(filename);
