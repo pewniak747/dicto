@@ -14,10 +14,12 @@ WSettings::WSettings(QWidget *parent) {
 	cancelButton = new QPushButton(tr("Cancel"), this);
 	default_nativeLabel = new QLabel(tr("Default mother language"), this);
 	default_foreignLabel = new QLabel(tr("Default foreign language"), this);
+	caseSensitiveLabel = new QLabel(tr("Case sensitive"), this);
 	maxRecentFilesLabel = new QLabel(tr("Maximum recent files"), this);
 	interfaceLangLabel = new QLabel(tr("Interface language"), this);
 	default_nativeEdit = new QLineEdit;
 	default_foreignEdit = new QLineEdit;
+	caseSensitiveBox = new QCheckBox(this);
 	maxRecentFilesBox = new QSpinBox(this);
 	maxRecentFilesBox->setRange(1, 10);
 	interfaceLangCombo = new QComboBox(this);
@@ -33,10 +35,12 @@ WSettings::WSettings(QWidget *parent) {
 			settingsLayout->addWidget(default_nativeEdit, 0, 1);
 			settingsLayout->addWidget(default_foreignLabel, 1, 0);
 			settingsLayout->addWidget(default_foreignEdit, 1, 1);
-			settingsLayout->addWidget(maxRecentFilesLabel, 2, 0);
-			settingsLayout->addWidget(maxRecentFilesBox, 2, 1);
-			settingsLayout->addWidget(interfaceLangLabel, 3, 0);
-			settingsLayout->addWidget(interfaceLangCombo, 3, 1);
+			settingsLayout->addWidget(caseSensitiveLabel, 2, 0);
+			settingsLayout->addWidget(caseSensitiveBox, 2, 1);
+			settingsLayout->addWidget(maxRecentFilesLabel, 3, 0);
+			settingsLayout->addWidget(maxRecentFilesBox, 3, 1);
+			settingsLayout->addWidget(interfaceLangLabel, 4, 0);
+			settingsLayout->addWidget(interfaceLangCombo, 4, 1);
 		mainLayout->addLayout(settingsLayout);
 		QHBoxLayout *buttonsLayout = new QHBoxLayout;
 			buttonsLayout->addWidget(okButton);
@@ -54,12 +58,16 @@ void WSettings::readSettings() {
 	QSettings settings("dicto.ini", QSettings::IniFormat);
 		default_nativeEdit->setText(settings.value("dictionaries/default_native").value<QString>());
 		default_foreignEdit->setText(settings.value("dictionaries/default_foreign").value<QString>());
+		caseSensitiveBox->setChecked(settings.value("testing/case_sensitive").value<bool>());
+		maxRecentFilesBox->setValue(settings.value("general/max_recent_files").value<int>());
 }
 
 void WSettings::acceptSettings() {
 	QSettings settings("dicto.ini", QSettings::IniFormat);
 		settings.setValue("dictionaries/default_native", default_nativeEdit->text());
 		settings.setValue("dictionaries/default_foreign", default_foreignEdit->text());
+		settings.setValue("general/max_recent_files", maxRecentFilesBox->value());
+		settings.setValue("testing/case_sensitive", caseSensitiveBox->isChecked());
 	wMain->setMode(enabledMode);
 	this->close();
 }

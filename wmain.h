@@ -20,6 +20,8 @@
 
 enum Mode {normalMode, disabledMode, enabledMode, testMode, examMode};
 
+enum Language {English=1, Polish=2, Russian=3};
+
 class WMain : public QMainWindow {
 	Q_OBJECT
 
