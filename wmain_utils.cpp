@@ -107,7 +107,7 @@ void WMain::updateRecentFileActions() {
 		recentFilesActions[i]->setData(files[i]);
 		recentFilesActions[i]->setVisible(true);
 	}
-	for (int j = numRecentFiles; j < 5; ++j)
+	for (int j = numRecentFiles; j < 10; ++j)
 		recentFilesActions[j]->setVisible(false);
 }
 

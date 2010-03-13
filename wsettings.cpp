@@ -68,6 +68,7 @@ void WSettings::acceptSettings() {
 		settings.setValue("dictionaries/default_foreign", default_foreignEdit->text());
 		settings.setValue("general/max_recent_files", maxRecentFilesBox->value());
 		settings.setValue("testing/case_sensitive", caseSensitiveBox->isChecked());
+		wMain->maxRecentFiles = settings.value("general/max_recent_files").value<int>();
 	wMain->setMode(enabledMode);
 	this->close();
 }

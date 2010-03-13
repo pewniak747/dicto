@@ -70,7 +70,7 @@ WMain::WMain(QWidget *parent) : QMainWindow(parent) {
 	printer = new QPrinter;
 	mode = normalMode;
 	parent = 0;
-	maxRecentFiles = 5;
+	maxRecentFiles = QSettings("dicto.ini", QSettings::IniFormat).value("general/max_recent_files").value<int>();
 	
 	// add layout
 	QVBoxLayout *mainLayout=new QVBoxLayout(mainWidget);
@@ -194,7 +194,7 @@ void WMain::createMenus() {
 	fileMenu->addSeparator();
 	
 
-	for (int i = 0; i < 10; ++i) {
+	for (int i = 0; i < 10/*maxRecentFiles*/; ++i) {
 		recentFilesActions[i] = new QAction(this);
 		recentFilesActions[i]->setVisible(false);
 		fileMenu->addAction(recentFilesActions[i]);

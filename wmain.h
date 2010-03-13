@@ -37,6 +37,7 @@ public:
 	int selectedItem();
 	int askUser(QString message);
 	int dictionarySize();
+	int maxRecentFiles;
 	QString processToNice(QString string, QString delimiter);
 
 private:
@@ -59,7 +60,6 @@ private:
 	QAction *examAction;
 	QAction *statsAction;
 	QAction *aboutAction;
-	int maxRecentFiles;
 	QAction *recentFilesActions[10];
 	QWidget *mainWidget;
 	QListWidget *listWidget;
