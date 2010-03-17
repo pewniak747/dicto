@@ -1,31 +1,35 @@
-// dicto v 1.3 WAbout class header file
+// dicto v 1.3 AboutDialog class header file
 // This file is published under GNU/GPL licence
 // http://www.gnu.org/licenses/gpl-3.0.txt
 // author: Tomasz Pewiński "pewniak747"
 // contact: pewniak747@gmail.com
 // http://pewniak747.github.com/dicto
 
-#ifndef WABOUT_H
-#define WABOUT_H
+#ifndef ABOUTDIALOG_H
+#define ABOUTDIALOG_H
 
 #include <QLabel>
 #include <QPushButton>
+#include <QTextEdit>
+#include "wmain.h"
 	
-class WAbout : public QWidget
+class AboutDialog : public QWidget
 {
 	Q_OBJECT
 
 	public:
-		WAbout(QWidget *parent = 0);
+		AboutDialog(QWidget *parent = 0, WMain *mainWindow = 0);
 
 	private:
-		QPushButton* okButton;
+		QLabel* image;
 		QLabel * infoLabel;
 		QLabel *urlLabel;
-		QLabel* image;
+		QTextBrowser *infoField;
+		QPushButton* okButton;
+		WMain *mainWindow;
 
 		void closeEvent(QCloseEvent * a);
 };
 
-#endif //WABOUT_H
+#endif //ABOUTDIALOG_H
 

@@ -1,4 +1,4 @@
-// dicto v 1.3 WAbout class implementation file
+// dicto v 1.3 AboutDialog class implementation file
 // This file is published under GNU/GPL licence
 // http://www.gnu.org/licenses/gpl-3.0.txt
 // author: Tomasz Pewiński "pewniak747"
@@ -6,50 +6,63 @@
 // http://pewniak747.github.com/dicto
 
 #include "about_dialog.h"
-#include "wmain.h"
 
-// WAbout constructor
-WAbout::WAbout(QWidget *parent) : QWidget(parent) {
+// AboutDialog constructor
+AboutDialog::AboutDialog(QWidget *parent, WMain *mainWindow) : QWidget(parent) {
+	if(!mainWindow) return;
+	
 	// set window properties
 	setWindowTitle(tr("dicto %1").arg(VERSION));
-	setFixedSize(200, 330);
+	setFixedWidth(350);
+	setFixedHeight(320);
 	setWindowIcon(QIcon(ICON));
 	wMain->centerWidgetOnScreen(this);
+	
 	setAttribute(Qt::WA_DeleteOnClose);
+	this->mainWindow = mainWindow;
+	mainWindow->setMode(disabledMode);
 	
 	// create widgets
 	image = new QLabel;
-		QPixmap pixmap(":/pewniak747.jpg");
-		pixmap.scaledToWidth(185);
-		pixmap.scaledToHeight(185);
+		QPixmap pixmap(ICON);
+		pixmap = pixmap.scaledToWidth(128, Qt::SmoothTransformation);
+		pixmap = pixmap.scaledToHeight(128, Qt::SmoothTransformation);
 		image->setPixmap(pixmap);
+	infoLabel = new QLabel(tr("dicto %1").arg(VERSION), this);
+	infoField = new QTextBrowser();
 	okButton = new QPushButton(tr("OK"), this);
-	infoLabel = new QLabel(tr("dicto - version %1\nCreated by Tomasz 'pewniak747' Pewiński").arg(VERSION), this);
-	urlLabel = new QLabel(tr("<a href='http://pewniak747.github.com/dicto'>Visit website</a>"), this);
+	urlLabel = new QLabel("<a href='http://pewniak747.github.com/dicto'>"+tr("Visit website")+"</a>", this);
 		
 		
 	// set default values
-	infoLabel->setWordWrap(true);
 	infoLabel->setAlignment(Qt::AlignHCenter);
 	urlLabel->setTextFormat(Qt::RichText);
 	urlLabel-> setOpenExternalLinks(true);
 	urlLabel->setAlignment(Qt::AlignHCenter);
+	image->setAlignment(Qt::AlignHCenter);
+	QFont boldFont;
+	boldFont.setBold(true);
+	infoLabel->setFont(boldFont);
+	infoField->setReadOnly(true);
+	infoField->setText(tr("Created by Tomasz 'pewniak747' Pewiński\n")+
+tr("Contributors:\n"));
 
 	// add layout
 	QVBoxLayout *mainLayout = new QVBoxLayout;
 		mainLayout->addWidget(image);
 		mainLayout->addWidget(infoLabel);
 		mainLayout->addWidget(urlLabel);
+		mainLayout->addWidget(infoField);
 		mainLayout->addWidget(okButton);
-	this->setLayout(mainLayout);
+	setLayout(mainLayout);
 	
 	//connect signals and slots
 	connect(okButton, SIGNAL(clicked()), this, SLOT(close()));
 }
 
 // closes window
-void WAbout::closeEvent(QCloseEvent * a) {
-	wMain->setMode(enabledMode);
+void AboutDialog::closeEvent(QCloseEvent * a) {
+	mainWindow->setMode(enabledMode);
 	a->accept();
 }
 

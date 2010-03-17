@@ -547,8 +547,7 @@ void WMain::stats() {
 
 // shows about box
 void WMain::about() {
-	setMode(disabledMode);
-	WAbout* aboutBox = new WAbout(0);
+	AboutDialog* aboutBox = new AboutDialog(0, this);
 	aboutBox->show();
 }
 
