@@ -13,7 +13,6 @@
 #include <vector>
 #include "cdocument.h"
 #include "centry.h"
-#include "wabout.h"
 
 #define VERSION "1.3"
 #define ICON ":/dictologo.png"

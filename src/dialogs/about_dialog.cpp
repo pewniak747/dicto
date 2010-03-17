@@ -5,7 +5,7 @@
 // contact: pewniak747@gmail.com
 // http://pewniak747.github.com/dicto
 
-#include "wabout.h"
+#include "about_dialog.h"
 #include "wmain.h"
 
 // WAbout constructor

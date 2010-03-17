@@ -10,7 +10,7 @@
 #include "cdocument.h"
 #include "wprepare.h"
 #include "wsettings.h"
-#include "wabout.h"
+#include "about_dialog.h"
 #include "wprops.h"
 #include "wprint.h"
 
