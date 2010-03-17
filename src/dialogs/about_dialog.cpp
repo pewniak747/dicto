@@ -8,7 +8,7 @@
 #include "about_dialog.h"
 
 // AboutDialog constructor
-AboutDialog::AboutDialog(QWidget *parent, WMain *mainWindow) : QWidget(parent) {
+AboutDialog::AboutDialog(WMain *mainWindow) {
 	if(!mainWindow) return;
 	
 	// set window properties
@@ -16,7 +16,7 @@ AboutDialog::AboutDialog(QWidget *parent, WMain *mainWindow) : QWidget(parent) {
 	setFixedWidth(350);
 	setFixedHeight(320);
 	setWindowIcon(QIcon(ICON));
-	wMain->centerWidgetOnScreen(this);
+	mainWindow->centerWidgetOnScreen(this);
 	
 	setAttribute(Qt::WA_DeleteOnClose);
 	this->mainWindow = mainWindow;

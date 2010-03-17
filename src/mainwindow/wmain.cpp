@@ -547,7 +547,7 @@ void WMain::stats() {
 
 // shows about box
 void WMain::about() {
-	AboutDialog* aboutBox = new AboutDialog(0, this);
+	AboutDialog* aboutBox = new AboutDialog(this);
 	aboutBox->show();
 }
 

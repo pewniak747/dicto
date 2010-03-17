@@ -8,9 +8,6 @@
 #ifndef ABOUTDIALOG_H
 #define ABOUTDIALOG_H
 
-#include <QLabel>
-#include <QPushButton>
-#include <QTextEdit>
 #include "wmain.h"
 	
 class AboutDialog : public QWidget
@@ -18,7 +15,7 @@ class AboutDialog : public QWidget
 	Q_OBJECT
 
 	public:
-		AboutDialog(QWidget *parent = 0, WMain *mainWindow = 0);
+		AboutDialog(WMain *mainWindow = 0);
 
 	private:
 		QLabel* image;
