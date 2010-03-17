@@ -23,8 +23,8 @@ public:
 	int passed();
 	void addEntry(QString word, QString translation, speechPart sp);
 	void resetStats();
-	void readFromFile(QString newfilename);
-	void saveToFile();
+	bool readFromFile(QString newfilename);
+	bool saveToFile();
 	void sortDictionary();
 
 private:

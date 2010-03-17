@@ -98,8 +98,8 @@ private:
 	void endTest(bool display, QString message = "");
 	void closeEvent(QCloseEvent * e);
 	CEntry *currentRow();
-	void saveFileAction(bool saveas = false);
-	void openFileAction(QString filename);
+	bool saveFileAction(bool saveas = false);
+	bool openFileAction(QString filename);
 	void updateRecentFileActions();
 	void setCurrentFile(QString newfilename);
 	void setActions(bool status);

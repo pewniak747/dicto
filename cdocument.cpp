@@ -31,11 +31,11 @@ void CDocument::addEntry(QString word, QString translation, speechPart sp) {
 }
 
 // saves CDocument to file
-void CDocument::saveToFile() {
+bool CDocument::saveToFile() {
 	QFile file(filename);
-	if (!file.open(QIODevice::WriteOnly | QIODevice::Text)) {
+	if (!file.open(QIODevice::WriteOnly | QIODevice::Text) || !file.isWritable()) {
 		QMessageBox::information(wMain, QObject::tr("Error"), QObject::tr("Can't save to %1").arg(filename));
-		return;
+		return false;
 	}
 	 
 	QTextStream out(&file);
@@ -68,20 +68,23 @@ void CDocument::saveToFile() {
 		out << this->dictionary[i].wordstatus;
 
 	filechanged=false;
+	return true;
 }
 
 // reads data from file
-void CDocument::readFromFile(QString newfilename) {
+bool CDocument::readFromFile(QString newfilename) {
 	QFile file(newfilename);
-	if (!file.open(QIODevice::ReadOnly | QIODevice::Text)) return;
+	if (!file.open(QIODevice::ReadOnly | QIODevice::Text) || !file.isReadable()) {
+		QMessageBox::information(wMain, QObject::tr("Error"), QObject::tr("Can't open %1").arg(filename));
+		return false;
+	}
 	
 	dictionary.clear();
 	QTextStream in(&file);
 
 	while (!in.atEnd()) {
 		QString line = in.readLine();
-		if(line[0]=='#')
-			 continue;
+		if(line[0]=='#') continue;
 		if(line.contains("=")) {
 			QString option=line.section("=", 0, 0);
 			if(option == "lang_native")
@@ -91,11 +94,11 @@ void CDocument::readFromFile(QString newfilename) {
 			else
 				continue;
 		}
-		else if(!line.contains(";")) {
+		else if(!line.contains(";") && (line.contains("0") || line.contains("1"))) {
 			 for(int i=0; i<line.size(); i++)
 				this->dictionary[i].wordstatus=line[i]=='0'?false:true;
 		}
-		else {
+		else if(line.contains(";")) {
 			QString word = line.section(";",0,0);
 			QString translation = line.section(";",1,1);
 			speechPart sp = (speechPart)line.section(";", 2, 2).toInt();
@@ -106,6 +109,7 @@ void CDocument::readFromFile(QString newfilename) {
 		this->filechanged = false;
 		wMain->updateList();
 		wMain->updateStatusbar();
+		return true;
 }
 
 

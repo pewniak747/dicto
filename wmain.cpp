@@ -331,7 +331,7 @@ void WMain::saveas() {
 	saveFileAction(true);
 }
 
-void WMain::saveFileAction(bool saveas) {
+bool WMain::saveFileAction(bool saveas) {
 		if(cDocument->filename=="" || saveas) {
 		cDocument->filename=QFileDialog::getSaveFileName(wMain,
 											  tr("Choose file"), "./");
@@ -339,21 +339,26 @@ void WMain::saveFileAction(bool saveas) {
 	if(!cDocument->filename.endsWith(".dic") && !cDocument->filename.endsWith(".txt")) {
 		cDocument->filename.append(".dic");
 	}
-	cDocument->saveToFile();
-	setCurrentFile(cDocument->filename);
+	if(cDocument->saveToFile()) {
+		setCurrentFile(cDocument->filename);
+		return true;
+	}
+	else return false;
 }
 
-void WMain::openFileAction(QString filename) {
+bool WMain::openFileAction(QString filename) {
 	if(filename.isEmpty()) {
 		filename=QFileDialog::getOpenFileName(wMain,
 			tr("Choose file"),
 			"./",
 			tr("dicto files")+" (*.dic);;"+tr("text files")+" (*.txt);;"+tr("all files(*.*)"));
 	}
-	if(filename.isEmpty()) return;
-	else cDocument->readFromFile(filename);
-	
-	setCurrentFile(filename);
+	if(filename.isEmpty()) return false;
+	else if(cDocument->readFromFile(filename)) {
+		setCurrentFile(filename);
+		return true;
+	}
+	else return false;
 }
 
 // opens file
@@ -361,8 +366,8 @@ void WMain::openfile(QString filename) {
 	if(cDocument->filechanged) {
 		int userAnswer = askUser(tr("File has been changed. Save?"));
 		if(userAnswer == 2) {
-			saveFileAction();
-			openFileAction(filename);
+			if(saveFileAction())
+				openFileAction(filename);
 		}
 		else if(userAnswer == 1) return;
 		else openFileAction(filename);
