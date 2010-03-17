@@ -258,7 +258,7 @@ void WMain::updateList() {
 	for(int i=0; i<dictionarySize(); i++) {
 		QString word = cDocument->dictionary[i].word;
 		QString translation = cDocument->dictionary[i].translation;
-		QString result=translation+" - "+word;
+		QString result=word+" - "+translation;
 		if(search==""||word.contains(search)||translation.contains(search)) {
 			QListWidgetItem *newItem = new QListWidgetItem(processToNice(result, " | "), listWidget);
 			listWidget->addItem(newItem);
