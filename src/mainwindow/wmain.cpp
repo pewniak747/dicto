@@ -11,7 +11,7 @@
 #include "wprepare.h"
 #include "wsettings.h"
 #include "about_dialog.h"
-#include "wprops.h"
+#include "properties_dialog.h"
 #include "wprint.h"
 
 // WMain constructor
@@ -540,8 +540,8 @@ void WMain::updateStatusbar() {
 
 // show stats box
 void WMain::stats() {
-	WProps* wProps = new WProps(0);
-	wProps->show();
+	PropertiesDialog *propertiesDialog = new PropertiesDialog(this, cDocument);
+	propertiesDialog->show();
 	setMode(disabledMode);
 }
 

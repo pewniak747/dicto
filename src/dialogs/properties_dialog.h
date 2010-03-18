@@ -1,4 +1,4 @@
-// dicto v 1.3 WProps class header file
+// dicto v 1.3 PropertiesDialog class header file
 // This file is published under GNU/GPL licence
 // http://www.gnu.org/licenses/gpl-3.0.txt
 // author: Tomasz Pewiński "pewniak747"
@@ -8,16 +8,15 @@
 #ifndef WPROPS_H
 #define WPROPS_H
 
-#include <QLabel>
-#include <QLineEdit>
-#include <QPushButton>
+#include "wmain.h"
+#include "cdocument.h"
 
-class WProps : public QWidget 
+class PropertiesDialog : public QWidget 
 {
   Q_OBJECT
 
 	public:
-		WProps(QWidget *parent);
+		PropertiesDialog(WMain *mainWindow, CDocument *documentObject);
 
 	private:
 		QLabel *fileLabel;
@@ -29,6 +28,9 @@ class WProps : public QWidget
 		QLineEdit *foreignEdit;
 		QPushButton *resetButton;
 		QPushButton *okButton;
+		
+		WMain *mainWindow;
+		CDocument *documentObject;
 
 	private slots:
 		void updateProps();

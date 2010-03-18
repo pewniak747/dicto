@@ -28,7 +28,7 @@ HEADERS += src/dialogs/about_dialog.h \
            src/dialogs/word_dialog.h \
            src/dialogs/wprepare.h \
            src/dialogs/wprint.h \
-           src/dialogs/wprops.h \
+           src/dialogs/properties_dialog.h \
            src/dialogs/wsettings.h \
            src/mainwindow/wmain.h \
            src/objects/cdocument.h \
@@ -38,7 +38,7 @@ SOURCES += src/main.cpp \
            src/dialogs/word_dialog.cpp \
            src/dialogs/wprepare.cpp \
            src/dialogs/wprint.cpp \
-           src/dialogs/wprops.cpp \
+           src/dialogs/properties_dialog.cpp \
            src/dialogs/wsettings.cpp \
            src/mainwindow/wmain.cpp \
            src/mainwindow/wmain_utils.cpp \
