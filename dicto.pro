@@ -32,7 +32,7 @@ HEADERS += src/dialogs/about_dialog.h \
            src/dialogs/wsettings.h \
            src/mainwindow/wmain.h \
            src/objects/cdocument.h \
-           src/objects/centry.h
+           src/objects/entry_object.h
 SOURCES += src/main.cpp \
            src/dialogs/about_dialog.cpp \
            src/dialogs/word_dialog.cpp \
@@ -43,6 +43,6 @@ SOURCES += src/main.cpp \
            src/mainwindow/wmain.cpp \
            src/mainwindow/wmain_utils.cpp \
            src/objects/cdocument.cpp \
-           src/objects/centry.cpp \
+           src/objects/entry_object.cpp \
            src/widgets/wmain_exam.cpp \
            src/widgets/wmain_test.cpp

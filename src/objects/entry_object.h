@@ -1,4 +1,4 @@
-// dicto v 1.3 CEntry class header file
+// dicto v 1.3 EntryObject class header file
 // This file is published under GNU/GPL licence
 // http://www.gnu.org/licenses/gpl-3.0.txt
 // author: Tomasz Pewiński "pewniak747"
@@ -12,7 +12,7 @@
 
 enum speechPart {spNone = 0, spVerb = 1, spNoun = 2, spAdjective = 3, spAdverb = 4, spOther = 5};
 
-class CEntry {
+class EntryObject {
 	public:
 		QString word;
 		QString translation;
@@ -20,7 +20,7 @@ class CEntry {
 		bool passed;
 		speechPart sp;
 		
-		CEntry();
+		EntryObject();
 		bool check(QString give, bool intoforeign, bool ignoreSynonyms, bool caseSensitive);
 		QString spToString();
 };

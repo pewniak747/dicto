@@ -65,7 +65,7 @@ int WMain::selectedItem() {
 	return listWidget->currentRow();
 }
 
-CEntry* WMain::currentRow() {
+EntryObject* WMain::currentRow() {
 	if(listWidget->currentRow() != -1)
 		return currentList[listWidget->currentRow()];
 	else return NULL;

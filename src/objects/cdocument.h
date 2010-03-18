@@ -9,11 +9,11 @@
 #define CDOCUMENT_H
 
 #include <QVector>
-#include "centry.h"
+#include "entry_object.h"
 	
 class CDocument{
 public:
-	QVector<CEntry> dictionary;
+	QVector<EntryObject> dictionary;
 	QString filename;
 	bool filechanged;
 	QString lang_native;

@@ -57,6 +57,7 @@ WPrint::WPrint(QWidget *parent) {
 }
 
 void WPrint::print() {
+	// this is really ugly 0_o
 	this->printmode = printBox->currentIndex();
 	this->fontsize = sizeBox->value();
 		

@@ -12,7 +12,7 @@
 #include <QMainWindow>
 #include <vector>
 #include "cdocument.h"
-#include "centry.h"
+#include "entry_object.h"
 
 #define VERSION "1.3"
 #define ICON ":/dictologo.png"
@@ -75,11 +75,11 @@ private:
 	QProgressBar *progressBar;
 	QSystemTrayIcon *trayIcon;
 
-	std::vector <CEntry*> currentList;
-	QQueue<CEntry*> testQueue;
+	std::vector <EntryObject*> currentList;
+	QQueue<EntryObject*> testQueue;
 	QVector<int> unpassed;
-	std::vector <CEntry*> examTab;
-	CEntry *currentEntry;
+	std::vector <EntryObject*> examTab;
+	EntryObject *currentEntry;
 	bool intoforeign;
 	bool include;
 	bool ignoreSynonyms;
@@ -96,7 +96,7 @@ private:
 	QString grade(unsigned good, unsigned howmany);
 	void endTest(bool display, QString message = "");
 	void closeEvent(QCloseEvent * e);
-	CEntry *currentRow();
+	EntryObject *currentRow();
 	bool saveFileAction(bool saveas = false);
 	bool openFileAction(QString filename);
 	void updateRecentFileActions();

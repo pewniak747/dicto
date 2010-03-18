@@ -9,7 +9,7 @@
 #include <QTextStream>
 #include <QFileDialog>
 #include "cdocument.h"
-#include "centry.h"
+#include "entry_object.h"
 #include "wmain.h"
 
 // CDocument constructor
@@ -23,7 +23,7 @@ CDocument::CDocument() {
 
 //adds entry to dictionary
 void CDocument::addEntry(QString word, QString translation, speechPart sp) {
-	CEntry newEntry;
+	EntryObject newEntry;
 	newEntry.word = word;
 	newEntry.translation = translation;
 	newEntry.sp = sp;

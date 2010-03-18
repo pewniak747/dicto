@@ -1,21 +1,21 @@
-// dicto v 1.3 CEntry class implementation file
+// dicto v 1.3 EntryObject class implementation file
 // This file is published under GNU/GPL licence
 // http://www.gnu.org/licenses/gpl-3.0.txt
 // author: Tomasz Pewiński "pewniak747"
 // contact: pewniak747@gmail.com
 // http://pewniak747.github.com/dicto
 
-#include "centry.h"
+#include "entry_object.h"
 #include <QObject>
 #include <vector>
 
-CEntry::CEntry() {
+EntryObject::EntryObject() {
 	wordstatus=false;
 	passed = false;
 	sp = spNone;
 }
 
-QString CEntry::spToString() {
+QString EntryObject::spToString() {
 	speechPart spart = this->sp;
 	if(spart == spNone) return QObject::tr("None");
 	else if(spart == spVerb) return QObject::tr("Verb");
@@ -26,7 +26,7 @@ QString CEntry::spToString() {
 	}
 
 
-bool CEntry::check(QString give, bool intoforeign, bool ignoreSynonyms, bool caseSensitive) {
+bool EntryObject::check(QString give, bool intoforeign, bool ignoreSynonyms, bool caseSensitive) {
 	//split give into answers array
 	std::vector <QString> answers;
 	QString answer="";

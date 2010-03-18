@@ -7,7 +7,7 @@
 
 #include "word_dialog.h"
 
-WordDialog::WordDialog(WMain *mainWindow, CEntry *entry) {
+WordDialog::WordDialog(WMain *mainWindow, EntryObject *entry) {
 	if(!mainWindow) return;
 	
 	// set window properties

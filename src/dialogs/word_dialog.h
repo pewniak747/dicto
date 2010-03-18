@@ -9,13 +9,13 @@
 #define WORDDIALOG_H
 
 #include "wmain.h"
-#include "centry.h"
+#include "entry_object.h"
 
 class WordDialog : public QWidget {
 	Q_OBJECT
 
 	public:
-		WordDialog (WMain *mainWindow, CEntry *entry);
+		WordDialog (WMain *mainWindow, EntryObject *entry);
 
 	public slots:
 		void submitWord();
@@ -30,7 +30,7 @@ class WordDialog : public QWidget {
 		QComboBox *spBox;
 		QPushButton *submitButton;
 		QPushButton *cancelButton;
-		CEntry *entry;
+		EntryObject *entry;
 		WMain *mainWindow;
 
 		void closeEvent(QCloseEvent * a);
