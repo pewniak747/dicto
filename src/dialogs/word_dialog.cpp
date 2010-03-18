@@ -1,24 +1,25 @@
-// dicto v 1.3 WDialog implementation file
+// dicto v 1.3 WordDialog implementation file
 // This file is published under GNU/GPL licence
 // http://www.gnu.org/licenses/gpl-3.0.txt
 // author: Tomasz Pewiński "pewniak747"
 // contact: pewniak747@gmail.com
 // http://pewniak747.github.com/dicto
 
-#include "wdialog.h"
-#include "wmain.h"
-#include "centry.h"
+#include "word_dialog.h"
 
-WDialog::WDialog(QWidget *parent, CEntry *entry) : QWidget(parent) {
+WordDialog::WordDialog(WMain *mainWindow, CEntry *entry) {
+	if(!mainWindow) return;
+	
 	// set window properties
 	setWindowTitle(tr("Editing word"));
 	setWindowIcon(QIcon(ICON));
-	wMain->centerWidgetOnScreen(this);
+	mainWindow->centerWidgetOnScreen(this);
 	resize(400, 0);
 	setAttribute(Qt::WA_DeleteOnClose);
 	
 	// initialize variables
 	this->entry = entry;
+	this->mainWindow = mainWindow;
 	
 	// create widgets
 	wordLabel=new QLabel(tr("Word:"), this);
@@ -77,30 +78,23 @@ WDialog::WDialog(QWidget *parent, CEntry *entry) : QWidget(parent) {
 	}
 }
 	
-void WDialog::submitWord() {
+void WordDialog::submitWord() {
 	QString word = wordEdit->text();
 	QString translation = translationEdit->text();
 	
-	// some validation
-	if(word=="" || translation=="") {
+	// validation
+	if(word.isEmpty() || translation.isEmpty()) {
 		QMessageBox::information(this, tr("Error"), tr("Please fill both fields"));
 		return;
 	}
-	if(word.contains(";") || word.contains("=") || translation.contains(";") || translation.contains("=")) {
+	else if(word.contains(";") || word.contains("=") || translation.contains(";") || translation.contains("=")) {
 		QMessageBox::information(this, tr("Error"), tr("Words may not contain neihter ';' nor '='!' characters"));
 		return;
 	}	
 	
 	// update entry
 	if(!entry) {
-		/*
-		CEntry newEntry;
-		newEntry.word = word;
-		newEntry.translation = translation;
-		newEntry.sp = (speechPart)spBox->currentIndex();
-		wMain->cDocument->dictionary.push_back(newEntry);
-		*/
-		wMain->cDocument->addEntry(word, translation, (speechPart)spBox->currentIndex());
+		mainWindow->cDocument->addEntry(word, translation, (speechPart)spBox->currentIndex());
 	}
 	else {
 		entry->word = word;
@@ -108,18 +102,18 @@ void WDialog::submitWord() {
 		entry->sp = (speechPart)spBox->currentIndex();
 	}
 	// end
-	wMain->setMode(enabledMode);
-	wMain->cDocument->filechanged = true;
-	wMain->updateList();
+	
+	mainWindow->cDocument->filechanged = true;
+	mainWindow->setMode(enabledMode);
+	mainWindow->updateList();
 	close();
 }
 
-void WDialog::cancel() {
-	wMain->setMode(enabledMode);
+void WordDialog::cancel() {
 	close();
 }
 
-void WDialog::closeEvent(QCloseEvent * a) {
-	wMain->setMode(enabledMode);
+void WordDialog::closeEvent(QCloseEvent * a) {
+	mainWindow->setMode(enabledMode);
 	a->accept();
 }

@@ -1,21 +1,21 @@
-// dicto v 1.3 WDialog header file
+// dicto v 1.3 WordDialog header file
 // This file is published under GNU/GPL licence
 // http://www.gnu.org/licenses/gpl-3.0.txt
 // author: Tomasz Pewiński "pewniak747"
 // contact: pewniak747@gmail.com
 // http://pewniak747.github.com/dicto
 
-#ifndef WDIALOG_H
-#define WDIALOG_H
+#ifndef WORDDIALOG_H
+#define WORDDIALOG_H
 
-#include <QtGui>
 #include "wmain.h"
+#include "centry.h"
 
-class WDialog : public QWidget {
+class WordDialog : public QWidget {
 	Q_OBJECT
 
 	public:
-		WDialog (QWidget *parent, CEntry *entry);
+		WordDialog (WMain *mainWindow, CEntry *entry);
 
 	public slots:
 		void submitWord();
@@ -31,8 +31,9 @@ class WDialog : public QWidget {
 		QPushButton *submitButton;
 		QPushButton *cancelButton;
 		CEntry *entry;
+		WMain *mainWindow;
 
 		void closeEvent(QCloseEvent * a);
 };
 
-#endif // WDIALOG_H
+#endif // WORDDIALOG_H

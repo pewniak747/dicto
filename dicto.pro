@@ -25,7 +25,7 @@ RESOURCES += resources/dicto.qrc
 
 # Input
 HEADERS += src/dialogs/about_dialog.h \
-           src/dialogs/wdialog.h \
+           src/dialogs/word_dialog.h \
            src/dialogs/wprepare.h \
            src/dialogs/wprint.h \
            src/dialogs/wprops.h \
@@ -35,7 +35,7 @@ HEADERS += src/dialogs/about_dialog.h \
            src/objects/centry.h
 SOURCES += src/main.cpp \
            src/dialogs/about_dialog.cpp \
-           src/dialogs/wdialog.cpp \
+           src/dialogs/word_dialog.cpp \
            src/dialogs/wprepare.cpp \
            src/dialogs/wprint.cpp \
            src/dialogs/wprops.cpp \

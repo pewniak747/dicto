@@ -6,7 +6,7 @@
 // http://pewniak747.github.com/dicto
 
 #include "wmain.h"
-#include "wdialog.h"
+#include "word_dialog.h"
 #include "cdocument.h"
 #include "wprepare.h"
 #include "wsettings.h"
@@ -269,16 +269,16 @@ void WMain::updateList() {
 
 // shows add entry window
 void WMain::addentry() {
-	WDialog *wDialog=new WDialog(0, NULL);
-	wDialog->show();
+	WordDialog *wordDialog=new WordDialog(this, NULL);
+	wordDialog->show();
 	setMode(disabledMode);
 }
 
 // shows edit entry window
 void WMain::editentry() {
 	if(dictionarySize() > 0 && currentRow()) {
-		WDialog *wDialog=new WDialog(0, currentRow());
-		wDialog->show();
+		WordDialog *wordDialog=new WordDialog(this, currentRow());
+		wordDialog->show();
 		setMode(disabledMode);
 	}
 	else statusBar()->showMessage(tr("Entry not selected"), 10000);
