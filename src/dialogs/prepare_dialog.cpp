@@ -1,23 +1,25 @@
-// dicto v 1.3 WPrepare class implementation file
+// dicto v 1.3 PrepareDialog class implementation file
 // This file is published under GNU/GPL licence
 // http://www.gnu.org/licenses/gpl-3.0.txt
 // author: Tomasz Pewiński "pewniak747"
 // contact: pewniak747@gmail.com
 // http://pewniak747.github.com/dicto
 
-#include "wprepare.h"
-#include "cdocument.h"
-#include "wmain.h"
+#include "prepare_dialog.h"
 
-// WPrepare constructor
-WPrepare::WPrepare(QWidget *parent, bool exam) : QWidget(parent) {
+// PrepareDialog constructor
+PrepareDialog::PrepareDialog(WMain *mainWindow, bool exam) {
+	if(!mainWindow) return;
+	
 	// set window properties
-	wMain->setMode(disabledMode);
+	mainWindow->setMode(disabledMode);
 	setWindowTitle(exam?tr("Prepare exam"):tr("Prepare test"));
 	setWindowIcon(QIcon(ICON));
 	resize(400, 100);
-	wMain->centerWidgetOnScreen(this);
+	mainWindow->centerWidgetOnScreen(this);
 	setAttribute(Qt::WA_DeleteOnClose);
+	
+	this->mainWindow = mainWindow;
 	
 	// create widgets
 	numberLabel=new QLabel(tr("Words:"), this);
@@ -93,7 +95,7 @@ WPrepare::WPrepare(QWidget *parent, bool exam) : QWidget(parent) {
 }
 
 // starts test
-void WPrepare::startTest() {
+void PrepareDialog::startTest() {
 	bool intoforeign=false;
 	switch(intoforeignCombo->currentIndex()) {
 		case 0 : intoforeign=true; break;
@@ -105,7 +107,7 @@ void WPrepare::startTest() {
 }
 
 // starts exam
-void WPrepare::startExam() {
+void PrepareDialog::startExam() {
 	bool intoforeign=false;
 	switch(intoforeignCombo->currentIndex()) {
 		case 0 : intoforeign=true; break;
@@ -116,7 +118,7 @@ void WPrepare::startExam() {
 }
 
 // updates slider and box with new values
-void WPrepare::includeChanged(int state) {
+void PrepareDialog::includeChanged(int state) {
 	if(state == 2) {
 		numberBox->setRange(1, wMain->cDocument->dictionary.size());
 		numberSlider->setRange(1, wMain->cDocument->dictionary.size());
@@ -129,7 +131,7 @@ void WPrepare::includeChanged(int state) {
 }
 
 // closes window
-void WPrepare::closeEvent(QCloseEvent * a) {
+void PrepareDialog::closeEvent(QCloseEvent * a) {
 	wMain->setMode(enabledMode);
 	a->accept();
 }

@@ -1,4 +1,4 @@
-// dicto v 1.3 WPrepare class header file
+// dicto v 1.3 PrepareDialog class header file
 // This file is published under GNU/GPL licence
 // http://www.gnu.org/licenses/gpl-3.0.txt
 // author: Tomasz Pewiński "pewniak747"
@@ -8,19 +8,14 @@
 #ifndef WPREPARE_H
 #define WPREPARE_H
 
-#include <QLabel>
-#include <QPushButton>
-#include <QComboBox>
-#include <QCheckBox>
-#include <QSpinBox>
-#include <QSlider>
+#include "wmain.h"
 
-class WPrepare : public QWidget
+class PrepareDialog : public QWidget
 {
 	Q_OBJECT
 
 	public:
-		WPrepare(QWidget *parent = 0, bool exam = false);
+		PrepareDialog(WMain *mainWindow, bool exam = false);
 
 	private:
 		QLabel *numberLabel;
@@ -34,6 +29,8 @@ class WPrepare : public QWidget
 		QCheckBox *ignoreBox;
 		QPushButton *startButton;
 		QPushButton *cancelButton;
+		
+		WMain *mainWindow;
 
 	private slots:
 		void startTest();

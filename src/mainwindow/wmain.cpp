@@ -8,7 +8,7 @@
 #include "wmain.h"
 #include "word_dialog.h"
 #include "cdocument.h"
-#include "wprepare.h"
+#include "prepare_dialog.h"
 #include "wsettings.h"
 #include "about_dialog.h"
 #include "properties_dialog.h"
@@ -400,8 +400,8 @@ void WMain::preparetest() {
 	else if(dictionarySize() == cDocument->passed())
 		QMessageBox::information(this, tr("Congratulations"), tr("All words learned!"));
 	else {
-		WPrepare *wPrepare=new WPrepare(0, false);
-		wPrepare->show();
+		PrepareDialog *prepareDialog=new PrepareDialog(this, false);
+		prepareDialog->show();
 	}
 	hintsize=1;
 }
@@ -425,8 +425,8 @@ void WMain::prepareexam() {
 	else if(dictionarySize() == cDocument->passed())
 		QMessageBox::information(this, tr("Congratulations"), tr("All words learned!"));
 	else {
-		WPrepare *wPrepare=new WPrepare(0, true);
-		wPrepare->show();
+		PrepareDialog *prepareDialog=new PrepareDialog(this, true);
+		prepareDialog->show();
 	}
 }
 
