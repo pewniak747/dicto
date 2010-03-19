@@ -46,6 +46,7 @@ WordDialog::WordDialog(WMain *mainWindow, EntryObject *entry) {
 		lay1->addWidget(spLabel, 2, 0);
 		lay1->addWidget(spBox, 2, 1);
 		QHBoxLayout *lay2=new QHBoxLayout;
+			lay2->addStretch(100);
 			lay2->addWidget(submitButton);
 			lay2->addWidget(cancelButton);
 	QVBoxLayout *mainLayout=new QVBoxLayout;
