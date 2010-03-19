@@ -13,6 +13,7 @@ PropertiesDialog::PropertiesDialog(WMain *mainWindow, CDocument *documentObject)
 	// set window properties
 	setWindowTitle(tr("File properties"));
 	setWindowIcon(QIcon(ICON));
+	setMinimumWidth(500);
 	mainWindow->centerWidgetOnScreen(this);
 	setAttribute(Qt::WA_DeleteOnClose);
 	
@@ -32,19 +33,32 @@ PropertiesDialog::PropertiesDialog(WMain *mainWindow, CDocument *documentObject)
 	resetButton = new QPushButton(tr("Reset statistics"), this);
 
 	// add layout
-	QGridLayout *mainLayout = new QGridLayout;
-		mainLayout->addWidget(fileLabel, 0, 0, 1, 2);
-		mainLayout->addWidget(nativeLabel, 1, 0);
-		mainLayout->addWidget(nativeEdit, 1, 1);
-		mainLayout->addWidget(foreignLabel, 2, 0);
-		mainLayout->addWidget(foreignEdit, 2, 1);
-		mainLayout->addWidget(wordsLabel, 3, 0, 1, 2);
-		mainLayout->addWidget(passedLabel, 4, 0, 1, 2);
-		QHBoxLayout *buttonLayout = new QHBoxLayout;
-			buttonLayout->addWidget(resetButton);
-			buttonLayout->addWidget(okButton);
-		mainLayout->addLayout(buttonLayout, 5, 0, 1, 2);
-	this->setLayout(mainLayout);
+	QVBoxLayout *mainLayout = new QVBoxLayout;
+	
+	QGroupBox *fileBox = new QGroupBox(tr("File"), this);
+		QVBoxLayout *fileLayout = new QVBoxLayout;
+		fileLayout->addWidget(fileLabel);
+		fileBox->setLayout(fileLayout);
+		
+	QGroupBox *dictionaryBox = new QGroupBox(tr("Dictionary"), this);
+	QGridLayout *dictionaryLayout = new QGridLayout;
+		dictionaryLayout->addWidget(nativeLabel, 0, 0);
+		dictionaryLayout->addWidget(nativeEdit, 0, 1);
+		dictionaryLayout->addWidget(foreignLabel, 1, 0);
+		dictionaryLayout->addWidget(foreignEdit, 1, 1);
+		dictionaryLayout->addWidget(wordsLabel, 2, 0, 1, 2);
+		dictionaryLayout->addWidget(passedLabel, 3, 0, 1, 2);
+	dictionaryBox->setLayout(dictionaryLayout);
+	
+	QHBoxLayout *buttonLayout = new QHBoxLayout;
+		buttonLayout->addStretch(100);
+		buttonLayout->addWidget(resetButton);
+		buttonLayout->addWidget(okButton);
+		
+	mainLayout->addWidget(fileBox);
+	mainLayout->addWidget(dictionaryBox);
+	mainLayout->addLayout(buttonLayout);
+	setLayout(mainLayout);
 	
 	// set tabbing order
 	QWidget::setTabOrder(nativeEdit, foreignEdit);
@@ -62,10 +76,10 @@ PropertiesDialog::PropertiesDialog(WMain *mainWindow, CDocument *documentObject)
 // updates widgets with file properties
 void PropertiesDialog::updateProps() {
 	//TODO prettify this (with DocumentObject functions)
-	fileLabel->setText(tr("Filename: %1").arg(documentObject->filename.isEmpty() ? tr("unknown") : documentObject->filename));
-	nativeEdit->setText(tr("%1").arg(documentObject->lang_native.isEmpty() ? tr("") : documentObject->lang_native));
-	foreignEdit->setText(tr("%1").arg(documentObject->lang_foreign.isEmpty() ? tr("") : documentObject->lang_foreign));
-	wordsLabel->setText(tr("Words: %1").arg(documentObject->dictionary.size()));
+	fileLabel->setText(documentObject->filename.isEmpty() ? tr("unknown") : documentObject->filename);
+	nativeEdit->setText(documentObject->lang_native.isEmpty() ? "" : documentObject->lang_native);
+	foreignEdit->setText(documentObject->lang_foreign.isEmpty() ? "" : documentObject->lang_foreign);
+	wordsLabel->setText(tr("Words: %1").arg(mainWindow->dictionarySize()));
 	passedLabel->setText(tr("Learned: %1 (%2%)").arg(documentObject->passed()).arg(documentObject->passed()*100/(documentObject->dictionary.size()!=0?documentObject->dictionary.size():1)));
 }
 
