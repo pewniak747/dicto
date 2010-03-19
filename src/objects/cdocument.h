@@ -23,6 +23,7 @@ public:
 	int passed();
 	void addEntry(QString word, QString translation, speechPart sp);
 	void resetStats();
+	int dictionarySize();
 	bool readFromFile(QString newfilename);
 	bool saveToFile();
 	void sortDictionary();

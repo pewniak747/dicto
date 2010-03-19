@@ -131,6 +131,10 @@ void CDocument::resetStats() {
 	wMain->updateStatusbar();
 }
 
+int CDocument::dictionarySize() {
+	return dictionary.size();
+}
+
 // sorts dictionary
 void CDocument::sortDictionary() {
 	for(unsigned i = 0; i < dictionary.size(); i++) {

@@ -79,8 +79,8 @@ void PropertiesDialog::updateProps() {
 	fileLabel->setText(documentObject->filename.isEmpty() ? tr("unknown") : documentObject->filename);
 	nativeEdit->setText(documentObject->lang_native.isEmpty() ? "" : documentObject->lang_native);
 	foreignEdit->setText(documentObject->lang_foreign.isEmpty() ? "" : documentObject->lang_foreign);
-	wordsLabel->setText(tr("Words: %1").arg(mainWindow->dictionarySize()));
-	passedLabel->setText(tr("Learned: %1 (%2%)").arg(documentObject->passed()).arg(documentObject->passed()*100/(documentObject->dictionary.size()!=0?documentObject->dictionary.size():1)));
+	wordsLabel->setText(tr("Words: %1").arg(documentObject->dictionarySize()));
+	passedLabel->setText(tr("Learned: %1 (%2%)").arg(documentObject->passed()).arg(documentObject->passed()*100/(documentObject->dictionarySize()!=0?documentObject->dictionarySize():1)));
 }
 
 // submits settings to file
